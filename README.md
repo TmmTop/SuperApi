@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-20 11:12:52
+ * @LastEditTime: 2023-12-20 11:15:28
  * @FilePath: \SuperApi\README.md
  * @Description: 
 -->
@@ -42,10 +42,10 @@
 #### 🍎效果截图
 <table>
     <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/1.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/2.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/3.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/4.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/1.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/2.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/3.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/4.png"/></td>
     </tr>
     <tr>
         <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/5.png"/></td>
