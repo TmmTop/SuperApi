@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-20 11:15:28
+ * @LastEditTime: 2023-12-20 11:17:08
  * @FilePath: \SuperApi\README.md
  * @Description: 
 -->
@@ -38,32 +38,17 @@
 4.  新建 Pull Request
 
 #### 如需免费帮助服务请加群：526521167 SuperApi技术交流群，联系群主免费帮助
+<img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/qun.png"/>
 
 #### 🍎效果截图
 <table>
     <tr>
         <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/1.png"/></td>
-        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/2.png"/></td>
         <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/3.png"/></td>
+    </tr>
+    <tr>
         <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/4.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/5.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/6.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/7.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/8.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/9.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/10.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/11.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/12.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/13.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/14.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/15.png"/></td>
-        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/16.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/555.png"/></td>
     </tr>
 </table>
 
@@ -71,4 +56,4 @@
 ```
 如果对您有帮助，请点击右上角⭐Star关注或扫码捐赠，感谢支持开源！
 ```
-<img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/pay.png"/>
+<img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/zanshang.jpg"/>
