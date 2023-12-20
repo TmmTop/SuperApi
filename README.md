@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-20 11:11:12
+ * @LastEditTime: 2023-12-20 11:11:38
  * @FilePath: \SuperApi\README.md
  * @Description: 
 -->
@@ -17,7 +17,9 @@
 
 #### 🍖纯净依赖
 Panda.DynamicWebApi  动态API
+
 SqlSugar  宇宙第一ORM没有之一
+
 Swashbuckle.AspNetCore  Swagger自动构建接口文档
 
 
