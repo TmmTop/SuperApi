@@ -1,3 +1,11 @@
+<!--
+ * @Author: 490912587@qq.com
+ * @Date: 2023-12-20 10:44:09
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2023-12-20 11:08:25
+ * @FilePath: \SuperApi\README.md
+ * @Description: 
+-->
 # SuperApi
 
 #### 介绍
@@ -5,20 +13,21 @@
 从此告别加班，告别知识付费，自己成为全栈大佬
 
 #### 软件架构
-软件架构说明
-
+Panda.DynamicWebApi  动态API
+SqlSugar  宇宙第一ORM没有之一
+Swashbuckle.AspNetCore  Swagger自动构建接口文档
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  VsStudio2023或者Rider打开SuperApi.sln
+2.  NET8开发包
+3.  SuperApi设为启动项启动
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  修改 SuperApi.Core/DataBase/Setup.cs的连接字符串
+2.  修改 SuperApi.Core/Service/DynamicAppService.cs的连接字符串
+3.  启动后浏览器会自动打开接口文档，即可放飞自我
 
 #### 参与贡献
 
@@ -28,11 +37,34 @@
 4.  新建 Pull Request
 
 
-#### 特技
+#### 答疑解惑
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+## 如需免费帮助服务请加群：526521167 SuperApi技术交流群，联系群主免费帮助
+## 🍎效果截图
+<table>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/1.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/2.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/3.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/4.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/5.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/6.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/7.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/8.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/9.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/10.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/11.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/12.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/13.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/14.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/15.png"/></td>
+        <td><img src="https://gitee.com/zuohuaijun/Admin.NET/raw/next/doc/img/16.png"/></td>
+    </tr>
+</table>
+3.  自助赞赏
