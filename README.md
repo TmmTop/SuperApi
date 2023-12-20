@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-20 11:11:38
+ * @LastEditTime: 2023-12-20 11:12:17
  * @FilePath: \SuperApi\README.md
  * @Description: 
 -->
@@ -12,15 +12,13 @@
 无实体建库建表，对无实体库表进行增删改查，支持15种条件查询，以及分页，列表，无限级树形列表等等炫酷功能！
 从此告别加班，告别知识付费，自己成为全栈大佬
 ```
-最好用的框架配合性能最强的ORM(SqlSugar)加持，阅历痛点，相见恨晚！让 .NET 开发更简单，更通用，更流行！
+阅历痛点，相见恨晚！让 .NET 开发更简单，更通用，更流行！
 ```
 
 #### 🍖纯净依赖
-Panda.DynamicWebApi  动态API
-
-SqlSugar  宇宙第一ORM没有之一
-
-Swashbuckle.AspNetCore  Swagger自动构建接口文档
+## Panda.DynamicWebApi  动态API
+## SqlSugar  宇宙第一ORM没有之一
+## Swashbuckle.AspNetCore  Swagger自动构建接口文档
 
 
 #### 🎖️安装教程
