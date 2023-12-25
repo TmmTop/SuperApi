@@ -105,7 +105,6 @@
     "mockjs": "1.1.0",
     "rollup-plugin-visualizer": "5.9.2",
     "sass": "1.69.3",
-    "simple-git-hooks": "2.9.0",
     "tsx": "3.13.0",
     "typescript": "5.2.2",
     "unplugin-icons": "0.17.0",

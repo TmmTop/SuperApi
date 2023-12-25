@@ -191,7 +191,7 @@ const handleGetPropertys = async (tableId: string) => {
 }
 const handlePropertyReset = () => {
   if (!currentTableId.value || currentTableId.value === 0) {
-    window.$message?.error("请选择数据表！");
+    window.$message?.error("请选择数据表 ！");
     return;
   }
   handleGetPropertys(currentTableId.value);
