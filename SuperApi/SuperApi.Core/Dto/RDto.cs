@@ -1,4 +1,5 @@
 namespace SuperApi.Core.Dto;
+
 /// <summary>
 /// 统一接口返回DTO
 /// </summary>
@@ -38,7 +39,7 @@ public class RDto
     /// <param name="code"></param>
     /// <param name="msg"></param>
     /// <param name="data"></param>
-    public static JsonResult R(HttpStatusCode code, string msg, object? data = null)
+    public static JsonResult R(HttpStatusCode code, object? data = null, string? msg = "操作成功！")
     {
         _r.Code = code;
         _r.Msg = msg;

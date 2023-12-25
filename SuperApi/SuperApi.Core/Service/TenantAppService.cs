@@ -7,119 +7,70 @@ namespace SuperApi.Core.Service;
 [DynamicWebApi]
 public class TenantAppService : IDynamicWebApi
 {
+    private readonly Repository<Tenant> _db;
+
     /// <summary>
-    /// 获取库表信息
+    /// 租户模块API服务实例
     /// </summary>
-    /// <param name="tenantName">数据库|租户名称</param>
-    /// <returns></returns>
-    [HttpGet]
-    public async Task<JsonResult> GetTables(string tenantName)
+    /// <param name="service"></param>
+    public TenantAppService(IServiceProvider service)
     {
-        if (string.IsNullOrWhiteSpace(tenantName))
-            throw new Exception("租户名称不能为空！");
-        var connId = SnowFlakeSingle.instance.NextId();
-        Setup.SqlSugar.AddConnection(new ConnectionConfig()
-        {
-            ConfigId = connId,
-            DbType = DbType.MySql,
-            ConnectionString = "server=127.0.0.1;Database=information_schema;Uid=root;Pwd=root",
-            IsAutoCloseConnection = true,
-            LanguageType = LanguageType.Default,
-        });
-        var currentConn = Setup.SqlSugar.GetConnectionScope(connId);
-        //Sql超时
-        currentConn.Ado.CommandTimeOut = 30; //单位秒
-        //打印Sql
-        currentConn.Aop.OnLogExecuting = (sql, _) => { Console.WriteLine(sql); };
-        //构造查询
-        var where = new List<IConditionalModel>()
-        {
-            new ConditionalModel
-            {
-                FieldName = "TABLE_SCHEMA",
-                ConditionalType = ConditionalType.Equal,
-                FieldValue = tenantName
-            }
-        };
-        var result = await currentConn.Queryable<object>().AS("TABLES").Where(where)
-            .ToListAsync();
-        currentConn.Close();
-        return RDto.R(HttpStatusCode.OK, "操作成功！", result);
+        _db = service.GetService<Repository<Tenant>>()!;
     }
 
     /// <summary>
-    /// 根据当前租户/库和表名查询该表下的所有字段
+    /// 获取租户信息
     /// </summary>
-    /// <param name="tenantName">数据库|租户名称</param>
-    /// <param name="tableName">表名</param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet]
-    public async Task<JsonResult> GetPropertys(string tenantName, string tableName)
+    public async Task<JsonResult> GetTenantPages(int page, int pageSize, Dictionary<string, string> param)
     {
-        var connId = SnowFlakeSingle.instance.NextId();
-        Setup.SqlSugar.AddConnection(new ConnectionConfig()
-        {
-            ConfigId = connId,
-            DbType = DbType.MySql,
-            ConnectionString = "server=127.0.0.1;Database=information_schema;Uid=root;Pwd=root",
-            IsAutoCloseConnection = true,
-            LanguageType = LanguageType.Default,
-        });
-        var currentConn = Setup.SqlSugar.GetConnectionScope(connId);
-        //Sql超时
-        currentConn.Ado.CommandTimeOut = 30; //单位秒
-        //打印Sql
-        currentConn.Aop.OnLogExecuting = (sql, _) => { Console.WriteLine(sql); };
-        //构造查询
-        var where = new List<IConditionalModel>()
-        {
-            new ConditionalModel
-            {
-                FieldName = "TABLE_SCHEMA",
-                ConditionalType = ConditionalType.Equal,
-                FieldValue = tenantName
-            },
-            new ConditionalModel
-            {
-                FieldName = "TABLE_NAME",
-                ConditionalType = ConditionalType.Equal,
-                FieldValue = tableName
-            }
-        };
-        var result = await currentConn.Queryable<object>().AS("COLUMNS")
-            .Where(where)
-            .ToListAsync();
-        currentConn.Close();
-        return RDto.R(HttpStatusCode.OK, "操作成功！", result);
+        var result = await _db.Page(page, pageSize, param);
+        return RDto.R(HttpStatusCode.OK, result);
     }
 
     /// <summary>
-    /// 删表
+    /// 新增租户信息并新建库表以及库连接id
+    /// 连接id会自动释放，无需手动
     /// </summary>
-    /// <param name="tenantName"></param>
-    /// <param name="tableName"></param>
+    /// <param name="model"></param>
     /// <returns></returns>
-    [HttpGet]
-    public async Task<JsonResult> DelTable(string tenantName, string tableName)
+    [HttpPost]
+    public async Task<JsonResult> Add([FromBody] Tenant model)
     {
-        if (string.IsNullOrWhiteSpace(tenantName))
-            throw new Exception("租户名称不能为空！");
-        var connId = SnowFlakeSingle.instance.NextId();
-        Setup.SqlSugar.AddConnection(new ConnectionConfig()
-        {
-            ConfigId = connId,
-            DbType = DbType.MySql,
-            ConnectionString = $"server=127.0.0.1;Database={tenantName};Uid=root;Pwd=root",
-            IsAutoCloseConnection = true,
-            LanguageType = LanguageType.Default,
-        });
-        var currentConn = Setup.SqlSugar.GetConnectionScope(connId);
-        //Sql超时
-        currentConn.Ado.CommandTimeOut = 30; //单位秒
-        //打印Sql
-        currentConn.Aop.OnLogExecuting = (sql, _) => { Console.WriteLine(sql); };
-        await currentConn.Ado.ExecuteCommandAsync($"DROP TABLE `{tableName}`;");
-        currentConn.Close();
-        return RDto.R(HttpStatusCode.OK, "操作成功！", true);
+        var result = await _db.Add(model);
+        return !(result>0)
+            ? throw new Exception( ResponseMsgOption.OpAddFail)
+            : RDto.R(HttpStatusCode.OK);
+    }
+
+    /// <summary>
+    /// 修改租户信息
+    /// 删除租户的数据库并新建库表
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<JsonResult> Edit([FromBody] Tenant model)
+    {
+        var result = await _db.Edit(model);
+        return !result
+            ? throw new Exception(ResponseMsgOption.OpEditFail)
+            : RDto.R(HttpStatusCode.OK);
+    }
+
+    /// <summary>
+    /// 除租户信息
+    /// 并删除租户的数据库
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<JsonResult> Del([FromBody] Tenant model)
+    {
+        var result = await _db.Del(model);
+        return !result
+            ? throw new Exception(ResponseMsgOption.OpDelFail)
+            : RDto.R(HttpStatusCode.OK);
     }
 }

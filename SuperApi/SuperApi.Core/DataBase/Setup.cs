@@ -6,32 +6,56 @@ namespace SuperApi.Core.DataBase;
 public static class Setup
 {
     /// <summary>
-    /// ORM全局对象
-    /// </summary>
-    public static SqlSugarScope SqlSugar;
-
-    /// <summary>
     /// SqlSugar服务
     /// </summary>
     /// <param name="services"></param>
     public static void AddSqlSugar(this IServiceCollection services)
     {
-        SqlSugar = new SqlSugarScope(new ConnectionConfig()
+        var master = new SqlSugarScope(new ConnectionConfig()
         {
             ConfigId = 999999,
             DbType = DbType.MySql,
             ConnectionString = "server=127.0.0.1;Database=SuperApi;Uid=root;Pwd=root",
             IsAutoCloseConnection = true,
             LanguageType = LanguageType.Default,
+            InitKeyType = InitKeyType.Attribute,
+            MoreSettings = new ConnMoreSettings
+            {
+                IsAutoRemoveDataCache = true,
+                IsAutoDeleteQueryFilter = true, // 启用删除查询过滤器
+                IsAutoUpdateQueryFilter = true, // 启用更新查询过滤器
+                SqlServerCodeFirstNvarchar = true // 采用Nvarchar
+            },
+            ConfigureExternalServices = new ConfigureExternalServices()
+            {
+                EntityService = (x, p) => //处理列名
+                {
+                    // 只处理贴了特性[SugarColumn]列
+                    if (!x.GetCustomAttributes<SugarColumn>().Any())
+                        return;
+                    if (new NullabilityInfoContext().Create(x).WriteState is NullabilityState.Nullable)
+                        p.IsNullable = true;
+                    //最好排除DTO类
+                    p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName); //ToUnderLine驼峰转下划线方法
+                },
+                EntityNameService = (x, p) => //处理表名
+                {
+                    p.IsDisabledDelete = true; // 禁止删除非 sqlsugar 创建的列
+                    // 只处理贴了特性[SugarTable]表
+                    if (!x.GetCustomAttributes<SugarTable>().Any())
+                        return;
+                    //最好排除DTO类
+                    p.DbTableName = UtilMethods.ToUnderLine(p.DbTableName); //ToUnderLine驼峰转下划线方法
+                }
+            }
         });
         //Sql超时
-        SqlSugar.Ado.CommandTimeOut = 30; //单位秒
+        master.Ado.CommandTimeOut = 30; //单位秒
         //打印Sql
-        SqlSugar.Aop.OnLogExecuting = (sql, pars) => { Console.WriteLine(sql); };
-        SqlSugar.Ado.IsDisableMasterSlaveSeparation = true;
-
+        master.Aop.OnLogExecuting = (sql, pars) => { Console.WriteLine(sql); };
+        master.Ado.IsDisableMasterSlaveSeparation = true;
         // 数据审计
-        SqlSugar.Aop.DataExecuting = (oldValue, entityInfo) =>
+        master.Aop.DataExecuting = (oldValue, entityInfo) =>
         {
             if (entityInfo.OperationType == DataFilterType.InsertByObject)
             {
@@ -48,17 +72,23 @@ public static class Setup
                     entityInfo.SetValue(DateTime.Now);
             }
 
-            if (entityInfo.OperationType == DataFilterType.UpdateByObject)
+            if (entityInfo.OperationType == DataFilterType.UpdateByObject && entityInfo.PropertyName == "UpdateTime")
             {
-                if (entityInfo.PropertyName == "UpdateTime")
-                    entityInfo.SetValue(DateTime.Now);
+                entityInfo.SetValue(DateTime.Now);
             }
         };
-        SqlSugar.DbMaintenance.CreateDatabase();
+        //启用数据库自动创建后执行以下代码
+        master.DbMaintenance.CreateDatabase();
+        Type[] types = typeof(Tenant).Assembly.GetTypes()
+            .Where(it => it.FullName!.Contains("SuperApi.Core.DataBase.Model"))
+            .ToArray();
+        master.CodeFirst.InitTables(types);
+        //启用数据库自动创建后执行以上代码
+
         //AOP里面可以获取IOC对象
         services.AddHttpContextAccessor();
         // 单例注册
-        services.AddSingleton<ISqlSugarClient>(SqlSugar); // 单例注册
+        services.AddSingleton<ISqlSugarClient>(master); // 单例注册
         // 仓储注册
         services.AddScoped(typeof(Repository<>));
     }

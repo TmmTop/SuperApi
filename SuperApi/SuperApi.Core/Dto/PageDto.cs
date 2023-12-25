@@ -8,7 +8,8 @@ public class PageDto
     /// <summary>
     /// 分页数据列表
     /// </summary>
-     public  object? List { get; set; }
+    public object? List { get; set; }
+
     /// <summary>
     /// 总页数
     /// </summary>
