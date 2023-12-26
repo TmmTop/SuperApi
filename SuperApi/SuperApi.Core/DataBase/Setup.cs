@@ -13,9 +13,9 @@ public static class Setup
     {
         var master = new SqlSugarScope(new ConnectionConfig()
         {
-            ConfigId = 999999,
-            DbType = DbType.MySql,
-            ConnectionString = "server=127.0.0.1;Database=SuperApi;Uid=root;Pwd=root",
+            ConfigId = ConfigurationOption.config.GetSection("DbConnection:ConfigId").Value!,
+            DbType = ChangeType(ConfigurationOption.config.GetSection("DbConnection:DbType").Value!),
+            ConnectionString = ConfigurationOption.config.GetSection("DbConnection:ConnectionString").Value!,
             IsAutoCloseConnection = true,
             LanguageType = LanguageType.Default,
             InitKeyType = InitKeyType.Attribute,
@@ -91,5 +91,30 @@ public static class Setup
         services.AddSingleton<ISqlSugarClient>(master); // 单例注册
         // 仓储注册
         services.AddScoped(typeof(Repository<>));
+    }
+
+    public static DbType ChangeType(string type)
+    {
+        DbType newType = DbType.MySql;
+        switch (type)
+        {
+            case "MySql":
+                newType = DbType.MySql;
+                break;
+            case "SqlServer":
+                newType = DbType.SqlServer;
+                break;
+            case "Sqlite":
+                newType = DbType.Sqlite;
+                break;
+            case "Oracle":
+                newType = DbType.Oracle;
+                break;
+            case "PostgreSQL":
+                newType = DbType.PostgreSQL;
+                break;
+        }
+
+        return newType;
     }
 }

@@ -8,14 +8,14 @@
               <icon-ic-round-plus class="mr-4px text-20px" />
               新增
             </n-button>
-            <n-button type="error">
+            <!-- <n-button type="error">
               <icon-ic-round-delete class="mr-4px text-20px" />
               删除
             </n-button>
             <n-button type="success">
               <icon-uil:export class="mr-4px text-20px" />
               导出Excel
-            </n-button>
+            </n-button> -->
           </n-space>
           <n-space align="center" :size="18">
             <n-button size="small" type="primary" @click="getTableData">
@@ -27,7 +27,7 @@
         </n-space>
         <n-data-table :columns="columns" :data="tableData" remote :loading="loading" :pagination="pagination" flex-height
           class="flex-1-hidden" />
-        <table-action-modal v-model:visible="visible" :type="modalType" :edit-data="editData" />
+        <table-action-modal @refresh="init" v-model:visible="visible" :type="modalType" :edit-data="editData" />
       </div>
     </n-card>
   </div>
@@ -38,8 +38,7 @@ import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
-import { genderLabels, userStatusLabels } from '@/constants';
-import { getTenantPage, addTenant, editTenant, delTenant } from '@/service/api/dynamic';
+import { getTenantPage, delTenant } from '@/service/api/dynamic';
 import { useBoolean, useLoading } from '@/hooks';
 import TableActionModal from './components/table-action-modal.vue';
 import type { ModalType } from './components/table-action-modal.vue';
@@ -57,13 +56,19 @@ async function getTableData() {
   startLoading();
   const data = await getTenantPage({ ...pagination });
   if (data.data.code === 200) {
-    setTimeout(() => {
-      setTableData(data.data.data.list);
-      endLoading();
-    }, 1000);
+
+    setTableData(data.data.data.list);
+    endLoading();
+
   }
 }
-
+const dbTypeOptions = ref([
+  { label: "MySql", value: 0 },
+  { label: "SqlServer", value: 1 },
+  { label: "Sqlite", value: 2 },
+  { label: "Oracle", value: 3 },
+  { label: "PostgreSQL", value: 4 }
+]);
 const columns: Ref<any> = ref([
   {
     type: 'selection',
@@ -80,37 +85,45 @@ const columns: Ref<any> = ref([
   {
     key: 'account',
     title: '账号',
-    align: 'center'
+    align: 'center',
   },
   {
     key: 'nickName',
     title: '昵称',
-    align: 'center'
+    align: 'center',
   },
   {
     key: 'phone',
     title: '手机号码',
-    align: 'center'
+    align: 'center',
+    width: 180
   },
   {
     key: 'host',
     title: '数据库IP',
-    align: 'center'
+    align: 'center',
   },
   {
     key: 'dbType',
     title: '数据库类型',
-    align: 'center'
+    align: 'center',
+    render: (row: any) => {
+      const index = dbTypeOptions.value.findIndex(x => x.value == row.dbType);
+      if (index > -1) { return dbTypeOptions.value[index].label; }
+      else {
+        return "";
+      }
+    }
   },
   {
     key: 'connAccount',
     title: '数据库账号',
-    align: 'center'
+    align: 'center',
   },
   {
     key: 'connPassword',
     title: '数据库密码',
-    align: 'center'
+    align: 'center',
   },
   {
     key: 'isExpire',
@@ -128,6 +141,7 @@ const columns: Ref<any> = ref([
     key: 'actions',
     title: '操作',
     align: 'center',
+    width: 200,
     render: row => {
       return (
         <NSpace justify={'center'}>
@@ -164,7 +178,7 @@ function handleAddTable() {
 }
 
 function handleEditTable(rowId: string) {
-  const findItem = tableData.value.find(item => item.id === rowId);
+  const findItem = tableData.value.find((item: any) => item.id === rowId);
   if (findItem) {
     setEditData(findItem);
   }
@@ -172,10 +186,13 @@ function handleEditTable(rowId: string) {
   openModal();
 }
 
-function handleDeleteTable(rowId: string) {
-  window.$message?.info(`点击了删除，rowId为${rowId}`);
+async function handleDeleteTable(rowId: string) {
+  const data = await delTenant({ id: rowId });
+  if (data.data.code === 200) {
+    window.$message?.success('删除成功!');
+    init();
+  }
 }
-
 const pagination: PaginationProps = reactive({
   page: 1,
   pageSize: 10,

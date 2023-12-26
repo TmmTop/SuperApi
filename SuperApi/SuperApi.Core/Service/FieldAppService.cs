@@ -49,36 +49,116 @@ public class FieldAppService : IDynamicWebApi
         return RDto.R(HttpStatusCode.OK, result);
     }
 
+    // /// <summary>
+    // /// 添加字段
+    // /// </summary>
+    // /// <returns></returns>
+    // [HttpPost]
+    // public async Task<JsonResult> Add([FromBody] Field model)
+    // {
+    //     _ = model.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+    //     var result = await _db.Add(model);
+    //     return !(result > 0)
+    //         ? throw new Exception(ResponseMsgOption.OpAddFail)
+    //         : RDto.R(HttpStatusCode.OK);
+    // }
+    //
+    // /// <summary>
+    // /// 根据表Id修改字段
+    // /// </summary>
+    // /// <returns></returns>
+    // [HttpPost]
+    // public async Task<JsonResult> Edit([FromBody] Field model)
+    // {
+    //     _ = model.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+    //     var result = await _db.Edit(model);
+    //     return !result
+    //         ? throw new Exception(ResponseMsgOption.OpEditFail)
+    //         : RDto.R(HttpStatusCode.OK);
+    // }
+
     /// <summary>
-    /// 添加字段
+    /// 根据表ID迁移表结构
     /// </summary>
-    /// <returns></returns>
-    [HttpPost]
-    public async Task<JsonResult> Add([FromBody] Field model)
+    /// <param name="tableId"></param>
+    /// <exception cref="Exception"></exception>
+    private async Task GenTable(long tableId)
     {
-        _ = model.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
-        var result = await _db.Add(model);
-        return !(result > 0)
-            ? throw new Exception(ResponseMsgOption.OpAddFail)
-            : RDto.R(HttpStatusCode.OK);
+        _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+        var table = await _db.Change<Table>().AsQueryable().Where(x => x.Id == tableId).FirstAsync();
+        var tableName = "";
+        _ = table == null ? throw new Exception(ResponseMsgOption.NotTableId) : tableName = table.TableName;
+        var propertys = await _db.Change<Field>().AsQueryable().Where(x => x.TableId == tableId).ToListAsync();
+        var builder = _db.Context.DynamicBuilder();
+        var model = builder.CreateClass(tableName, new SugarTable());
+        foreach (var property in propertys)
+        {
+            if (property.FieldName == "Id")
+            {
+                model.CreateProperty(property.FieldName, typeof(long),
+                    new SugarColumn()
+                        { IsPrimaryKey = true, IsIdentity = false, ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldName == "CreateTime" || property.FieldName == "UpdateTime")
+            {
+                model.CreateProperty(property.FieldName, typeof(DateTime),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "varchar" || property.FieldType == "longtext")
+            {
+                model.CreateProperty(property.FieldName, typeof(string),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "long")
+            {
+                model.CreateProperty(property.FieldName, typeof(long),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "long")
+            {
+                model.CreateProperty(property.FieldName, typeof(long),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "int")
+            {
+                model.CreateProperty(property.FieldName, typeof(int),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "decimal")
+            {
+                model.CreateProperty(property.FieldName, typeof(decimal),
+                    new SugarColumn() { ColumnDescription = property.FieldComment, DecimalDigits = 2 });
+            }
+
+            if (property.FieldType == "float")
+            {
+                model.CreateProperty(property.FieldName, typeof(float),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "datetime")
+            {
+                model.CreateProperty(property.FieldName, typeof(DateTime),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+
+            if (property.FieldType == "bool")
+            {
+                model.CreateProperty(property.FieldName, typeof(bool),
+                    new SugarColumn() { ColumnDescription = property.FieldComment });
+            }
+        }
+        _db.Context.CodeFirst.InitTables(model.BuilderType());
     }
 
     /// <summary>
-    /// 根据表Id修改字段
-    /// </summary>
-    /// <returns></returns>
-    [HttpPost]
-    public async Task<JsonResult> Edit([FromBody] Field model)
-    {
-        _ = model.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
-        var result = await _db.Edit(model);
-        return !result
-            ? throw new Exception(ResponseMsgOption.OpEditFail)
-            : RDto.R(HttpStatusCode.OK);
-    }
-
-    /// <summary>
-    /// 根据表Id修改字段
+    /// 根据表Id修改字段 字段保存后需要 迁移表结构
     /// </summary>
     /// <returns></returns>
     [HttpPost]
@@ -98,6 +178,8 @@ public class FieldAppService : IDynamicWebApi
 
                 var result = await _db.InsertOrUpdateAsync(models);
                 context.Commit(); //提交事务
+                //迁移表结构
+                await GenTable(models.FirstOrDefault()!.TableId);
                 return !result
                     ? throw new Exception(ResponseMsgOption.OpEditFail)
                     : RDto.R(HttpStatusCode.OK);

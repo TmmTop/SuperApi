@@ -36,7 +36,7 @@ public class Tenant : BaseModel
     /// 数据库类型
     /// </summary>
     [SugarColumn(ColumnDescription = "数据库类型")]
-    public DbType? DbType { get; set; }
+    public DbType? DbType { get; set; } = SqlSugar.DbType.MySql;
 
     /// <summary>
     /// 数据库账号
@@ -50,8 +50,6 @@ public class Tenant : BaseModel
     /// </summary>
     [SugarColumn(ColumnDescription = "数据库密码", Length = 512)]
     [MaxLength(512)]
-    [System.Text.Json.Serialization.JsonIgnore]
-    [JsonIgnore]
     public string? ConnPassword { get; set; } = "";
 
     /// <summary>
@@ -158,7 +156,6 @@ public class Tenant : BaseModel
     /// <summary>
     /// 付费是否到期
     /// </summary>
-    [SugarColumn(ColumnDescription = "付费是否到期", Length = 128)]
-    [MaxLength(128)]
-    public StatusEnum IsExpire { get; set; } = StatusEnum.Enable;
+    [SugarColumn(ColumnDescription = "付费是否到期")]
+    public StatusEnum? IsExpire { get; set; } = StatusEnum.Enable;
 }

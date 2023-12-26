@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-11-28 10:49:34
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-26 14:05:45
+ * @LastEditTime: 2023-12-26 15:39:03
  * @FilePath: \FrontEnd\src\views\_builtin\login\components\pwd-login\index.vue
  * @Description: 
 -->
@@ -57,7 +57,7 @@ const formRef = ref<HTMLElement & FormInst>();
 const publicKey = `0484C7466D950E120E5ECE5DD85D0C90EAA85081A3A2BD7C57AE6DC822EFCCBD66620C67B0103FC8DD280E36C3B282977B722AAEC3C56518EDCEBAFB72C5A05312`;
 const model = reactive({
   account: 'admin',
-  password: "123456"
+  password: "superApi"
 });
 
 const rules: FormRules = {

@@ -1,26 +1,30 @@
 <template>
   <n-modal v-model:show="modalVisible" preset="card" :title="title" class="w-700px">
-    <n-form ref="formRef" label-placement="left" :label-width="80" :model="formModel" :rules="rules">
+    <n-form ref="formRef" label-placement="left" :label-width="120" :model="formModel" :rules="rules">
       <n-grid :cols="24" :x-gap="18">
-        <n-form-item-grid-item :span="12" label="用户名" path="account">
+        <n-form-item-grid-item :span="12" label="账号" path="account">
           <n-input v-model:value="formModel.account" />
         </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="年龄" path="age">
-          <n-input-number v-model:value="formModel.age" clearable />
-        </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="性别" path="gender">
-          <n-radio-group v-model:value="formModel.gender">
-            <n-radio v-for="item in genderOptions" :key="item.value" :value="item.value">{{ item.label }}</n-radio>
-          </n-radio-group>
+        <n-form-item-grid-item :span="12" label="昵称" path="nickName">
+          <n-input v-model:value="formModel.nickName" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="12" label="手机号" path="phone">
           <n-input v-model:value="formModel.phone" />
         </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="邮箱" path="email">
-          <n-input v-model:value="formModel.email" />
+        <n-form-item-grid-item :span="12" label="是否付费" path="isExpire">
+          <n-select v-model:value="formModel.isExpire" :options="statusOptions" />
         </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="状态" path="userStatus">
-          <n-select v-model:value="formModel.userStatus" :options="userStatusOptions" />
+        <n-form-item-grid-item :span="12" label="数据库IP" path="host">
+          <n-input v-model:value="formModel.host" />
+        </n-form-item-grid-item>
+        <n-form-item-grid-item :span="12" label="数据库类型" path="dbType">
+          <n-select v-model:value="formModel.dbType" :options="dbTypeOptions" />
+        </n-form-item-grid-item>
+        <n-form-item-grid-item :span="12" label="数据库账号" path="connAccount">
+          <n-input v-model:value="formModel.connAccount" />
+        </n-form-item-grid-item>
+        <n-form-item-grid-item :span="12" label="数据库密码" path="connPassword">
+          <n-input v-model:value="formModel.connPassword" />
         </n-form-item-grid-item>
       </n-grid>
       <n-space class="w-full pt-16px" :size="24" justify="end">
@@ -32,11 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, watch } from 'vue';
+import { ref, computed, reactive, watch, defineEmits } from 'vue';
 import type { FormInst, FormItemRule } from 'naive-ui';
-import { genderOptions, userStatusOptions } from '@/constants';
 import { formRules, createRequiredFormRule } from '@/utils';
-
+import { addTenant, editTenant } from '@/service/api/dynamic';
 export interface Props {
   /** 弹窗可见性 */
   visible: boolean;
@@ -53,17 +56,24 @@ export interface Props {
 export type ModalType = NonNullable<Props['type']>;
 
 defineOptions({ name: 'TableActionModal' });
-
+const statusOptions = ref([{ label: "已付费", value: 0 }, { label: "未付费", value: 1 }]);
+const dbTypeOptions = ref([
+  { label: "MySql", value: 0 },
+  { label: "SqlServer", value: 1 },
+  { label: "Sqlite", value: 2 },
+  { label: "Oracle", value: 3 },
+  { label: "PostgreSQL", value: 4 }
+]);
 const props = withDefaults(defineProps<Props>(), {
   type: 'add',
   editData: null
 });
 
-interface Emits {
-  (e: 'update:visible', visible: boolean): void;
-}
+// interface Emits {
+//   (e: 'update:visible', visible: boolean): void;
+// }
 
-const emit = defineEmits<Emits>();
+const emit = defineEmits();
 
 const modalVisible = computed({
   get() {
@@ -87,31 +97,30 @@ const title = computed(() => {
 
 const formRef = ref<HTMLElement & FormInst>();
 
-type FormModel = Pick<UserManagement.User, 'account' | 'age' | 'gender' | 'phone' | 'email' | 'userStatus'>;
 
-const formModel = reactive<FormModel>(createDefaultFormModel());
+const formModel = reactive<any>(createDefaultFormModel());
 
-const rules: Record<keyof FormModel, FormItemRule | FormItemRule[]> = {
+const rules: Record<keyof any, FormItemRule | FormItemRule[]> = {
   account: createRequiredFormRule('请输入用户名'),
-  age: createRequiredFormRule('请输入年龄'),
-  gender: createRequiredFormRule('请选择性别'),
+  nickName: createRequiredFormRule('请输入年龄'),
   phone: formRules.phone,
-  email: formRules.email,
-  userStatus: createRequiredFormRule('请选择用户状态')
 };
 
-function createDefaultFormModel(): FormModel {
+function createDefaultFormModel() {
   return {
+    id: 0,
     account: '',
-    age: null,
-    gender: null,
+    nickName: '',
     phone: '',
-    email: null,
-    userStatus: null
+    host: '',
+    dbType: '',
+    connAccount: '',
+    connPassword: '',
+    isExpire: 0
   };
 }
 
-function handleUpdateFormModel(model: Partial<FormModel>) {
+function handleUpdateFormModel(model: Partial<any>) {
   Object.assign(formModel, model);
 }
 
@@ -133,7 +142,30 @@ function handleUpdateFormModelByModalType() {
 
 async function handleSubmit() {
   await formRef.value?.validate();
-  window.$message?.success('新增成功!');
+  const params = {
+    id: formModel.id,
+    account: formModel.account,
+    nickName: formModel.nickName,
+    phone: formModel.phone,
+    host: formModel.host,
+    dbType: formModel.dbType,
+    connAccount: formModel.connAccount,
+    connPassword: formModel.connPassword,
+    isExpire: formModel.isExpire.toString()
+  };
+  if (props.type == "add") {
+    const data = await addTenant(params);
+    if (data.data.code === 200) {
+      window.$message?.success('新增成功!');
+    }
+  }
+  if (props.type == "edit") {
+    const data = await editTenant(params);
+    if (data.data.code === 200) {
+      window.$message?.success('修改成功!');
+    }
+  }
+  emit("refresh");
   closeModal();
 }
 

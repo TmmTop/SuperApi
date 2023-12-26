@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-07 14:19:28
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-25 14:09:47
+ * @LastEditTime: 2023-12-26 15:50:14
  * @FilePath: \FrontEnd\src\views\dynamic\api\index.vue
  * @Description: 
 -->
@@ -15,7 +15,7 @@
             <n-space vertical>
               <n-input-group>
                 <div class="w-25"> 实体对象：</div>
-                <n-select v-model:value="currentTable" @update:value="handleUpdateTable" :options="tableNames" />
+                <n-select v-model:value="currentTable" @update:value="handleUpdateTable" :options="tables" />
               </n-input-group>
               <n-input-group>
                 <div class="w-25"> Crud方式：</div>
@@ -67,12 +67,11 @@ import { ref, h } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NInput, NSelect, NPopconfirm, NSpace } from 'naive-ui';
 import type { DataTableColumns } from 'naive-ui';
-import {fetchList} from "@/service/api/dynamic";
+import { fetchList } from "@/service/api/dynamic";
 import { useLoading } from '@/hooks';
-import qs from "qs";
 const { loading } = useLoading(false);
 import axios from 'axios';
-const tableNames = ref([] as any[]);
+const tables = ref([] as any[]);
 const params = ref([] as any[]);
 const currentTable = ref("");
 const currentType = ref("");
@@ -158,22 +157,12 @@ const columns: Ref<DataTableColumns<any>> = ref([
 
 //获取租户下的所有表
 const genTables = async () => {
-  var config = {
-    method: 'get',
-    url: "http://localhost:5222/api/tenant/tables",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded "
-    },
-    params: {
-      'tenantName': "admin",
-    }
-  };
-  const { data } = await axios(config);
+  const { data } = await fetchList({ tenantId: "1739219419126697980" });
   if (data.code === 200) {
     data.data.forEach((info: any) => {
-      tableNames.value.push({
-        label: info.TABLE_NAME,
-        value: info.TABLE_NAME
+      tables.value.push({
+        label: info.tableName,
+        value: info.id
       })
     });
   }
@@ -217,10 +206,10 @@ const gentConfig = async () => {
     // data: qs.stringify({
     //   param: '{\'PageNum\' : \'1\',\'PageSize\' : \'10\'}'
     // }),
-    params:{
-      pageNum:1,
-      pageSize:10,
-      param:{ 'Id_>':"0"}
+    params: {
+      pageNum: 1,
+      pageSize: 10,
+      param: { 'Id_>': "0" }
     }
   }
   var configProerty = {

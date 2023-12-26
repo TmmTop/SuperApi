@@ -83,7 +83,7 @@ const tableData = ref<any>([]);
 const currentTableId = ref();
 const showAddTable = ref(false);
 const formModel = ref<any>({
-  tenantId: 1,
+  tenantId: "1739219419126697980",
   tableName: '',
   tableComment: ""
 });
@@ -94,7 +94,7 @@ const rules: any = {
 const formRef = ref<HTMLElement & any>();
 const clear = () => {
   formModel.value = {
-    tenantId: 1,
+    tenantId: "1739219419126697980",
     tableName: '',
     tableComment: ""
   };
@@ -118,7 +118,7 @@ const handleTableAdd = async () => {
 }
 async function getTableData() {
   startLoading();
-  const data = await fetchList({ tenantId: 1 }) as any;
+  const data = await fetchList({ tenantId: "1739219419126697980" }) as any;
   if (data.data.code === 200) {
     tableData.value = data.data.data;
     propertyData.value = [];
