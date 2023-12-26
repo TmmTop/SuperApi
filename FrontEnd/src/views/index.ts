@@ -23,6 +23,7 @@ export const views: Record<
   document_project: () => import('./document/project/index.vue'),
   document_vite: () => import('./document/vite/index.vue'),
   document_vue: () => import('./document/vue/index.vue'),
+  dynamic_account: () => import('./dynamic/account/index.vue'),
   dynamic_api: () => import('./dynamic/api/index.vue'),
   dynamic_model: () => import('./dynamic/model/index.vue'),
   exception_403: () => import('./exception/403/index.vue'),

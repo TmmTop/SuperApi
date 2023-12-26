@@ -28,7 +28,7 @@ public class Tenant : BaseModel
     /// <summary>
     /// 数据库地址
     /// </summary>
-    [SugarColumn(ColumnDescription = "主机", Length = 128)]
+    [SugarColumn(ColumnDescription = "数据库IP", Length = 128)]
     [MaxLength(128)]
     public string? Host { get; set; } = "";
 

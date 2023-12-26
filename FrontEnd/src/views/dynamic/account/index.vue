@@ -25,7 +25,7 @@
             <column-setting v-model:columns="columns" />
           </n-space>
         </n-space>
-        <n-data-table :columns="columns" :data="tableData" :loading="loading" :pagination="pagination" flex-height
+        <n-data-table :columns="columns" :data="tableData" remote :loading="loading" :pagination="pagination" flex-height
           class="flex-1-hidden" />
         <table-action-modal v-model:visible="visible" :type="modalType" :edit-data="editData" />
       </div>
@@ -39,7 +39,7 @@ import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { genderLabels, userStatusLabels } from '@/constants';
-import { fetchUserList } from '@/service/api/management';
+import { getTenantPage, addTenant, editTenant, delTenant } from '@/service/api/dynamic';
 import { useBoolean, useLoading } from '@/hooks';
 import TableActionModal from './components/table-action-modal.vue';
 import type { ModalType } from './components/table-action-modal.vue';
@@ -48,23 +48,23 @@ import ColumnSetting from './components/column-setting.vue';
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
 
-const tableData = ref<UserManagement.User[]>([]);
+const tableData = ref<any>([]);
 function setTableData(data: UserManagement.User[]) {
   tableData.value = data;
 }
 
 async function getTableData() {
   startLoading();
-  const { data } = await fetchUserList();
-  if (data) {
+  const data = await getTenantPage({ ...pagination });
+  if (data.data.code === 200) {
     setTimeout(() => {
-      setTableData(data);
+      setTableData(data.data.data.list);
       endLoading();
     }, 1000);
   }
 }
 
-const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
+const columns: Ref<any> = ref([
   {
     type: 'selection',
     align: 'center'
@@ -72,34 +72,20 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
   {
     key: 'index',
     title: '序号',
-    align: 'center'
+    align: 'center',
+    render: (_, index) => {
+      return `${index + 1}`
+    }
   },
   {
     key: 'account',
-    title: '用户名',
+    title: '账号',
     align: 'center'
   },
   {
-    key: 'age',
-    title: '用户年龄',
+    key: 'nickName',
+    title: '昵称',
     align: 'center'
-  },
-  {
-    key: 'gender',
-    title: '性别',
-    align: 'center',
-    render: row => {
-      if (row.gender) {
-        const tagTypes: Record<UserManagement.GenderKey, NaiveUI.ThemeColor> = {
-          '0': 'success',
-          '1': 'warning'
-        };
-
-        return <NTag type={tagTypes[row.gender]}>{genderLabels[row.gender]}</NTag>;
-      }
-
-      return <span></span>;
-    }
   },
   {
     key: 'phone',
@@ -107,26 +93,35 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
     align: 'center'
   },
   {
-    key: 'email',
-    title: '邮箱',
+    key: 'host',
+    title: '数据库IP',
     align: 'center'
   },
   {
-    key: 'userStatus',
-    title: '状态',
+    key: 'dbType',
+    title: '数据库类型',
+    align: 'center'
+  },
+  {
+    key: 'connAccount',
+    title: '数据库账号',
+    align: 'center'
+  },
+  {
+    key: 'connPassword',
+    title: '数据库密码',
+    align: 'center'
+  },
+  {
+    key: 'isExpire',
+    title: '是否付费',
     align: 'center',
-    render: row => {
-      if (row.userStatus) {
-        const tagTypes: Record<UserManagement.UserStatusKey, NaiveUI.ThemeColor> = {
-          '1': 'success',
-          '2': 'error',
-          '3': 'warning',
-          '4': 'default'
-        };
-
-        return <NTag type={tagTypes[row.userStatus]}>{userStatusLabels[row.userStatus]}</NTag>;
-      }
-      return <span></span>;
+    render: (row: any) => {
+      const tagTypes: Record<any, NaiveUI.ThemeColor> = {
+        '0': 'success',
+        '1': 'error',
+      };
+      return <NTag type={tagTypes[row.isExpire]}>{row.isExpire <= 0 ? "已付费" : "未付费"}</NTag>;
     }
   },
   {
@@ -149,7 +144,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
       );
     }
   }
-]) as Ref<DataTableColumns<UserManagement.User>>;
+]) as Ref<DataTableColumns<any>>;
 
 const modalType = ref<ModalType>('add');
 

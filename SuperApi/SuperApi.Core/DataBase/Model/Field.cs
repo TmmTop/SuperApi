@@ -9,7 +9,7 @@ public class Field : BaseModel
     /// <summary>
     /// 关联表ID
     /// </summary>
-    [SugarColumn(ColumnDescription = "关联表ID", Length = 32)]
+    [SugarColumn(ColumnDescription = "关联表ID")]
     public long TableId { get; set; } = 0;
 
     /// <summary>

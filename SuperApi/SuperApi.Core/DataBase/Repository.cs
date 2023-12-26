@@ -210,8 +210,6 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
     /// <returns></returns>
     public async Task<long> Add(T model)
     {
-        //设置主键Id=雪花ID
-        //model.GetType().GetProperty("Id")!.SetValue(model, SnowFlakeSingle.instance.NextId().ToString());
         var result = await _db.Insertable(model).ExecuteReturnSnowflakeIdAsync();
         return result;
     }

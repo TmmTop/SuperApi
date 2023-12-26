@@ -24,7 +24,7 @@ public class TenantAppService : IDynamicWebApi
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    public async Task<JsonResult> GetTenantPages(int page, int pageSize, Dictionary<string, string> param)
+    public async Task<JsonResult> GetPage(int page, int pageSize, Dictionary<string, string> param)
     {
         var result = await _db.Page(page, pageSize, param);
         return RDto.R(HttpStatusCode.OK, result);

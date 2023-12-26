@@ -1,3 +1,11 @@
+<!--
+ * @Author: 490912587@qq.com
+ * @Date: 2023-11-28 10:49:34
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2023-12-26 14:06:50
+ * @FilePath: \FrontEnd\src\views\_builtin\login\components\pwd-login\components\other-account.vue
+ * @Description: 
+-->
 <template>
   <n-space :vertical="true">
     <n-divider class="!mb-0 text-14px text-#666">{{ $t('page.login.pwdLogin.otherAccountLogin') }}</n-divider>
@@ -35,20 +43,20 @@ const accounts: Account[] = [
   {
     key: 'super',
     label: userRoleLabels.super,
-    account: 'Super',
-    password: 'super123'
+    account: 'admin',
+    password: '123456'
   },
   {
     key: 'admin',
     label: userRoleLabels.admin,
-    account: 'Admin',
-    password: 'admin123'
+    account: 'admin',
+    password: '123456'
   },
   {
     key: 'user',
     label: userRoleLabels.user,
-    account: 'User01',
-    password: 'user01123'
+    account: 'admin',
+    password: '123456'
   }
 ];
 

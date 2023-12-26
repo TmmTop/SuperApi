@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-07 13:30:39
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-25 13:45:54
+ * @LastEditTime: 2023-12-26 09:23:57
  * @FilePath: \FrontEnd\src\router\modules\dynamic.ts
  * @Description: 
  */
@@ -11,6 +11,17 @@ const dynamic: AuthRoute.Route = {
   path: '/dynamic',
   component: 'basic',
   children: [
+    {
+      name: 'dynamic_account',
+      path: '/dynamic/account',
+      component: 'self',
+      meta: {
+        title: '账号管理',
+        requiresAuth: true,
+        icon: 'icon-park-outline:workbench',
+        //   i18nTitle: 'routes.dashboard.workbench'
+      }
+    },
     {
       name: 'dynamic_model',
       path: '/dynamic/model',
