@@ -11,7 +11,7 @@ import { getToken, getUserInfo, clearAuthStorage } from './helpers';
 
 interface AuthState {
   /** 用户信息 */
-  userInfo: Auth.UserInfo;
+  userInfo: any;
   /** 用户token */
   token: string;
   /** 登录的加载状态 */
@@ -96,12 +96,11 @@ export const useAuthStore = defineStore('auth-store', {
       // 获取用户信息
       const { data } = await fetchUserInfo();
       if (data) {
-
         // 成功后把用户信息存储到缓存中
-        localStg.set('userInfo', data);
+        localStg.set('userInfo', data.data);
 
         // 更新状态
-        this.userInfo = data;
+        this.userInfo = data.data;
         this.token = accessToken;
 
         successFlag = true;

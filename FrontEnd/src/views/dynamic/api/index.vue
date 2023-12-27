@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-07 14:19:28
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-26 15:50:14
+ * @LastEditTime: 2023-12-27 17:14:49
  * @FilePath: \FrontEnd\src\views\dynamic\api\index.vue
  * @Description: 
 -->
@@ -22,13 +22,15 @@
                 <n-select v-model:value="currentType" :options="requestTypes" />
               </n-input-group>
               <n-input-group>
-                <n-button class="flex-1-hidden" type="success" @click="handleSend">
+                <n-button class="flex-1-hidden" type="primary" @click="handleSend">
+
+                  <icon-ic-round-plus class="mr-4px text-20px" />
                   发送请求
                 </n-button>
               </n-input-group>
               <n-input-group>
                 <div class="flex-col  h-140">
-                  <n-space class="pb-12px" justify="space-between">
+                  <!-- <n-space class="pb-12px" justify="space-between">
                     <n-space>
                       <n-button type="primary" @click="handleAdd()">
                         <icon-ic-round-plus class="mr-4px text-20px" />
@@ -41,7 +43,7 @@
                         重置
                       </n-button>
                     </n-space>
-                  </n-space>
+                  </n-space> -->
                   <n-data-table :columns="columns" :data="params" flex-height class="flex-1-hidden" />
                 </div>
               </n-input-group>
@@ -65,17 +67,81 @@
 <script setup lang="tsx">
 import { ref, h } from 'vue';
 import type { Ref } from 'vue';
-import { NButton, NInput, NSelect, NPopconfirm, NSpace } from 'naive-ui';
+import { NButton, NInput, NPopconfirm, NSelect, NSpace } from 'naive-ui';
 import type { DataTableColumns } from 'naive-ui';
-import { fetchList } from "@/service/api/dynamic";
-import { useLoading } from '@/hooks';
-const { loading } = useLoading(false);
-import axios from 'axios';
+import { fetchList, getFieldByTableId, getDyOne, getDyList, getDyPage, getDyTree, addDy, editDy, delDy } from "@/service/api/dynamic";
+import { useAuthStore } from '@/store';
+const auth = useAuthStore();
+const userInfo = auth.userInfo;
 const tables = ref([] as any[]);
 const params = ref([] as any[]);
 const currentTable = ref("");
 const currentType = ref("");
-const requestResult = ref("111");
+const requestResult = ref("");
+const whereOptions = ref([
+  {
+    label: "等于",
+    value: "=="
+  },
+  {
+    label: "不等于",
+    value: "!="
+  }, {
+    label: "模糊查询",
+    value: "%"
+  },
+  {
+    label: "大于",
+    value: ">"
+  },
+  {
+    label: "大于等于",
+    value: ">="
+  },
+  {
+    label: "小于",
+    value: "<"
+  },
+  {
+    label: "小于等于",
+    value: "<="
+  }, {
+    label: "In",
+    value: "in"
+  },
+  {
+    label: "NotIn",
+    value: "!in"
+  },
+  {
+    label: "左模糊",
+    value: "ll"
+  },
+  {
+    label: "右模糊",
+    value: "lr"
+  },
+  {
+    label: "IsNull",
+    value: "null"
+  },
+  {
+    label: "EquaNull",
+    value: "=null"
+  },
+  {
+    label: "NotNull",
+    value: "not"
+  },
+  {
+    label: "模糊取反",
+    value: "noLike"
+  },
+  {
+    label: "LikeOr",
+    value: "inLike"
+  },
+])
 const requestTypes = ref([
   {
     label: '添加请求',
@@ -115,10 +181,39 @@ const columns: Ref<DataTableColumns<any>> = ref([
       return h(NInput, {
         key: index,
         value: row.pKey,
+        disabled: true,
         onUpdateValue(v) {
           params.value[index].pKey = v
         }
       })
+    }
+  },
+  {
+    title: '查询条件',
+    key: 'pWhere',
+    render(row, index) {
+      if (currentType.value !== "add" && currentType.value !== "edit" && currentType.value !== "del") {
+        return h(NSelect, {
+          key: index,
+          options: whereOptions.value,
+          value: row.pWhere,
+          height: "800px",
+          onUpdateValue(v: any) {
+            params.value[index].pWhere = v!
+          }
+        });
+      } else {
+        return h(NSelect, {
+          key: index,
+          options: whereOptions.value,
+          value: row.pWhere,
+          disabled: true,
+          onUpdateValue(v: any) {
+            params.value[index].pWhere = v!
+          }
+        });
+      }
+
     }
   },
   {
@@ -157,7 +252,7 @@ const columns: Ref<DataTableColumns<any>> = ref([
 
 //获取租户下的所有表
 const genTables = async () => {
-  const { data } = await fetchList({ tenantId: "1739219419126697980" });
+  const { data } = await fetchList({ tenantId: userInfo.id });
   if (data.code === 200) {
     data.data.forEach((info: any) => {
       tables.value.push({
@@ -167,15 +262,16 @@ const genTables = async () => {
     });
   }
 }
-const handleAdd = () => {
-  params.value.push({
-    pKey: '',
-    pValue: "",
-  });
-}
-const handleReset = () => {
-  params.value = [];
-}
+// const handleAdd = () => {
+//   params.value.push({
+//     pKey: '',
+//     pWhere:"",
+//     pValue: "",
+//   });
+// }
+// const handleReset = () => {
+//   params.value = [];
+// }
 const handleSend = async () => {
   if (!currentTable.value) {
     window.$message?.error("请选择实体对象！");
@@ -185,72 +281,120 @@ const handleSend = async () => {
     window.$message?.error("请选择Crud方式！");
     return
   }
-  const config = await gentConfig();
-  const data = await axios(config);
-  requestResult.value = JSON.stringify(data, null, 4)
-}
-const handleUpdateTable = (value: string) => {
-  gentConfig();
-}
-//构建请求Header头和参数
-const gentConfig = async () => {
-  let config = {
-    method: 'get',
-    url: "http://localhost:5222/api/dynamic/pagelist",
-    headers: {
-      'ConnId': '1',
-      'DataBaseName': 'admin',
-      'TableName': currentTable.value,
-      "Content-Type": "application/x-www-form-urlencoded "
-    },
-    // data: qs.stringify({
-    //   param: '{\'PageNum\' : \'1\',\'PageSize\' : \'10\'}'
-    // }),
-    params: {
-      pageNum: 1,
-      pageSize: 10,
-      param: { 'Id_>': "0" }
-    }
-  }
-  var configProerty = {
-    method: 'get',
-    url: "http://localhost:5222/api/tenant/propertys",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded "
-    },
-    params: {
-      tenantName: "admin",
-      tableName: currentTable.value
-    }
-  };
-  const { data } = await axios(configProerty);
-  if (data.code === 200) {
-    for (let info of data.data) {
-      if (info.COLUMN_NAME !== "Id" || info.COLUMN_NAME !== "CreateTime" || info.COLUMN_NAME !== "UpdateTime") {
-        Object.defineProperty(config.headers, "db_" + info.COLUMN_NAME, {
-          value: info.DATA_TYPE + "_" + encodeURIComponent(info.COLUMN_COMMENT),
-          writable: true,
-          enumerable: true,
-          configurable: true
-        });
+
+  switch (currentType.value) {
+    case "add":
+      let paramA = {};
+      params.value.forEach(info => {
+        if (info.pKey !== "Id" && info.pKey !== "CreateTime" && info.pKey !== "UpdateTime") {
+          Object.defineProperty(paramA, info.pKey, {
+            value: info.pValue,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+        }
+      });
+      const dataA = await addDy({
+        tableId: currentTable.value,
+        param: paramA
+      });
+      if (dataA.data.code === 200) {
+        window.$message?.success(dataA.data.msg);
       }
-    }
-    switch (currentType.value) {
-      case "add":
-        config.url = "http://localhost:5222/api/dynamic";
-        config.method = "post";
-        break;
-    }
-    // for (let info of params.value) {
-    //   Object.defineProperty(config.data, info.pKey, {
-    //     value: JSON.stringify(info.pValue),
-    //     writable: true,
-    //     enumerable: true,
-    //     configurable: true
-    //   });
-    // }
+      requestResult.value = JSON.stringify(dataA, null, 4)
+      break;
+    case "edit":
+      const dataE = await editDy({
+        tableId: currentTable.value,
+        param: { 'Id': "0" }
+      });
+      if (dataE.data.code === 200) {
+        window.$message?.success(dataE.data.msg);
+      }
+      requestResult.value = JSON.stringify(dataE, null, 4)
+      break;
+    case "del":
+      const dataD = await delDy({
+        tableId: currentTable.value,
+        pageNum: 1,
+        pageSize: 10,
+        param: { 'Id_>': "0" }
+      });
+      if (dataD.data.code === 200) {
+        window.$message?.success(dataD.data.msg);
+      }
+      requestResult.value = JSON.stringify(dataD, null, 4)
+      break;
+    case "list":
+      let paramL = {};
+      params.value.forEach(info => {
+        if (info.pKey !== "Id" && info.pKey !== "CreateTime" && info.pKey !== "UpdateTime") {
+          Object.defineProperty(paramL, info.pKey + "_" + info.pWhere, {
+            value: info.pValue,
+            writable: true,
+            enumerable: true,
+            configurable: true
+          });
+        }
+      });
+      console.log(paramL);
+
+      const dataL = await getDyList({
+        tableId: currentTable.value,
+        param: paramL
+      });
+      if (dataL.data.code === 200) {
+        window.$message?.success(dataL.data.msg);
+      }
+      requestResult.value = JSON.stringify(dataL, null, 4)
+      break;
+    case "page":
+      const dataP = await getDyPage({
+        tableId: currentTable.value,
+        pageNum: 1,
+        pageSize: 10,
+        param: { 'Id_>': "0" }
+      });
+      if (dataP.data.code === 200) {
+        window.$message?.success(dataP.data.msg);
+      }
+      requestResult.value = JSON.stringify(dataP, null, 4)
+      break;
+    case "tree":
+      const dataT = await getDyTree({
+        tableId: currentTable.value,
+        parentPropertyName: "Pid",
+        param: { 'Id_>': "0" }
+      });
+      if (dataT.data.code === 200) {
+        window.$message?.success(dataT.data.msg);
+      }
+      requestResult.value = JSON.stringify(dataT, null, 4)
+      break;
+    case "one":
+      const dataO = await getDyOne({
+        tableId: currentTable.value,
+        param: { 'Id_==': "0" }
+      });
+      if (dataO.data.code === 200) {
+        window.$message?.success(dataO.data.msg);
+      }
+      requestResult.value = JSON.stringify(dataO, null, 4)
+      break;
   }
-  return config;
+}
+const handleUpdateTable = async (value: string) => {
+  currentTable.value = value;
+  const result = await getFieldByTableId({ tableId: currentTable.value });
+  if (result.data.code === 200) {
+    params.value = [];
+    result.data.data.forEach((field: any) => {
+      if (field.fieldName !== "Id" && field.fieldName !== "CreateTime" && field.fieldName !== "UpdateTime") {
+        params.value.push({ pKey: field.fieldName, pWhere: "", pValue: "" });
+      }
+    });
+  }
 }
 const init = async () => {
   await genTables();

@@ -79,11 +79,14 @@ import { SelectMixedOption } from 'naive-ui/es/select/src/interface';
 import { createRequiredFormRule } from '@/utils';
 import { fetchList, add, del, getFieldByTableId, saveFields } from '~/src/service/api/dynamic';
 const { loading, startLoading, endLoading } = useLoading(false);
+import { useAuthStore } from '@/store';
+const auth = useAuthStore();
+const userInfo = auth.userInfo;
 const tableData = ref<any>([]);
 const currentTableId = ref();
 const showAddTable = ref(false);
 const formModel = ref<any>({
-  tenantId: "1739219419126697980",
+  tenantId: userInfo.Id,
   tableName: '',
   tableComment: ""
 });
@@ -94,7 +97,7 @@ const rules: any = {
 const formRef = ref<HTMLElement & any>();
 const clear = () => {
   formModel.value = {
-    tenantId: "1739219419126697980",
+    tenantId: userInfo.id,
     tableName: '',
     tableComment: ""
   };
@@ -118,7 +121,7 @@ const handleTableAdd = async () => {
 }
 async function getTableData() {
   startLoading();
-  const data = await fetchList({ tenantId: "1739219419126697980" }) as any;
+  const data = await fetchList({ tenantId: userInfo.id }) as any;
   if (data.data.code === 200) {
     tableData.value = data.data.data;
     propertyData.value = [];
