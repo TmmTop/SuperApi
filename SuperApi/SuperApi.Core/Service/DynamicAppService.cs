@@ -49,7 +49,8 @@ public class DynamicAppService : IDynamicWebApi
                 //{ 'Id_>':"1732568867353530368" }
                 where.Add(new ConditionalModel
                 {
-                    FieldName = info.Key.Split('_')[0], ConditionalType = GenWhereType(info.Key.Split('_')[1]),
+                    FieldName = info.Key.Split('_')[0], 
+                    ConditionalType = GenWhereType(info.Key.Split('_')[1]),
                     FieldValue = info.Value
                 });
             }
@@ -176,7 +177,6 @@ public class DynamicAppService : IDynamicWebApi
                 });
             }
         }
-
         query.Where(where);
         var result = await query.FirstAsync();
         return RDto.R(HttpStatusCode.OK, result);
@@ -191,22 +191,23 @@ public class DynamicAppService : IDynamicWebApi
     /// <exception cref="Exception"></exception>
     [AllowAnonymous]
     [HttpPost]
-    public async Task<JsonResult> Add(long tableId, string param)
+    public async Task<JsonResult> Add(DyDto param)
     {
-        _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+        _ = param.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
         var dict = new Dictionary<string, object>();
-        var paramDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(param);
+        var paramDict = param.Param;
         foreach (var info in paramDict!)
         {
             dict.Add(info.Key, info.Value);
         }
-
-        var type = await GenDynamicType(tableId);
+        var type = await GenDynamicType(param.TableId);
         //根据字典转成类对象  
         var value = _builder.CreateObjectByType(type, dict);
         // //设置主键Id=雪花ID
-        // type.GetProperty("Id")!.SetValue(value, SnowFlakeSingle.instance.NextId());
-        var result = await _db.Context.UpdateableByObject(value).ExecuteCommandAsync();
+        type.GetProperty("Id")!.SetValue(value, SnowFlakeSingle.instance.NextId());
+        type.GetProperty("CreateTime")!.SetValue(value, DateTime.Now);
+        type.GetProperty("UpdateTime")!.SetValue(value, DateTime.Now);
+        var result = await _db.Context.InsertableByObject(value).ExecuteCommandAsync();
         return !(result > 0)
             ? throw new Exception(ResponseMsgOption.OpAddFail)
             : RDto.R(HttpStatusCode.OK);
@@ -221,19 +222,21 @@ public class DynamicAppService : IDynamicWebApi
     /// <exception cref="Exception"></exception>
     [AllowAnonymous]
     [HttpPost]
-    public async Task<JsonResult> Edit(long tableId, string param)
+    public async Task<JsonResult> Edit(DyDto param)
     {
-        _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+        _ = param.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
         var dict = new Dictionary<string, object>();
-        var paramDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(param);
+        var paramDict = param.Param;
         foreach (var info in paramDict!)
         {
             dict.Add(info.Key, info.Value);
         }
 
-        var type = await GenDynamicType(tableId);
+        var type = await GenDynamicType(param.TableId);
         //根据字典转成类对象  
         var value = _builder.CreateObjectByType(type, dict);
+        type.GetProperty("CreateTime")!.SetValue(value, DateTime.Now);
+        type.GetProperty("UpdateTime")!.SetValue(value, DateTime.Now);
         var result = await _db.Context.UpdateableByObject(value).ExecuteCommandAsync();
         return !(result > 0)
             ? throw new Exception(ResponseMsgOption.OpEditFail)
@@ -249,19 +252,18 @@ public class DynamicAppService : IDynamicWebApi
     /// <exception cref="Exception"></exception>
     [AllowAnonymous]
     [HttpPost]
-    public async Task<JsonResult> Del(long tableId, string param)
+    public async Task<JsonResult> Del(DyDto param)
     {
-        _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+        _ = param.TableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
         var dict = new Dictionary<string, object>();
-        var paramDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(param);
+        var paramDict = param.Param;
         foreach (var info in paramDict!)
         {
             dict.Add(info.Key, info.Value);
         }
-
         var hasId = dict.ContainsKey("Id");
         _ = hasId ? "" : throw new Exception("Id不存在！");
-        var type = await GenDynamicType(tableId);
+        var type = await GenDynamicType(param.TableId);
         //根据字典转成类对象  
         var value = _builder.CreateObjectByType(type, dict);
         var result = await _db.Context.DeleteableByObject(value).ExecuteCommandAsync();
