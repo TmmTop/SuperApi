@@ -126,14 +126,14 @@ const columns: Ref<any> = ref([
   },
   {
     key: 'isExpire',
-    title: '是否付费',
+    title: '是否过期',
     align: 'center',
     render: (row: any) => {
       const tagTypes: Record<any, NaiveUI.ThemeColor> = {
-        '0': 'success',
+        '2': 'success',
         '1': 'error',
       };
-      return <NTag type={tagTypes[row.isExpire]}>{row.isExpire <= 0 ? "已付费" : "未付费"}</NTag>;
+      return <NTag type={tagTypes[row.isExpire]}>{row.isExpire == 2 ? "未过期" : "已过期"}</NTag>;
     }
   },
   {

@@ -56,7 +56,7 @@ export interface Props {
 export type ModalType = NonNullable<Props['type']>;
 
 defineOptions({ name: 'TableActionModal' });
-const statusOptions = ref([{ label: "已付费", value: 0 }, { label: "未付费", value: 1 }]);
+const statusOptions = ref([{ label: "未过期", value:2 }, { label: "已过期", value: 1 }]);
 const dbTypeOptions = ref([
   { label: "MySql", value: 0 },
   { label: "SqlServer", value: 1 },

@@ -64,7 +64,7 @@ public static class Setup
                     entityInfo.EntityColumnInfo.PropertyInfo.PropertyType == typeof(long))
                 {
                     var id = entityInfo.EntityColumnInfo.PropertyInfo.GetValue(entityInfo.EntityValue);
-                    if (id == null || (string)id == "0")
+                    if (id == null || (long)id == 0)
                         entityInfo.SetValue(SnowFlakeSingle.instance.NextId());
                 }
 
@@ -83,8 +83,7 @@ public static class Setup
             .Where(it => it.FullName!.Contains("SuperApi.Core.DataBase.Model"))
             .ToArray();
         master.CodeFirst.InitTables(types);
-        //启用数据库自动创建后执行以上代码
-
+        SeedInit(master);
         //AOP里面可以获取IOC对象
         services.AddHttpContextAccessor();
         // 单例注册
@@ -116,5 +115,31 @@ public static class Setup
         }
 
         return newType;
+    }
+    /// <summary>
+    /// 初始化Tenant表
+    /// </summary>
+    private static void SeedInit(SqlSugarScope db)
+    {
+        var encryptPassword = CryptogramUtil.Encrypt("superApi");
+        var rows = new List<Tenant>
+        {
+            new Tenant()
+            {
+                Id = 1300000000101,
+                Account = "superApi",
+                Password = encryptPassword,
+                NickName = "超级管理员",
+                RealName = "超级管理员",
+                Phone = "13000000000",
+                Birthday = DateTime.Parse("2000-01-01"),
+                Sex = GenderEnum.Male,
+                Remark = "超级管理员",
+                CreateTime = DateTime.Parse("2022-02-10 00:00:00"),
+                IsExpire = StatusEnum.Disable,
+                TenantId = 0
+            }
+        };
+        db.Insertable(rows).ExecuteCommand();
     }
 }

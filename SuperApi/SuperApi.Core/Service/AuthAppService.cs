@@ -61,7 +61,6 @@ public class AuthAppService : IDynamicWebApi
         if (tenant.Status == StatusEnum.Disable)
             throw new Exception("账号已冻结！");
         // 国密SM2解密（前端密码传输SM2加密后的）
-        //123456 04800093d86ad2bb6e1ddca72dbfb6322e0af01f6f78b4d18a72eba42aa2f1adb7b2cb636473dbd502f06e195786b927bbc1f951c12c8a3771617c5d848577506447c6bf02b31181c9712b6a5cf4b434ad11c2078d9c777c52b532079236708d289cde20097da8
         input.Password = CryptogramUtil.SM2Decrypt(input.Password);
         var cryptoType = _config.GetSection("Cryptogram:CryptoType").Value!;
         // 密码是否正确

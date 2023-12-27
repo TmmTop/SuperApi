@@ -17,7 +17,6 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         Context = db;
         _db = db;
     }
-
     /// <summary>
     /// 通用分页条件查询
     /// </summary>
