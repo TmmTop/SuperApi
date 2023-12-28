@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+
 var builder = WebApplication.CreateBuilder(args);
 string[] subPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Configuration"); //得到所有子目录
 foreach (string path in subPaths)
@@ -171,5 +174,20 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
+string host = "http://localhost:" + ConfigurationOption.config.GetSection("Urls").Value!.Split("*:")[1] +
+              "/admin";
+//发布后程序自动打开浏览器
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    Process.Start(new ProcessStartInfo(host) { UseShellExecute = true });
+}
+else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+{
+    Process.Start("xdg-open", host);
+}
+else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+{
+    Process.Start("open", host);
+}
 app.Run();
+
