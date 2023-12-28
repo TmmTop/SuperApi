@@ -334,4 +334,28 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="out\web.config" />
+      <_ContentIncludedByDefault Remove="out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\APIJSON.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\App.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Cache.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Captcha.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\CodeGen.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Database.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Email.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Enum.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\JWT.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Limit.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Logging.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\OAuth.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\SMS.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Swagger.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Upload.json" />
+      <_ContentIncludedByDefault Remove="out\Configuration\Wechat.json" />
+      <_ContentIncludedByDefault Remove="out\SuperApi.deps.json" />
+      <_ContentIncludedByDefault Remove="out\SuperApi.runtimeconfig.json" />
+    </ItemGroup>
+
 </Project>

@@ -49,7 +49,7 @@ public class DynamicAppService : IDynamicWebApi
                 //{ 'Id_>':"1732568867353530368" }
                 where.Add(new ConditionalModel
                 {
-                    FieldName = info.Key.Split('_')[0], 
+                    FieldName = info.Key.Split('_')[0],
                     ConditionalType = GenWhereType(info.Key.Split('_')[1]),
                     FieldValue = info.Value
                 });
@@ -65,44 +65,49 @@ public class DynamicAppService : IDynamicWebApi
     /// 根据TableId以及条件参数动态查询分页数据
     /// </summary>
     /// <param name="tableId">表ID</param>
-    /// <param name="pageNum">页码</param>
-    /// <param name="pageSize">每页数量</param>
     /// <param name="param">条件参数</param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
     [AllowAnonymous]
     [HttpGet]
-    public async Task<JsonResult> GetPage(long tableId, int pageNum, int pageSize, Dictionary<string, string> param)
+    public async Task<JsonResult> GetPage(long tableId, Dictionary<string, string> param)
     {
         _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+        _ = !param.Any(x => x.Key == "pageNum") ? throw new Exception("请输入参数pageNum") : "";
+        _ = !param.Any(x => x.Key == "pageSize") ? throw new Exception("请输入参数pageSize") : "";
         var type = await GenDynamicType(tableId);
         var query = _db.Context.QueryableByObject(type);
         var where = new List<IConditionalModel>();
         foreach (var info in param)
         {
-            if (info.Key == "Order")
+            if (info.Key != "pageSize" && info.Key != "pageNum")
             {
-                //info.Value = Id  DESC | ASC
-                query.OrderBy(info.Value);
-            }
-            else
-            {
-                //{ 'Id_>':"1732568867353530368" }
-                where.Add(new ConditionalModel
+                if (info.Key == "Order")
                 {
-                    FieldName = info.Key.Split('_')[0], ConditionalType = GenWhereType(info.Key.Split('_')[1]),
-                    FieldValue = info.Value
-                });
+                    //info.Value = Id  DESC | ASC
+                    query.OrderBy(info.Value);
+                }
+                else
+                {
+                    //{ 'Id_>':"1732568867353530368" }
+                    where.Add(new ConditionalModel
+                    {
+                        FieldName = info.Key.Split('_')[0], ConditionalType = GenWhereType(info.Key.Split('_')[1]),
+                        FieldValue = info.Value
+                    });
+                }
             }
         }
 
         query.Where(where);
         var totalCount = new RefAsync<int>();
+        var pageNum = Convert.ToInt32(param["pageNum"]);
+        var pageSize = Convert.ToInt32(param["pageSize"]);
         var result = await query.ToPageListAsync(pageNum, pageSize, totalCount);
         return RDto.R(HttpStatusCode.OK,
             new PageDto
             {
-                CurrentPage = pageNum, TotalPage = totalCount / pageSize, PageSize = pageSize, List = result
+                CurrentPage = pageNum, TotalPage = totalCount, PageSize = pageSize, List = result
             });
     }
 
@@ -110,15 +115,15 @@ public class DynamicAppService : IDynamicWebApi
     /// 根据TableId和父级属性名称以及条件参数动态查询Tree数据
     /// </summary>
     /// <param name="tableId">表ID</param>
-    /// <param name="parentPropertyName">父级属性名称</param>
     /// <param name="param">条件参数</param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
     [AllowAnonymous]
     [HttpGet]
-    public async Task<JsonResult> GetTree(long tableId, string parentPropertyName, Dictionary<string, string> param)
+    public async Task<JsonResult> GetTree(long tableId, Dictionary<string, string> param)
     {
         _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
+        _ = !param.Any(x => x.Key == "parentIdName") ? throw new Exception("请输入参数父级ID字段名称") : "";
         var type = await GenDynamicType(tableId);
         var query = _db.Context.QueryableByObject(type);
         var where = new List<IConditionalModel>();
@@ -141,7 +146,7 @@ public class DynamicAppService : IDynamicWebApi
         }
 
         query.Where(where);
-        var result = await query.OrderBy("Id asc").ToTreeAsync("Children", parentPropertyName, 0, "Id");
+        var result = await query.OrderBy("Id asc").ToTreeAsync("Children", param["parentIdName"], 0, "Id");
         return RDto.R(HttpStatusCode.OK, result);
     }
 
@@ -177,6 +182,7 @@ public class DynamicAppService : IDynamicWebApi
                 });
             }
         }
+
         query.Where(where);
         var result = await query.FirstAsync();
         return RDto.R(HttpStatusCode.OK, result);
@@ -185,7 +191,6 @@ public class DynamicAppService : IDynamicWebApi
     /// <summary>
     /// 根据TableId和参数动态添加一条记录
     /// </summary>
-    /// <param name="tableId">表ID</param>
     /// <param name="param">参数</param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
@@ -200,6 +205,7 @@ public class DynamicAppService : IDynamicWebApi
         {
             dict.Add(info.Key, info.Value);
         }
+
         var type = await GenDynamicType(param.TableId);
         //根据字典转成类对象  
         var value = _builder.CreateObjectByType(type, dict);
@@ -216,7 +222,6 @@ public class DynamicAppService : IDynamicWebApi
     /// <summary>
     /// 根据TableId和参数动态修改一条记录
     /// </summary>
-    /// <param name="tableId">表ID</param>
     /// <param name="param">参数</param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
@@ -261,7 +266,8 @@ public class DynamicAppService : IDynamicWebApi
         {
             dict.Add(info.Key, info.Value);
         }
-        var hasId = dict.ContainsKey("Id");
+
+        var hasId = dict.ContainsKey("id");
         _ = hasId ? "" : throw new Exception("Id不存在！");
         var type = await GenDynamicType(param.TableId);
         //根据字典转成类对象  

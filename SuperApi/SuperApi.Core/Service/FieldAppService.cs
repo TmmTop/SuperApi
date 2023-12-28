@@ -1,3 +1,5 @@
+using Kdbndp.KingbaseTypes;
+
 namespace SuperApi.Core.Service;
 
 /// <summary>
@@ -80,18 +82,14 @@ public class FieldAppService : IDynamicWebApi
     /// <summary>
     /// 根据表ID迁移表结构
     /// </summary>
-    /// <param name="tableId"></param>
+    /// <param name="propertyList"></param>
+    ///     /// <param name="tableName"></param>
     /// <exception cref="Exception"></exception>
-    private async Task GenTable(long tableId)
+    private async Task GenTable(List<Field> propertyList, string tableName)
     {
-        _ = tableId <= 0 ? throw new Exception(ResponseMsgOption.NotTableId) : "";
-        var table = await _db.Change<Table>().AsQueryable().Where(x => x.Id == tableId).FirstAsync();
-        var tableName = "";
-        _ = table == null ? throw new Exception(ResponseMsgOption.NotTableId) : tableName = table.TableName;
-        var propertys = await _db.Change<Field>().AsQueryable().Where(x => x.TableId == tableId).ToListAsync();
         var builder = _db.Context.DynamicBuilder();
         var model = builder.CreateClass(tableName, new SugarTable());
-        foreach (var property in propertys)
+        foreach (var property in propertyList)
         {
             if (property.FieldName == "Id")
             {
@@ -154,6 +152,7 @@ public class FieldAppService : IDynamicWebApi
                     new SugarColumn() { ColumnDescription = property.FieldComment });
             }
         }
+
         _db.Context.CodeFirst.InitTables(model.BuilderType());
     }
 
@@ -166,20 +165,32 @@ public class FieldAppService : IDynamicWebApi
     {
         _ = models == null ? throw new Exception(ResponseMsgOption.NotTablesId) : "";
         _ = !models.Select(x => x.TableId <= 0).Any() ? throw new Exception(ResponseMsgOption.NotTablesId) : "";
+        var table = await _db.Change<Table>().AsQueryable().Where(x => x.Id == models.FirstOrDefault()!.TableId)
+            .FirstAsync();
+        _ = table == null ? throw new Exception("数据模型不存在！") : "";
         try
         {
             using (var context = _db.Context.CreateContext()) //;默认带事务 CreateContext(IsTran=true)
             {
-                //删除表的所有字段，在新增
-                foreach (var info in models)
+                //把原来的表字段都删掉
+                await _db.DeleteAsync(x => x.TableId == table.Id);
+                if (_db.Context.DbMaintenance.IsAnyTable(table.TableName,false))
                 {
-                    await _db.DeleteAsync(x => x.TableId == info.TableId);
+                    //把原表删掉
+                    bool isOk = _db.Context.DbMaintenance.DropTable(table.TableName);
+                    if (!isOk)
+                    {
+                        throw new Exception("旧表删除失败！");
+                    }
                 }
-
+                //将最新的表字段加入
                 var result = await _db.InsertOrUpdateAsync(models);
-                context.Commit(); //提交事务
+                //将最新的表字段查出来重新迁移
+                var propertyList =
+                    await _db.Change<Field>().AsQueryable().Where(x => x.TableId == table.Id).ToListAsync();
                 //迁移表结构
-                await GenTable(models.FirstOrDefault()!.TableId);
+                await GenTable(propertyList, table.TableName);
+                context.Commit(); //提交事务
                 return !result
                     ? throw new Exception(ResponseMsgOption.OpEditFail)
                     : RDto.R(HttpStatusCode.OK);
@@ -187,7 +198,7 @@ public class FieldAppService : IDynamicWebApi
         }
         catch (Exception ex)
         {
-            throw new Exception(ResponseMsgOption.OpEditFail);
+            throw new Exception(ex.Message);
         }
     }
 

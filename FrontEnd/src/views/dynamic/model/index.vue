@@ -19,8 +19,11 @@
                 <column-setting v-model:columns="columns" />
               </n-space>
             </n-space>
+            <n-space>
+              <span style="font-size: 12px;color: red;"> 注意：表名不要有特殊符号，推荐用驼峰命名！</span>
+            </n-space>
             <n-data-table :columns="columns" :data="tableData" remote :loading="loading" flex-height
-              class="flex-1-hidden" />
+              class="flex-1-hidden  mt-5" />
           </div>
         </n-card>
       </n-gi>
@@ -45,7 +48,10 @@
                 </n-button>
               </n-space>
             </n-space>
-            <n-data-table :columns="propertyColumns" :data="propertyData" flex-height class="flex-1-hidden" />
+            <n-space>
+              <span style="font-size: 12px;color: red;"> 注意：字段名称不要有特殊符号，推荐用驼峰命名，接口调试的时候字段值需要和这里的字段类型对应！</span>
+            </n-space>
+            <n-data-table :columns="propertyColumns" :data="propertyData" flex-height class="flex-1-hidden mt-5" />
           </div>
         </n-card>
       </n-gi>
@@ -208,16 +214,23 @@ const handlePropertyAdd = () => {
   });
 }
 const handleDelProperty = (columnName: string) => {
-  let index = propertyData.value.findIndex(x => x.COLUMN_NAME == columnName);
+  let index = propertyData.value.findIndex(x => x.fieldName == columnName);
   if (index > -1) {
     propertyData.value.splice(index);
   }
-  handleSaveTable();
 }
 //迁移表字段
 const handleSaveTable = async () => {
   if (propertyData.value.length === 0) {
     window.$message?.error("请添加字段！");
+    return;
+  }
+  if (propertyData.value.findIndex(x => x.fieldType === "") > -1) {
+    window.$message?.error("请添加字段类型！");
+    return;
+  }
+  if (propertyData.value.findIndex(x => x.fieldName === "") > -1) {
+    window.$message?.error("请添加字段名称！");
     return;
   }
   startLoading();
@@ -324,7 +337,7 @@ const propertyColumns: Ref<DataTableColumns<any>> = ref([
     render: (row: any) => {
       return (
         <NSpace justify={'space-around'}>
-          <NPopconfirm onPositiveClick={() => handleDelProperty(row.fieldId)}>
+          <NPopconfirm onPositiveClick={() => handleDelProperty(row.fieldName)}>
             {{
               default: () => '确认删除该字段',
               trigger: () => <NButton disabled={row.fieldName === 'Id' || row.fieldName === 'CreateTime' || row.fieldName === 'UpdateTime'} size={'small'}>删除</NButton>

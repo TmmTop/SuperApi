@@ -36,16 +36,16 @@ public static class Setup
                     if (new NullabilityInfoContext().Create(x).WriteState is NullabilityState.Nullable)
                         p.IsNullable = true;
                     //最好排除DTO类
-                    p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName); //ToUnderLine驼峰转下划线方法
+                   // p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName); //ToUnderLine驼峰转下划线方法
                 },
                 EntityNameService = (x, p) => //处理表名
                 {
-                    p.IsDisabledDelete = true; // 禁止删除非 sqlsugar 创建的列
+                    // p.IsDisabledDelete = true; // 禁止删除非 sqlsugar 创建的列
                     // 只处理贴了特性[SugarTable]表
                     if (!x.GetCustomAttributes<SugarTable>().Any())
                         return;
                     //最好排除DTO类
-                    p.DbTableName = UtilMethods.ToUnderLine(p.DbTableName); //ToUnderLine驼峰转下划线方法
+                    //p.DbTableName = UtilMethods.ToUnderLine(p.DbTableName); //ToUnderLine驼峰转下划线方法
                 }
             }
         });

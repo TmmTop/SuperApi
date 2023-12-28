@@ -94,7 +94,6 @@ public class TableAppService : IDynamicWebApi
                 FieldType = "datetime",
                 FieldComment = "修改时间"
             });
-            
             await _db.Change<Field>().InsertRangeAsync(list);
             return RDto.R(HttpStatusCode.OK);
         }
@@ -113,7 +112,7 @@ public class TableAppService : IDynamicWebApi
     [HttpPost]
     public async Task<JsonResult> Edit([FromBody] Table model)
     {
-        _ = model.TenantId<=0 ? throw new Exception(ResponseMsgOption.NotTenantId) : "";
+        _ = model.TenantId <= 0 ? throw new Exception(ResponseMsgOption.NotTenantId) : "";
         _ = await _db.AsQueryable().Where(x => x.TenantId == model.TenantId && x.TableName.Equals(model.TableName))
             .CountAsync() > 0
             ? throw new Exception(ResponseMsgOption.HaveTenantTable)
@@ -136,8 +135,20 @@ public class TableAppService : IDynamicWebApi
         {
             using (var context = _db.Context.CreateContext()) //;默认带事务 CreateContext(IsTran=true)
             {
-                var result = await _db.Del(model);
+                var table = await _db.AsQueryable().Where(x => x.Id == model.Id)
+                    .FirstAsync();
+                _ = table == null ? throw new Exception("数据模型不存在！") : "";
+                if (_db.Context.DbMaintenance.IsAnyTable(table.TableName, false))
+                {
+                    //把原表删掉
+                    bool isOk = _db.Context.DbMaintenance.DropTable(table.TableName);
+                    if (!isOk)
+                    {
+                        throw new Exception("旧表删除失败！");
+                    }
+                }
 
+                var result = await _db.Del(model);
                 if (result)
                 {
                     await _db.Change<Field>().DeleteAsync(x => x.TableId == model.Id);
@@ -152,7 +163,7 @@ public class TableAppService : IDynamicWebApi
         }
         catch (Exception ex)
         {
-            throw new Exception(ResponseMsgOption.OpDelFail);
+            throw new Exception(ex.Message);
         }
     }
 }
