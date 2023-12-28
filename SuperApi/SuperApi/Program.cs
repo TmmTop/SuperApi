@@ -1,4 +1,3 @@
-
 var builder = WebApplication.CreateBuilder(args);
 string[] subPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "Configuration"); //得到所有子目录
 foreach (string path in subPaths)
@@ -41,7 +40,6 @@ builder.Services.AddMvc().AddNewtonsoftJson(option =>
         option.SerializerSettings.Converters.Add(new LongToStringConverter());
         //设置时间格式
         option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-     
     }
 ).AddJsonOptions(cfg =>
 {
@@ -133,11 +131,11 @@ builder.WebHost.UseKestrel(options =>
     options.Limits.MaxRequestBodySize = null;
 });
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"); });
-}
+// if (app.Environment.IsDevelopment())
+// {}
+app.UseSwagger();
+app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"); });
+app.UseDefaultFiles();
 
 //注册全局异常中间件，需要放到其他中间件的顶部执行
 app.UseGlobalExceptionHandle();

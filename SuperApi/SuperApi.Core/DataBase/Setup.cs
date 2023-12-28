@@ -116,6 +116,7 @@ public static class Setup
 
         return newType;
     }
+
     /// <summary>
     /// 初始化Tenant表
     /// </summary>
@@ -140,6 +141,10 @@ public static class Setup
                 TenantId = 0
             }
         };
-        db.Insertable(rows).ExecuteCommand();
+        var have = db.Queryable<Tenant>().Where(x => x.Id == 1300000000101).Any();
+        if (!have)
+        {
+            db.Insertable(rows).ExecuteCommand();
+        }
     }
 }

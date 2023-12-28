@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-11-28 10:49:34
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-25 13:12:30
+ * @LastEditTime: 2023-12-28 10:30:52
  * @FilePath: \FrontEnd\.env-config.ts
  * @Description: 
  */
@@ -18,7 +18,7 @@ const serviceEnv: ServiceEnv = {
     url: 'http://localhost:5005'
   },
   prod: {
-    url: 'http://localhost:5005'
+    url: 'http://localhost:5005/api'
   }
 };
 
