@@ -10,6 +10,10 @@
       <DocumentationFile>bin\Debug\SuperApi.Core.xml</DocumentationFile>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\SuperApi.Core.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
       <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
       <PackageReference Include="BouncyCastle.Cryptography" Version="2.2.1" />
@@ -23,6 +27,7 @@
       <PackageReference Include="Microsoft.CodeAnalysis.Scripting" Version="4.8.0" />
       <PackageReference Include="Panda.DynamicWebApi" Version="1.2.1" />
       <PackageReference Include="SqlSugarCore" Version="5.1.4.126" />
+      <PackageReference Include="Microsoft.NETCore.Targets" Version="6.0.0-preview.4.21253.7" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
