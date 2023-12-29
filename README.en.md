@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-29 10:48:57
+ * @LastEditTime: 2023-12-29 11:16:56
  * @FilePath: \undefinedc:\Users\49091\Desktop\learn\SuperApi\README.en.md
  * @Description:git add . git commit -m "111" --no-verify git push
 -->
@@ -49,6 +49,15 @@
 4. 不需要安装额外的任何环境即可启动本系统，数据库等一些外部软件需要自己安装
 5. 修改软件配置，可以在 doc/SuperApi发行版目录压缩文件的 Configuration 里面的 config 文件进行修改
 6. Database.config 是数据库配置，默认为 sqllite，App.json 是软件相关配置，urls 是软件启动端口可自行修改
+
+#### 🍁SqlServer异常解决办法
+
+<table>
+    <tr>
+        <td><img src="https://foruda.gitee.com/images/1703807376565588436/ab346804_1223089.png"/></td>
+        <td><img src="https://foruda.gitee.com/images/1703756458715958552/ef1c8cb3_6522206.png"/></td>
+    </tr>
+</table>
 
 #### 💐 参与贡献
 
