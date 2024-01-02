@@ -2,8 +2,8 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-29 11:16:56
- * @FilePath: \undefinedc:\Users\49091\Desktop\learn\SuperApi\README.en.md
+ * @LastEditTime: 2023-12-29 11:16:46
+ * @FilePath: \undefinedc:\Users\49091\Desktop\learn\SuperApi\README.md
  * @Description:git add . git commit -m "111" --no-verify git push
 -->
 
@@ -25,6 +25,7 @@
 1. Panda.DynamicWebApi 动态 API
 2. SqlSugar 宇宙第一 ORM 没有之一
 3. Swashbuckle.AspNetCore Swagger 自动构建接口文档
+4. 独立跨平台支持，linux，macos，windows均可做到无需安装任何环境，直接二进制包运行
 
 #### 🎖️ 开发教程
 
