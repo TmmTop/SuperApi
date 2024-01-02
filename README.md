@@ -25,6 +25,7 @@
 1. Panda.DynamicWebApi 动态 API
 2. SqlSugar 宇宙第一 ORM 没有之一
 3. Swashbuckle.AspNetCore Swagger 自动构建接口文档
+4. 独立跨平台支持，linux，macos，windows均可做到无需安装任何环境，直接二进制包运行
 
 #### 🎖️ 开发教程
 
