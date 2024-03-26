@@ -187,7 +187,3 @@
 ```
 
 <img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/zanshang.jpg"/>
-<<<<<<< HEAD
->>>>>>> adc57f35fbaa0a1e8f39af2a26075f4166a2eabb
-=======
->>>>>>> adc57f35fbaa0a1e8f39af2a26075f4166a2eabb
