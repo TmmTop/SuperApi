@@ -1,0 +1,12 @@
+{
+  "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
+  
+  "DbConnection": {
+//    "ConfigId": "1300000000001",
+//    "DbType": "MySql", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL、Dm、Kdbndp、Oscar、MySqlConnector、Access、OpenGauss、QuestDB、HG、ClickHouse、GBase、Odbc、Custom
+//    "ConnectionString": "server=127.0.0.1;Database=superApi;Uid=root;Pwd=root"// 库连接字符串
+    "ConfigId": "1300000000001",
+    "DbType": "Sqlite",
+    "ConnectionString": "DataSource=SuperApi.sqlite"// 库连接字符串
+  }
+}

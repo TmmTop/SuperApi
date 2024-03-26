@@ -1,0 +1,1 @@
+import{d as a,aO as e,aR as n,aT as o}from"./index-e9ed0e0e.js";import{_ as r}from"./index.vue_vue_type_script_setup_true_lang-00a3595e.js";/* empty css                                                         */const f=a({name:"BlankLayout",__name:"index",setup(s){return(t,_)=>(e(),n(o(r),{"show-padding":!1}))}});export{f as default};
