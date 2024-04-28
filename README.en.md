@@ -2,15 +2,14 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-29 11:16:46
- * @FilePath: \undefinedc:\Users\49091\Desktop\learn\SuperApi\README.md
+ * @LastEditTime: 2024-04-28 11:20:01
+ * @FilePath: \SuperApi\README.en.md
  * @Description:git add . git commit -m "111" --no-verify git push
 -->
 
 # SuperApi
 
 #### 🎁 框架介绍
-
 快速将你的Idea变成线上稳定运行的产品！
 无实体建库建表，对无实体库表进行增删改查，支持 15 种条件查询，以及分页，列表，无限级树形列表等等功能的API部署！
 拥有接口文档，Auth授权，接口限流，获取客户端真实IP，先进的服务器缓存组件，动态API等功能，期待您的体验！
