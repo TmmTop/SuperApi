@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "",
+
+  "Cache": {
+    "Prefix": "timServe_", // 全局缓存前缀
+    "CacheType": "Memory", // Memory、Redis
+    "Redis": {
+      "Configuration": "server=127.0.0.1:6379;ssl=false;password=;db=0;", // Redis连接字符串
+      "MaxMessageSize": "1048576" // 最大消息大小 默认1024 * 1024
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "",
+  "Upload": {
+    "Path": "Upload/{yyyy}/{MM}/{dd}",
+    // 文件上传目录
+    "MaxSize": 20480,
+    // 文件最大限制KB：1024*20
+    "EnableMd5": true
+    // 启用文件MDF5验证-防止重复上传
+  },
+  "OSSProvider": {
+    "IsEnable": false,
+    "Provider": "Aliyun",
+    // OSS提供者 Invalid/Minio/Aliyun/QCloud/Qiniu/HuaweiCloud
+    "Endpoint": "",
+    // 节点 在腾讯云OSS中表示AppId
+    "Region": "",
+    // 地域
+    "AccessKey": "",
+    "SecretKey": "",
+    "IsEnableHttps": true,
+    // 是否启用HTTPS
+    "IsEnableCache": true,
+    // 是否启用缓存
+    "Bucket": ""
+  }
+}

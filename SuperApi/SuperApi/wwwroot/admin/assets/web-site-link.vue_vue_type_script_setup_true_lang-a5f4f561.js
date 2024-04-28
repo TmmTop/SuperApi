@@ -1,1 +1,0 @@
-import{d as l,aO as s,aP as t,aQ as a,aV as n}from"./index-e9ed0e0e.js";const o=["href"],_=l({name:"WebSiteLink",__name:"web-site-link",props:{label:{},link:{}},setup(r){return(e,i)=>(s(),t("p",null,[a("span",null,n(e.label),1),a("a",{class:"text-blue-500",href:e.link,target:"_blank"},n(e.link),9,o)]))}});export{_};

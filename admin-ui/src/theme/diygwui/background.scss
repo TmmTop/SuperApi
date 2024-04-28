@@ -1,0 +1,163 @@
+/* ==================
+          背景
+ ==================== */
+@import './var.scss';
+
+@mixin set-gradual-type($type) {
+  .bg-gradual-#{$type},.gradual-#{$type} {
+    background-image: var(--#{$type}Gradual)  !important;
+    color: var(--white)  !important;
+  }
+}
+
+@mixin set-bg-type($type) {
+  .bg-#{$type},.#{$type} {
+    background-color: var(--#{$type}) !important;
+    @if $type == 'gray' {
+      color: var(--black) !important;
+    } @else if $type == 'white' {
+      color: var(--black) !important;
+    } @else {
+      color: var(--white) !important;
+    }
+  }
+
+  .bg-#{$type}-opacity,.#{$type}-opacity {
+    background-color: var(--#{$type}Shadow) !important;
+    @if $type == 'gray' {
+      color: var(--black) !important;
+    } @else if $type == 'white' {
+      color: var(--black) !important;
+    } @else {
+      color: var(--white) !important;
+    }
+  }
+
+  .diygw-shadow[class*="-#{$type}"] {
+    box-shadow: var(--ShadowSize) var(--#{$type}Shadow);
+  }
+
+  .bg-#{$type}.light,.#{$type}.light {
+    color: var(--#{$type});
+    background-color: var(--#{$type}Light);
+  }
+}
+
+@each $type in $diygw-graduals {
+    @include set-gradual-type($type);
+}
+
+@each $type in $diygw-colors {
+    @include set-bg-type($type);
+}
+
+
+.diygw-editor{
+  [class*="-line"] {
+    background-color: transparent !important;
+  }
+  
+  [class*="-line"]::after {
+    content: " ";
+    display: block;
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid currentColor;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    border-radius: $diygw-radius;
+    z-index: 1;
+    pointer-events: none;
+    
+  }
+  
+  [class*="-lines"]::after {
+    border: 3px solid currentColor;
+  }
+  
+}
+.diygw-bg{
+  position: relative;
+  &::after{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    background-size: 100% 100%;
+    background-image: var(--diygw-image);
+  }
+}
+.diygw-pzx{
+  width:100%;
+  margin:5px 0;
+}
+
+.bg-shadeTop {
+  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.01));
+  color: var(--white);
+}
+
+.bg-shadeBottom {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 1));
+  color: var(--white);
+}
+
+.bg-img {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-mask {
+  background-color: var(--black);
+  position: relative;
+}
+
+.bg-mask::after {
+  content: "";
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.bg-mask view,
+.bg-mask cover-view {
+  z-index: 5;
+  position: relative;
+}
+
+.bg-video {
+  position: relative;
+}
+
+.bg-video video {
+  display: block;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+[class*="bg-"] .diygw-avatar{
+  color: #fff;
+}

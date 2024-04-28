@@ -1,0 +1,75 @@
+
+
+/* ==================
+          文本
+ ==================== */
+ @use 'sass:map';
+ @import './var.scss';
+
+ @mixin set-text-type($type) {
+	.text-#{$type},
+	.line-#{$type},
+	.lines-#{$type} {
+	  color: var(--#{$type});
+	}
+  
+	.line-#{$type}::after,
+	.lines-#{$type}::after {
+	  border-color: var(--#{$type});
+	}
+  
+	.text-shadow[class*="-#{$type}"] {
+	  text-shadow: var(--ShadowSize) var(--#{$type}Shadow);
+	}
+}
+
+
+@each $type in $diygw-colors {
+    @include set-text-type($type);
+}
+
+
+@mixin set-size($type) {
+	@if $type == none {
+		.diygw-text {
+			font-size: map.get($diygw-font-sizes, $type);
+		}
+	} @else {
+		.diygw-text-#{$type} {
+			font-size: map.get($diygw-font-sizes, $type);
+		}
+	}
+	
+}
+
+@each $type in $diygw-sizes {
+    @include set-text-type($type);
+	@include set-size($type);
+}
+
+.text-cut {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.text-bold {
+	font-weight: bold;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-content {
+	line-height: 1.6;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+

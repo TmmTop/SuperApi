@@ -1,0 +1,139 @@
+@use 'sass:map';
+@import './var.scss';
+
+ 
+@mixin set-border($type) {
+  @if $type == none {
+    .solid,
+    .dashed {
+      position: relative;
+    }
+
+    .solid::after,
+    .dashed::after {
+      content: " ";
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: inherit;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    .solid::after,
+    .dashed::after {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transform: scale(0.5);
+    }
+  } @else {
+    .solid-#{$type},
+    .dashed-#{$type} {
+      position: relative;
+    }
+
+    .solid-#{$type}::after,
+    .dashed-#{$type}::after {
+      content: " ";
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: inherit;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    
+
+    .solid-#{$type}::after,
+    .dashed-#{$type}::after {
+      border-#{$type}: 1px solid rgba(0, 0, 0, 0.1);
+      transform: scale(0.5);
+    }
+  }
+}
+
+
+@mixin set-margin($type) {
+  @each $direction in $diygw-directions {
+    @if $direction == none {
+      @if $type == none {
+        .margin {
+          margin: map.get($diygw-margin, $type) !important;
+        }
+
+      }@else{
+        .margin-#{$type} {
+          margin: map.get($diygw-margin, $type) !important;
+        }
+        .margin-lr-#{$type} {
+          margin-left: map.get($diygw-margin, $type) !important;
+          margin-right: map.get($diygw-margin, $type) !important;
+        }
+      }
+    }@else{
+      @if $type == none {
+        .margin-#{$direction} {
+          margin-#{$direction}: map.get($diygw-margin, $type) !important;
+        }
+
+      }@else{
+        .margin-#{$direction}-#{$type} {
+          margin-#{$direction}: map.get($diygw-margin, $type) !important;
+        }
+      }
+    }
+  }
+}
+
+
+@mixin set-padding($type) {
+  @each $direction in $diygw-directions {
+    @if $direction == none {
+      @if $type == none {
+        .padding {
+          padding: map.get($diygw-padding, $type);
+        }
+      }@else{
+        .padding-#{$type} {
+          padding: map.get($diygw-padding, $type);
+        }
+
+        .padding-lr-#{$type} {
+          padding-left: map.get($diygw-margin, $type) !important;
+          padding-right: map.get($diygw-margin, $type) !important;
+        }
+      }
+    }@else{
+      @if $type == none {
+        .padding-#{$direction} {
+          padding: map.get($diygw-padding, $type);
+        }
+      }@else{
+        .padding-#{$direction}-#{$type} {
+          padding-#{$direction}: map.get($diygw-padding, $type);
+        }
+      }
+    }
+  }
+}
+
+
+@mixin set-lineheight($type) {
+    @if $type == none {
+      .lineheight {
+        line-height: map.get($diygw-lineheight, $type) !important;
+      }
+    }@else{
+      .lineheight-#{$type} {
+        line-height: map.get($diygw-lineheight, $type) !important;
+      }
+    }
+}

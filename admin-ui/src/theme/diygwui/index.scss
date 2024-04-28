@@ -1,0 +1,207 @@
+/*
+    diygwui 感谢colorui 
+*/
+@use 'sass:map';
+@import './mixins.scss';
+@import './var.scss';
+
+:root {
+	/* Color 可以自定义相关配色 */
+	/* var属性兼容性 --> https://www.caniuse.com/#feat=css-variables */
+	/* 标准色 */
+	--red: #e54d42;
+	--orange: #f37b1d;
+	--yellow: #fbbd08;
+	--olive: #8dc63f;
+	--green: #07c160;
+	--cyan: #1cbbb4;
+	--blue: #0081ff;
+	--purple: #6739b6;
+	--mauve: #9c26b0;
+	--pink: #e03997;
+	--brown: #a5673f;
+	--grey: #8799a3;
+	--black: #333333;
+	--darkGray: #666666;
+	--gray: #aaaaaa;
+	--ghostWhite: #f1f1f1;
+	--white: #ffffff;
+	/* 浅色 */
+	--redLight: #fadbd9;
+	--orangeLight: #fde6d2;
+	--yellowLight: #fef2ce;
+	--oliveLight: #e8f4d9;
+	--greenLight: #d7f0db;
+	--cyanLight: #d2f1f0;
+	--blueLight: #cce6ff;
+	--purpleLight: #e1d7f0;
+	--mauveLight: #ebd4ef;
+	--pinkLight: #f9d7ea;
+	--brownLight: #ede1d9;
+	--greyLight: #e7ebed;
+
+	/* 渐变色 */
+	--redGradual: linear-gradient(45deg, #f43f3b, #ec008c);
+	--orangeGradual: linear-gradient(45deg, #ff9700, #ed1c24);
+	--greenGradual: linear-gradient(45deg, #39b54a, #8dc63f);
+	--purpleGradual: linear-gradient(45deg, #9000ff, #5e00ff);
+	--pinkGradual: linear-gradient(45deg, #ec008c, #6739b6);
+	--blueGradual: linear-gradient(45deg, #0081ff, #1cbbb4);
+
+	/* 阴影透明色 */
+	--ShadowSize: 0px 0px 4px;
+	--whiteShadow: rgba(0, 0, 0, 0.15);
+	--redShadow: rgba(204, 69, 59, 0.2);
+	--orangeShadow: rgba(217, 109, 26, 0.2);
+	--yellowShadow: rgba(224, 170, 7, 0.2);
+	--oliveShadow: rgba(124, 173, 55, 0.2);
+	--greenShadow: rgba(48, 156, 63, 0.3);
+	--cyanShadow: rgba(28, 187, 180, 0.2);
+	--blueShadow: rgba(0, 102, 204, 0.2);
+	--purpleShadow: rgba(88, 48, 156, 0.2);
+	--mauveShadow: rgba(133, 33, 150, 0.2);
+	--pinkShadow: rgba(199, 50, 134, 0.2);
+	--brownShadow: rgba(140, 88, 53, 0.2);
+	--greyShadow: rgba(114, 130, 138, 0.2);
+	--grayShadow: rgba(114, 130, 138, 0.2);
+	--blackShadow: rgba(26, 26, 26, 0.15);
+	--primary-font-size: 12px;
+	--form-label-width: 5em;
+}
+@import './iconfont.scss';
+[class*='diygw-'] {
+	font-size: inherit;
+}
+
+view,
+scroll-view,
+swiper,
+button,
+input,
+textarea,
+label,
+navigator,
+image {
+	box-sizing: border-box;
+}
+.htmlcontent {
+	white-space: pre-line;
+	width: 100%;
+}
+.hide {
+	display: none !important;
+}
+.response {
+	width: 100%;
+}
+.container {
+	background: #fff;
+	border-radius: 5px;
+	height: 100%;
+	flex: 1;
+	box-shadow: var(--el-box-shadow-light);
+	padding: 15px;
+
+	.el-card {
+		flex: 1;
+		border: 0px;
+
+		.el-card__body {
+			padding: 0px;
+		}
+		&.is-always-shadow {
+			box-shadow: none !important;
+		}
+	}
+}
+.diygw-absolute {
+	position: absolute !important;
+	z-index: 999;
+	left: 0px;
+	top: 0px;
+}
+.diygw-top {
+	position: absolute !important;
+	z-index: 999;
+	left: 0px;
+	top: 0px;
+}
+.clearfix {
+	clear: both;
+}
+.not-border {
+	border: 0 !important;
+	&::after,
+	&::before {
+		border: 0 !important;
+	}
+	&.diygw-tag {
+		padding-left: 0;
+	}
+}
+
+.pad {
+	width: 750px !important;
+}
+.pc980 {
+	width: 980px !important;
+}
+.pc1024 {
+	width: 1024px !important;
+}
+.pc1366 {
+	width: 1366px !important;
+}
+.pc1280 {
+	width: 1280px !important;
+}
+.pc1440 {
+	width: 1440px !important;
+}
+.pc1680 {
+	width: 1680px !important;
+}
+.pc1920 {
+	width: 1920px !important;
+}
+.diygw-block {
+	display: block !important;
+}
+.font-normal {
+	font-weight: normal;
+}
+.no-mini {
+	min-height: inherit !important;
+}
+.font-bold {
+	font-weight: bold;
+}
+.border {
+	border: 0;
+}
+.width-auto {
+	width: auto !important;
+}
+[class*='diy-icon-'] {
+	font-family: 'diygwui' !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+@each $direction in $diygw-directions {
+	@include set-border($direction);
+}
+
+@each $size in $diygw-sizes {
+	@include set-margin($size);
+	@include set-padding($size);
+	@include set-lineheight($size);
+}
+
+@import './shadow.scss';
+@import './background.scss';
+@import './flex.scss';
+@import './col.scss';
+@import './radius.scss';
+@import './text.scss';
