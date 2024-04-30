@@ -3,6 +3,6 @@
   "DbConnection": {
     "ConfigId":"Master",
     "DbType": "MySql", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL、Dm、Kdbndp、Oscar、MySqlConnector、Access、OpenGauss、QuestDB、HG、ClickHouse、GBase、Odbc、Custom
-    "ConnectionString": "server=127.0.0.1;Database=super_api;Uid=root;Pwd=root"
+    "ConnectionString": "server=127.0.0.1;Database=super_api;Uid=root;Pwd=123456"
   }
 }

@@ -57,7 +57,7 @@ public class Menu : Base
     /// </summary>
     [SugarColumn(ColumnDescription = "权限标识", Length = 128)]
     [MaxLength(128)]
-    public string? Permission { get; set; }
+    public string Permission { get; set; } = "";
 
     /// <summary>
     /// 菜单名称
@@ -67,6 +67,26 @@ public class Menu : Base
     public string Title { get; set; } = "";
 
     /// <summary>
+    /// 路由的国际化键值
+    /// </summary>
+    [SugarColumn(ColumnDescription = "路由的国际化键值", Length = 64)]
+    [Required, MaxLength(64)]
+    public string? I18NKey { get; set; } = "";
+
+    /// <summary>
+    /// 是否缓存
+    /// </summary>
+    [SugarColumn(ColumnDescription = "是否缓存")]
+    public bool KeepAlive { get; set; } = true;
+
+    /// <summary>
+    /// 是否为常量路由
+    /// 无需登录，并且该路由在前端定义
+    /// </summary>
+    [SugarColumn(ColumnDescription = "是否为常量路由")]
+    public bool Constant { get; set; } = true;
+
+    /// <summary>
     /// 图标
     /// </summary>
     [SugarColumn(ColumnDescription = "图标", Length = 128)]
@@ -74,54 +94,39 @@ public class Menu : Base
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 是否内嵌
+    /// 本地图标
+    /// 存在于 "src/assets/svg-icon" 目录下，如果设置，将忽略icon属性
     /// </summary>
-    [SugarColumn(ColumnDescription = "是否内嵌")]
-    public bool IsIframe { get; set; }
+    [SugarColumn(ColumnDescription = "图标", Length = 128)]
+    [MaxLength(128)]
+    public string? LocalIcon { get; set; }
 
     /// <summary>
-    /// 外链链接
+    /// 内嵌外部链接
+    /// 如果是目录 前端直接props.url赋值，如果是二级菜单则赋值meta.href
     /// </summary>
     [SugarColumn(ColumnDescription = "外链链接", Length = 256)]
     [MaxLength(256)]
-    public string? OutLink { get; set; }
+    public string? Href { get; set; }
 
     /// <summary>
     /// 是否隐藏
     /// </summary>
     [SugarColumn(ColumnDescription = "是否隐藏")]
-    public bool IsHide { get; set; }
+    public bool HideInMenu { get; set; }
 
     /// <summary>
-    /// 是否缓存
+    /// 是否固定到Tab
+    /// 若值大于0，路由将在标签页中固定显示，其值表示固定标签页的顺序
     /// </summary>
-    [SugarColumn(ColumnDescription = "是否缓存")]
-    public bool IsKeepAlive { get; set; } = true;
-
-    /// <summary>
-    /// 是否固定
-    /// </summary>
-    [SugarColumn(ColumnDescription = "是否固定")]
-    public bool IsAffix { get; set; }
+    [SugarColumn(ColumnDescription = "是否固定到Tab")]
+    public int FixedIndexInTab { get; set; } = 0;
 
     /// <summary>
     /// 排序
     /// </summary>
     [SugarColumn(ColumnDescription = "排序")]
     public int OrderNo { get; set; } = 100;
-
-    /// <summary>
-    /// 状态
-    /// </summary>
-    [SugarColumn(ColumnDescription = "状态")]
-    public StatusEnum Status { get; set; } = StatusEnum.Enable;
-
-    /// <summary>
-    /// 备注
-    /// </summary>
-    [SugarColumn(ColumnDescription = "备注", Length = 256)]
-    [MaxLength(256)]
-    public string? Remark { get; set; }
 
     /// <summary>
     /// 菜单子项

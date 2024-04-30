@@ -31,7 +31,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
             var monitorItems = new List<string>();
             monitorItems.AddRange(new[]
             {
-                $"━━━━━━━━━━━━━━━  迁移信息 ━━━━━━━━━━━━━━━", $"##原始SQL## {sql}"
+                $"━━━━━━━━━━━━━━━  仓储SQL信息 ━━━━━━━━━━━━━━━", $"##原始SQL## {sql}"
             });
             var monitor = LoggerUtil.Wrapper("SQL Monitor", "SulSugar解析"!, monitorItems.ToArray());
             _logger.Debug(monitor);

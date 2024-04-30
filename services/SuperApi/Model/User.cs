@@ -84,23 +84,12 @@ public class User : Base
     [SugarColumn(ColumnDescription = "邮箱", Length = 64)]
     [MaxLength(64)]
     public string? Email { get; set; }
-    /// <summary>
-    /// 排序
-    /// </summary>
-    [SugarColumn(ColumnDescription = "排序")]
-    public int? OrderNo { get; set; } = 100;
-
-    /// <summary>
-    /// 备注
-    /// </summary>
-    [SugarColumn(ColumnDescription = "备注", Length = 128)]
-    public string? Remark { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnDescription = "状态")]
-    public StatusEnum? Status { get; set; } = StatusEnum.Enable;
+    public StatusEnum Status { get; set; } = StatusEnum.Enable;
     
     /// <summary>
     /// 账号类型
@@ -150,5 +139,5 @@ public class User : Base
     /// 付费是否到期
     /// </summary>
     [SugarColumn(ColumnDescription = "付费是否到期")]
-    public StatusEnum? IsExpire { get; set; } = StatusEnum.Enable;
+    public StatusEnum IsExpire { get; set; } = StatusEnum.Enable;
 }

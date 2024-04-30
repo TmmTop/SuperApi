@@ -63,7 +63,9 @@ public class AuthService : IDynamicWebApi
         var accessToken = JwtManageUtil.CreateToken(user.Id);
         return new LoginOutput
         {
-            AccessToken = accessToken
+            AccessToken = accessToken,
+            //暂时没做无感刷新后续可以加入
+            RefreshToken =accessToken
         };
     }
 
