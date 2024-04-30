@@ -1,138 +1,164 @@
 <div align="center">
-	<p align="center">
-	    <a href="https://v3.vuejs.org/" target="_blank">
-	        <img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
-	    </a>
-	    <a href="https://element-plus.gitee.io/#/zh-CN/component/changelog" target="_blank">
-	        <img src="https://img.shields.io/badge/element--plus-%3E1.0.0-blue" alt="element plus">
-	    </a>
-		<a href="https://www.tslang.cn/" target="_blank">
-	        <img src="https://img.shields.io/badge/typescript-%3E4.0.0-blue" alt="typescript">
-	    </a>
-		<a href="https://vitejs.dev/" target="_blank">
-		    <img src="https://img.shields.io/badge/vite-%3E2.0.0-yellow" alt="vite">
-		</a>
-		<a href="https://gitee.com/diygw/diygw-ui-admin/blob/master/LICENSE" target="_blank">
-		    <img src="https://img.shields.io/badge/license-MIT-success" alt="license">
-		</a>
-	</p>
-	<p>&nbsp;</p>
+	<img src="./public/favicon.svg" width="160" />
+	<h1>SoybeanAdmin</h1>
+  <span>English | <a href="./README.zh_CN.md">中文</a></span>
 </div>
 
-#### 🌈 介绍
+---
 
-基于 vue3.x + CompositionAPI + typescript + vite + element plus + vue-router-next + pinia，适配手机、平板、pc 的后台开源免费模板，希望减少工作量，帮助大家实现快速开发。
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![github stars](https://img.shields.io/github/stars/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github forks](https://img.shields.io/github/forks/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
 
-#### 💒 代码仓库
+> [!NOTE]
+> If you think `SoybeanAdmin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
-- <a href="https://gitee.com/diygw/diygw-ui-admin" target="_blank">https://gitee.com/diygw/diygw-ui-admin</a>
+## Introduction
 
-#### 💒 集成后端
+[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
-- <a target="_blank" href="https://gitee.com/diygw/diygw-ui-php">基于 thinkphp8 实现的 DIYGW-UI-PHP</a>
 
-#### 💒 在线可视化集成教程
+## Features
 
-- <a target="_blank" href="https://www.bilibili.com/video/BV1CP411V7TV?spm_id_from=333.999.0.0&vd_source=dc541827a3c20d8e063187146f12aa57">在线视频教程</a>
+- **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite5, TypeScript, Pinia and UnoCSS.
+- **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
+- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
+- **TypeScript**: support strict type checking to improve code maintainability.
+- **Rich theme configuration**: built-in a variety of theme configurations, perfectly integrated with UnoCSS.
+- **Built-in internationalization solution**: easily realize multi-language support.
+- **Automated file routing system**: automatically generate route import, declaration and type. For more details, please refer to [Elegant Router](https://github.com/soybeanjs/elegant-router).
+- **Flexible permission routing**: support both front-end static routing and back-end dynamic routing.
+- **Rich page components**: built-in a variety of pages and components, including 403, 404, 500 pages, as well as layout components, tag components, theme configuration components, etc.
+- **Command line tool**: built-in efficient command line tool, git commit, delete file, release, etc.
+- **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
 
-#### ⚡ ⚡ ⚡ ⚡ ⚡ 重要配置
 
-> 为了开发的方便，环境已关闭了动态路由，启用静态路由，如需要开启动态路由，请配置 stores--->themeConfig.ts---->isRequestRoutes 设置为 true。
-> 如果已运行后，在后台管理界面主题设置，重置所有的设置。
+## Version
 
-#### 🏭 环境支持
+- **NaiveUI Version:**
+  - [Preview Link](https://naive.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin)
 
-| Edge                                                                     | last 2 versions                                                                   | last 2 versions                                                                | last 2 versions                                                                |
-| ------------------------------------------------------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| ![Edge](https://cdn.jsdelivr.net/npm/@browser-logos/edge/edge_32x32.png) | ![Firefox](https://cdn.jsdelivr.net/npm/@browser-logos/firefox/firefox_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) | ![Safari](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) |
+- **AntDesignVue Version:**
+  - [Preview Link](https://antd.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
 
-> 由于 Vue3 不再支持 IE11，故而 ElementPlus 也不支持 IE11 及之前版本。
+- **Legacy Version:**
+  - [Preview Link](https://legacy.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin/tree/legacy)
 
-#### ⚡ 使用说明
+
+## Documentation
+
+- [Link](https://docs.soybeanjs.cn)
+- [Legacy Docs](https://legacy-docs.soybeanjs.cn)
+
+## Example Images
+
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-05.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-06.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-07.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
+
+
+## Usage
+
+**Environment Preparation**
+
+Make sure your environment meets the following requirements:
+
+- **git**: you need git to clone and manage project versions.
+- **NodeJS**: >=18.0.0, recommended 18.19.0 or higher.
+- **pnpm**: >= 8.0.0, recommended 8.14.0 or higher.
+
+**Clone Project**
 
 ```bash
-# 克隆项目
-git clone https://gitee.com/diygw/diygw-ui-admin.git
-
-# 进入项目 桌面 cmd 运行
-cd diygw-ui-admin
-
-# 推荐使用yarn 也可参照后面直接使用npm
-# 安装 yarn
-npm install -g yarn
-
-# 安装依赖
-yarn
-
-# 修改配置
-修改.env下VITE_API_PROXY地址改成你的后台地址。对应diygw-ui-php安装的域名地址。
-
-# 运行项目
-yarn dev
-
-# 打包发布
-yarn build
-打包成功后直接把dist目录下所有文件拷贝到diygw-ui-php\public\admin目录下
-
-
-# 或者直接使用NPM
-# 安装依赖
-npm install
-
-# 运行项目
-npm run dev
-
-# 打包发布
-npm run build
-
+git clone https://github.com/soybeanjs/soybean-admin.git
 ```
 
-### ⚡ 路由开启
+**Install Dependencies**
 
-DIY 可视化为了设计后台方便，关闭了动态路由功能，如果需要开启数据库加载动态路由功能，请开启 stores/themeConfig.ts 找到 isRequestRoutes 设置为 true，即可。设置后如果已经登录清下缓存，退出后重新登录即可。
+```bash
+pnpm i
+```
+> Since this project uses the pnpm monorepo management method, please do not use npm or yarn to install dependencies.
 
-### ⚡ 部分截图
+**Start Project**
 
-![DIYGW可视化UNIAPP代码生成器](https://libs.diygw.com/upload/1/php0.png)
-![DIYGW可视化支持轻松在线可视化导出微信小程序代码](https://libs.diygw.com/upload/1/php1.png)
-![DIYGW可视化支持轻松在线可视化导出支付宝小程序代码](https://libs.diygw.com/upload/1/php2.png)
-![DIYGW可视化头条小程序代码生成器](https://libs.diygw.com/upload/1/php3.png)
-![DIYGW可视化H5代码生成器](https://libs.diygw.com/upload/1/php4.png)
-![DIYGW可视化Element Plus代码生成器](https://libs.diygw.com/upload/1/php5.png)
+```bash
+pnpm dev
+```
 
-#### ❤️ 鸣谢列表
+**Build Project**
 
-- <a href="https://github.com/vuejs/vue" target="_blank">vue</a>
-- <a href="https://github.com/vuejs/vue-next" target="_blank">vue-next</a>
-- <a href="https://github.com/ElemeFE/element" target="_blank">element-ui</a>
-- <a href="https://github.com/element-plus/element-plus" target="_blank">element-plus</a>
-- <a href="https://github.com/vuejs/vue-router-next" target="_blank">vue-router-next</a>
-- <a href="https://pinia.vuejs.org/" target="_blank">pinia</a>
-- <a href="https://github.com/apache/echarts" target="_blank">echarts</a>
-- <a href="https://github.com/axios/axios" target="_blank">axios</a>
-- <a href="https://github.com/zenorocha/clipboard.js" target="_blank">clipboard</a>
-- <a href="https://github.com/inorganik/countUp.js" target="_blank">countUp</a>
-- <a href="https://github.com/developit/mitt" target="_blank">mitt</a>
-- <a href="https://github.com/rstacruz/nprogress" target="_blank">nprogress</a>
-- <a href="https://github.com/sindresorhus/screenfull.js" target="_blank">screenfull</a>
-- <a href="https://github.com/SortableJS/Sortable" target="_blank">sortablejs</a>
-- <a href="https://github.com/sass/sass" target="_blank">sass</a>
-- <a href="https://github.com/microsoft/TypeScript" target="_blank">typescript</a>
-- <a href="https://github.com/vitejs/vite" target="_blank">vite</a>
-- <a href="https://github.com/wangeditor-team/wangEditor" target="_blank">wangeditor</a>
-- <a href="https://github.com/fengyuanchen/cropperjs" target="_blank">cropperjs</a>
-- <a href="https://github.com/davidshimjs/qrcodejs" target="_blank">qrcodejs</a>
-- <a href="https://github.com/crabbly/Print.js" target="_blank">print-js</a>
-- <a href="https://github.com/likaia/screen-shot" target="_blank">vue-web-screen-shot</a>
-- <a href="https://github.com/jbaysolutions/vue-grid-layout" target="_blank">vue-grid-layout</a>
-- <a href="https://github.com/antoniandre/splitpanes" target="_blank">splitpanes</a>
-- <a href="https://github.com/yimijianfang/vue-drag-verify" target="_blank">vue-drag-verify</a>
-- <a href="https://github.com/jsplumb/jsplumb" target="_blank">jsplumb</a>
+```bash
+pnpm build
+```
 
-#### 💕 特别感谢
+## How to Contribute
 
-- <a href="https://gitee.com/lyt-top/vue-next-admin" target="_blank">@lyt-Top</a>
+We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) or creating GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new).
 
-#### 💌 支持作者
+## Git Commit Guidelines
 
-如果觉得框架不错，或者已经在使用了，希望你可以去 <a target="_blank" href="https://gitee.com/diygw/diygw-ui-admin">Gitee</a> 帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
+This project has built-in `commit` command, you can execute `pnpm commit` to generate commit information that conforms to [Conventional Commits](https://www.conventionalcommits.org/) specification. When submitting PR, please be sure to use `commit` command to create commit information to ensure the standardization of information.
+
+## Browser Support
+
+It is recommended to use the latest version of Chrome in development for a better experience.
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) |
+| --- | --- | --- | --- | --- |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+## OpenSource Author
+
+[Soybean](https://github.com/honghuangdc)
+
+## Contributors
+
+Thanks the following people for their contributions. If you want to contribute to this project, please refer to [How to Contribute](#how-to-contribute).
+
+<a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
+</a>
+
+## Communication
+
+`SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It also provides WeChat and QQ communication groups. If you have any questions, please feel free to ask in the group.
+
+  <div>
+  	<p>QQ Group</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-2.jpg" style="width:200px" />
+  </div>
+	<!-- <div>
+		<p>WeChat Group</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-0402.jpg" style="width:200px" />
+	</div> -->
+	<div>
+		<p>Add the following WeChat to invite to the WeChat group</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
+	</div>
+  <div>
+    <p>Add Soybean's WeChat for business consultation, cooperation, project architecture, one-on-one guidance, etc.</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
+  </div>
+
+## Star Trend
+
+[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
+
+## License
+
+This project is based on the [MIT © 2021 Soybean](./LICENSE) protocol, for learning purposes only, please retain the author's copyright information for commercial use, the author does not guarantee and is not responsible for the software.

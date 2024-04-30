@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Panda.DynamicWebApi;
@@ -17,18 +16,15 @@ namespace SuperApi.Service;
 public class DynamicService : IDynamicWebApi
 {
     private readonly Repository<User> _db;
-    private readonly IConfiguration _config;
     private readonly DynamicBuilder _builder;
 
     /// <summary>
     /// 租户模块API服务实例
     /// </summary>
     /// <param name="service"></param>
-    /// <param name="config"></param>
-    public DynamicService(IServiceProvider service, IConfiguration config)
+    public DynamicService(IServiceProvider service)
     {
         _db = service.GetService<Repository<User>>()!;
-        _config = config;
         _builder = _db.Context.DynamicBuilder();
     }
 

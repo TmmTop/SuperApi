@@ -60,13 +60,10 @@ public class AuthService : IDynamicWebApi
             if (!CryptogramUtil.Decrypt(user.Password).Equals(input.Password))
                 throw new Exception("密码不正确！");
         }
-
         var accessToken = JwtManageUtil.CreateToken(user.Id);
-        var refreshToken = JwtManageUtil.CreateRefreshToken();
         return new LoginOutput
         {
-            AccessToken = accessToken,
-            RefreshToken = CryptogramUtil.Sm2Encrypt(refreshToken)
+            AccessToken = accessToken
         };
     }
 

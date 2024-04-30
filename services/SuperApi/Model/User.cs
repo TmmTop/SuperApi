@@ -9,6 +9,8 @@ namespace SuperApi.Model;
 /// 用户表
 /// </summary>
 [SugarTable(null, "用户表")]
+[SugarIndex("index_{table}_A", nameof(Account), OrderByType.Asc)]
+[SugarIndex("index_{table}_P", nameof(Phone), OrderByType.Asc)]
 public class User : Base
 {
     /// <summary>
@@ -26,25 +28,7 @@ public class User : Base
     [System.Text.Json.Serialization.JsonIgnore]
     [JsonIgnore]
     public string Password { get; set; } = "";
-
-    /// <summary>
-    /// 排序
-    /// </summary>
-    [SugarColumn(ColumnDescription = "排序")]
-    public int? OrderNo { get; set; } = 100;
-
-    /// <summary>
-    /// 备注
-    /// </summary>
-    [SugarColumn(ColumnDescription = "备注", Length = 128)]
-    public string? Remark { get; set; }
-
-    /// <summary>
-    /// 状态
-    /// </summary>
-    [SugarColumn(ColumnDescription = "状态")]
-    public StatusEnum? Status { get; set; } = StatusEnum.Enable;
-
+    
     /// <summary>
     /// 真实姓名
     /// </summary>
@@ -100,7 +84,41 @@ public class User : Base
     [SugarColumn(ColumnDescription = "邮箱", Length = 64)]
     [MaxLength(64)]
     public string? Email { get; set; }
+    /// <summary>
+    /// 排序
+    /// </summary>
+    [SugarColumn(ColumnDescription = "排序")]
+    public int? OrderNo { get; set; } = 100;
 
+    /// <summary>
+    /// 备注
+    /// </summary>
+    [SugarColumn(ColumnDescription = "备注", Length = 128)]
+    public string? Remark { get; set; }
+
+    /// <summary>
+    /// 状态
+    /// </summary>
+    [SugarColumn(ColumnDescription = "状态")]
+    public StatusEnum? Status { get; set; } = StatusEnum.Enable;
+    
+    /// <summary>
+    /// 账号类型
+    /// </summary>
+    [SugarColumn(ColumnDescription = "账号类型")]
+    public AccountTypeEnum AccountType { get; set; } = AccountTypeEnum.NormalUser;
+
+    /// <summary>
+    /// 关联部门Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "关联部门Id")]
+    public long DepartId { get; set; }
+    /// <summary>
+    /// 职位Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "职位Id")]
+    public long PosId { get; set; }
+    
     /// <summary>
     /// 最新登录Ip
     /// </summary>
@@ -127,7 +145,7 @@ public class User : Base
     [SugarColumn(ColumnDescription = "最新登录设备", Length = 128)]
     [MaxLength(128)]
     public string? LastLoginDevice { get; set; }
-
+    
     /// <summary>
     /// 付费是否到期
     /// </summary>

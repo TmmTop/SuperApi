@@ -7,6 +7,8 @@ namespace SuperApi.Model;
 /// 数据表的字段
 /// </summary>
 [SugarTable(null, "Table字段表")]
+[SugarIndex("index_{table}_N", nameof(FieldName), OrderByType.Asc)]
+[SugarIndex("index_{table}_C", nameof(FieldType), OrderByType.Asc)]
 public class Field : Base
 {
     /// <summary>

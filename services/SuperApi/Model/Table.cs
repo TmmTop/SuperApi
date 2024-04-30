@@ -7,6 +7,7 @@ namespace SuperApi.Model;
 /// 数据表
 /// </summary>
 [SugarTable(null, "Table表")]
+[SugarIndex("index_{table}_N", nameof(TableName), OrderByType.Asc)]
 public class Table : Base
 {
     /// <summary>
