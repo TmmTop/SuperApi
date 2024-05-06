@@ -1,3 +1,11 @@
+/*
+ * @Author: 490912587@qq.com
+ * @Date: 2024-04-30 15:08:20
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2024-05-06 15:23:10
+ * @FilePath: \admin-ui\src\locales\langs\en-us.ts
+ * @Description: 
+ */
 const local: App.I18n.Schema = {
   system: {
     title: 'SoybeanAdmin'
@@ -179,7 +187,7 @@ const local: App.I18n.Schema = {
     login: {
       common: {
         loginOrRegister: 'Login / Register',
-        userNamePlaceholder: 'Please enter user name',
+        accountPlaceholder: 'Please enter user name',
         phonePlaceholder: 'Please enter phone number',
         codePlaceholder: 'Please enter verification code',
         passwordPlaceholder: 'Please enter password',
@@ -189,7 +197,7 @@ const local: App.I18n.Schema = {
         back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !'
+        welcomeBack: 'Welcome back, {account} !'
       },
       pwdLogin: {
         title: 'Password Login',
@@ -236,7 +244,7 @@ const local: App.I18n.Schema = {
       devDep: 'Development Dependency'
     },
     home: {
-      greeting: 'Good morning, {userName}, today is another day full of vitality!',
+      greeting: 'Good morning, {account}, today is another day full of vitality!',
       weatherDesc: 'Today is cloudy to clear, 20℃ - 25℃!',
       projectCount: 'Project Count',
       todo: 'Todo',
@@ -321,7 +329,7 @@ const local: App.I18n.Schema = {
       },
       user: {
         title: 'User List',
-        userName: 'User Name',
+        account: 'User Name',
         userGender: 'Gender',
         nickName: 'Nick Name',
         userPhone: 'Phone Number',
@@ -329,7 +337,7 @@ const local: App.I18n.Schema = {
         userStatus: 'User Status',
         userRole: 'User Role',
         form: {
-          userName: 'Please enter user name',
+          account: 'Please enter user name',
           userGender: 'Please select gender',
           nickName: 'Please enter nick name',
           userPhone: 'Please enter phone number',
@@ -411,7 +419,7 @@ const local: App.I18n.Schema = {
   },
   form: {
     required: 'Cannot be empty',
-    userName: {
+    account: {
       required: 'Please enter user name',
       invalid: 'User name format is incorrect'
     },

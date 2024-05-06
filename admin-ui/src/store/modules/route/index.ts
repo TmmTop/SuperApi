@@ -185,7 +185,11 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       addConstantRoutes(staticRoute.constantRoutes);
     } else {
       const { data, error } = await fetchGetConstantRoutes();
-
+      data.forEach(info => {
+        delete info.children;
+        delete info.redirect;
+        delete info.props
+      });
       if (!error) {
         addConstantRoutes(data);
       }

@@ -35,7 +35,7 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
     isBackendSuccess(response) {
       // when the backend response code is "0000"(default), it means the request is success
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
-      return response.data.code === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
+      return response.data.code.toString() === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
     },
     async onBackendFail(response, instance) {
       const authStore = useAuthStore();
@@ -61,7 +61,6 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
       if (modalLogoutCodes.includes(response.data.code)) {
         // prevent the user from refreshing the page
         window.addEventListener('beforeunload', handleLogout);
-
         window.$dialog?.error({
           title: 'Error',
           content: response.data.msg,
@@ -96,11 +95,10 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
       return null;
     },
     transformBackendResponse(response) {
-      return response.data.data;
+      return response.data.result;
     },
     onError(error) {
       // when the request is fail, you can show error message
-
       let message = error.message;
       let backendErrorCode = '';
 
@@ -123,48 +121,6 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
       }
 
       window.$message?.error?.(message);
-    }
-  }
-);
-
-export const demoRequest = createRequest<App.Service.DemoResponse>(
-  {
-    baseURL: otherBaseURL.demo
-  },
-  {
-    async onRequest(config) {
-      const { headers } = config;
-
-      // set token
-      const token = localStg.get('token');
-      const Authorization = token ? `Bearer ${token}` : null;
-      Object.assign(headers, { Authorization });
-
-      return config;
-    },
-    isBackendSuccess(response) {
-      // when the backend response code is "200", it means the request is success
-      // you can change this logic by yourself
-      return response.data.status === '200';
-    },
-    async onBackendFail(_response) {
-      // when the backend response code is not "200", it means the request is fail
-      // for example: the token is expired, refresh token and retry request
-    },
-    transformBackendResponse(response) {
-      return response.data.result;
-    },
-    onError(error) {
-      // when the request is fail, you can show error message
-
-      let message = error.message;
-
-      // show backend error message
-      if (error.code === BACKEND_ERROR_CODE) {
-        message = error.response?.data?.message || message;
-      }
-
-      window.$message?.error(message);
     }
   }
 );

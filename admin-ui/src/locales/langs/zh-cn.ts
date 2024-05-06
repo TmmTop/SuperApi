@@ -1,6 +1,6 @@
 const local: App.I18n.Schema = {
   system: {
-    title: 'Soybean 管理系统'
+    title: '超擎极致开放平台'
   },
   common: {
     action: '操作',
@@ -179,7 +179,7 @@ const local: App.I18n.Schema = {
     login: {
       common: {
         loginOrRegister: '登录 / 注册',
-        userNamePlaceholder: '请输入用户名',
+        accountPlaceholder: '请输入用户名',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',
         passwordPlaceholder: '请输入密码',
@@ -189,7 +189,7 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName} ！'
+        welcomeBack: '欢迎回来，{account} ！'
       },
       pwdLogin: {
         title: '密码登录',
@@ -236,7 +236,7 @@ const local: App.I18n.Schema = {
       devDep: '开发依赖'
     },
     home: {
-      greeting: '早安，{userName}, 今天又是充满活力的一天!',
+      greeting: '早安，{account}, 今天又是充满活力的一天!',
       weatherDesc: '今日多云转晴，20℃ - 25℃!',
       projectCount: '项目数',
       todo: '待办',
@@ -321,7 +321,7 @@ const local: App.I18n.Schema = {
       },
       user: {
         title: '用户列表',
-        userName: '用户名',
+        account: '用户名',
         userGender: '性别',
         nickName: '昵称',
         userPhone: '手机号',
@@ -329,7 +329,7 @@ const local: App.I18n.Schema = {
         userStatus: '用户状态',
         userRole: '用户角色',
         form: {
-          userName: '请输入用户名',
+          account: '请输入用户名',
           userGender: '请选择性别',
           nickName: '请输入昵称',
           userPhone: '请输入手机号',
@@ -411,7 +411,7 @@ const local: App.I18n.Schema = {
   },
   form: {
     required: '不能为空',
-    userName: {
+    account: {
       required: '请输入用户名',
       invalid: '用户名格式不正确'
     },

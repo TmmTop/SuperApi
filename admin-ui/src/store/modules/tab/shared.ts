@@ -31,7 +31,7 @@ export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
  * @param tab
  */
 function isFixedTab(tab: App.Global.Tab) {
-  return tab.fixedIndex !== undefined && tab.fixedIndex !== null;
+  return tab.fixedIndex !== undefined && tab.fixedIndex !== null && tab.fixedIndex !== 0;
 }
 
 /**
@@ -80,7 +80,6 @@ export function getTabByRoute(route: App.Global.TabRoute) {
     localIcon,
     i18nKey
   };
-
   return tab;
 }
 
@@ -194,7 +193,6 @@ export function getFixedTabs(tabs: App.Global.Tab[]) {
  */
 export function getFixedTabIds(tabs: App.Global.Tab[]) {
   const fixedTabs = getFixedTabs(tabs);
-
   return fixedTabs.map(tab => tab.id);
 }
 

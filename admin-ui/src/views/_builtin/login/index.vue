@@ -1,3 +1,11 @@
+<!--
+ * @Author: 490912587@qq.com
+ * @Date: 2024-04-30 15:08:20
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2024-05-06 18:13:57
+ * @FilePath: \admin-ui\src\views\_builtin\login\index.vue
+ * @Description: 
+-->
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Component } from 'vue';
@@ -18,7 +26,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 
@@ -36,7 +43,6 @@ const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
 };
 
 const activeModule = computed(() => moduleMap[props.module || 'pwd-login']);
-
 const bgThemeColor = computed(() =>
   themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
 );
@@ -59,18 +65,10 @@ const bgColor = computed(() => {
           <SystemLogo class="text-64px text-primary lt-sm:text-48px" />
           <h3 class="text-28px text-primary font-500 lt-sm:text-22px">{{ $t('system.title') }}</h3>
           <div class="i-flex-col">
-            <ThemeSchemaSwitch
-              :theme-schema="themeStore.themeScheme"
-              :show-tooltip="false"
-              class="text-20px lt-sm:text-18px"
-              @switch="themeStore.toggleThemeScheme"
-            />
-            <LangSwitch
-              :lang="appStore.locale"
-              :lang-options="appStore.localeOptions"
-              :show-tooltip="false"
-              @change-lang="appStore.changeLocale"
-            />
+            <ThemeSchemaSwitch :theme-schema="themeStore.themeScheme" :show-tooltip="false"
+              class="text-20px lt-sm:text-18px" @switch="themeStore.toggleThemeScheme" />
+            <LangSwitch :lang="appStore.locale" :lang-options="appStore.localeOptions" :show-tooltip="false"
+              @change-lang="appStore.changeLocale" />
           </div>
         </header>
         <main class="pt-24px">

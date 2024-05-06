@@ -1,17 +1,25 @@
+/*
+ * @Author: 490912587@qq.com
+ * @Date: 2024-04-30 15:08:20
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2024-05-06 15:05:08
+ * @FilePath: \admin-ui\src\service\api\auth.ts
+ * @Description: 
+ */
 import { request } from '../request';
 
 /**
  * Login
  *
- * @param userName User name
+ * @param account User name
  * @param password Password
  */
-export function fetchLogin(userName: string, password: string) {
+export function fetchLogin(account: string, password: string) {
   return request<Api.Auth.LoginToken>({
-    url: '/auth/login',
+    url: '/default/Auth/PwdLogin',
     method: 'post',
     data: {
-      userName,
+      account,
       password
     }
   });
@@ -19,7 +27,7 @@ export function fetchLogin(userName: string, password: string) {
 
 /** Get user info */
 export function fetchGetUserInfo() {
-  return request<Api.Auth.UserInfo>({ url: '/auth/getUserInfo' });
+  return request<Api.Auth.UserInfo>({ url: '/default/Auth/UserInfo' });
 }
 
 /**

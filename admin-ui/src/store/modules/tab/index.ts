@@ -148,14 +148,14 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     function update() {
       tabs.value = updatedTabs;
     }
-
     if (!isRemoveActiveTab) {
       update();
       return;
     }
 
     const activeTab = updatedTabs[updatedTabs.length - 1] || homeTab.value;
-
+   
+    
     await switchRouteByTab(activeTab);
     update();
   }

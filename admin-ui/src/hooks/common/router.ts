@@ -53,19 +53,16 @@ export function useRouterPush(inSetup = true) {
    */
   async function toLogin(loginModule?: UnionKey.LoginModule, redirectUrl?: string) {
     const module = loginModule || 'pwd-login';
-
     const options: RouterPushOptions = {
       params: {
         module
       }
     };
-
     const redirect = redirectUrl || route.value.fullPath;
-
     options.query = {
       redirect
     };
-
+    window.location.reload();
     return routerPushByKey('login', options);
   }
 
@@ -76,7 +73,6 @@ export function useRouterPush(inSetup = true) {
    */
   async function toggleLoginModule(module: UnionKey.LoginModule) {
     const query = route.value.query as Record<string, string>;
-
     return routerPushByKey('login', { query, params: { module } });
   }
 

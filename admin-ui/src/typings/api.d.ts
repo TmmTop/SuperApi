@@ -52,13 +52,13 @@ declare namespace Api {
    */
   namespace Auth {
     interface LoginToken {
-      token: string;
+      accessToken: string;
       refreshToken: string;
     }
 
     interface UserInfo {
       userId: string;
-      userName: string;
+      account: string;
       roles: string[];
       buttons: string[];
     }
@@ -122,7 +122,7 @@ declare namespace Api {
     /** user */
     type User = Common.CommonRecord<{
       /** user name */
-      userName: string;
+      account: string;
       /** user gender */
       userGender: UserGender | null;
       /** user nick name */
@@ -137,7 +137,7 @@ declare namespace Api {
 
     /** user search params */
     type UserSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
+      Pick<Api.SystemManage.User, 'account' | 'gender' | 'nickName' | 'phone' | 'email' | 'status'> &
         CommonSearchParams
     >;
 

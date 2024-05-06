@@ -5,7 +5,6 @@
  */
 export function createServiceConfig(env: Env.ImportMeta) {
   const { VITE_SERVICE_BASE_URL, VITE_OTHER_SERVICE_BASE_URL } = env;
-
   let other = {} as Record<App.Service.OtherBaseURLKey, string>;
   try {
     other = JSON.parse(VITE_OTHER_SERVICE_BASE_URL);
@@ -66,7 +65,7 @@ export function getServiceBaseURL(env: Env.ImportMeta, isProxy: boolean) {
  */
 function createProxyPattern(key?: App.Service.OtherBaseURLKey) {
   if (!key) {
-    return '/proxy-default';
+    return '/api';
   }
 
   return `/proxy-${key}`;
