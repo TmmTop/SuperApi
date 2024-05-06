@@ -67,7 +67,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
     /// <param name="pageSize"></param>
     /// <param name="param"></param>
     /// <returns></returns>
-    public async Task<Page> Page(int page, int pageSize, Dictionary<string, string> param)
+    public async Task<Page> Page(int page, int pageSize, Dictionary<string, object> param)
     {
         var query = Context.Queryable<T>();
         var where = new List<IConditionalModel>();
@@ -75,11 +75,11 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value);
+                query.GroupBy(info.Value.ToString());
             }
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value);
+                query.OrderBy(info.Value.ToString());
             }
             else
             {
@@ -89,7 +89,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('~')[1]),
-                        FieldValue = info.Value
+                        FieldValue = info.Value.ToString()
                     });
                 }
             }
@@ -112,7 +112,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
     /// </summary>
     /// <param name="param"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<T>> List(Dictionary<string, string> param)
+    public async Task<IEnumerable<T>> List(Dictionary<string, object> param)
     {
         var query = Context.Queryable<T>();
         var where = new List<IConditionalModel>();
@@ -120,12 +120,12 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value);
+                query.GroupBy(info.Value.ToString());
             }
 
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value);
+                query.OrderBy(info.Value.ToString());
             }
             else
             {
@@ -135,7 +135,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('_')[1]),
-                        FieldValue = info.Value
+                        FieldValue = info.Value.ToString()
                     });
                 }
             }
@@ -155,7 +155,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
     /// <param name="primaryKeyPropertyName">主键属性名称 默认Id</param>
     /// <param name="param"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<T>> TreeList(Dictionary<string, string> param,
+    public async Task<IEnumerable<T>> TreeList(Dictionary<string, object> param,
         string? childPropertyName = "Children",
         string? parentIdPropertyName = "Pid",
         int? rootValue = 0,
@@ -167,12 +167,12 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value);
+                query.GroupBy(info.Value.ToString());
             }
 
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value);
+                query.OrderBy(info.Value.ToString());
             }
             else
             {
@@ -182,7 +182,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('~')[1]),
-                        FieldValue = info.Value
+                        FieldValue = info.Value.ToString()
                     });
                 }
             }
@@ -199,7 +199,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
     /// </summary>
     /// <param name="param"></param>
     /// <returns></returns>
-    public async Task<T> One(Dictionary<string, string> param)
+    public async Task<T> One(Dictionary<string, object> param)
     {
         var query = Context.Queryable<T>();
         var where = new List<IConditionalModel>();
@@ -207,12 +207,12 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value);
+                query.GroupBy(info.Value.ToString());
             }
 
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value);
+                query.OrderBy(info.Value.ToString());
             }
             else
             {
@@ -222,7 +222,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('~')[1]),
-                        FieldValue = info.Value
+                        FieldValue = info.Value.ToString()
                     });
                 }
             }

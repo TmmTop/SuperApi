@@ -9,7 +9,6 @@ namespace SuperApi.Model;
 /// </summary>
 [SugarTable(null, "后台管理前端路由菜单表")]
 [SugarIndex("index_{table}_T", nameof(Title), OrderByType.Asc)]
-[SugarIndex("index_{table}_T2", nameof(Type), OrderByType.Asc)]
 public class Menu : Base
 {
     /// <summary>
@@ -17,13 +16,7 @@ public class Menu : Base
     /// </summary>
     [SugarColumn(ColumnDescription = "父Id")]
     public long Pid { get; set; }
-
-    /// <summary>
-    /// 菜单类型（1目录 2菜单 3按钮）
-    /// </summary>
-    [SugarColumn(ColumnDescription = "菜单类型")]
-    public MenuTypeEnum Type { get; set; }
-
+    
     /// <summary>
     /// 路由名称
     /// </summary>
@@ -51,14 +44,7 @@ public class Menu : Base
     [SugarColumn(ColumnDescription = "重定向", Length = 128)]
     [MaxLength(128)]
     public string? Redirect { get; set; }
-
-    /// <summary>
-    /// 权限标识
-    /// </summary>
-    [SugarColumn(ColumnDescription = "权限标识", Length = 128)]
-    [MaxLength(128)]
-    public string Permission { get; set; } = "";
-
+    
     /// <summary>
     /// 菜单名称
     /// </summary>
@@ -71,7 +57,7 @@ public class Menu : Base
     /// </summary>
     [SugarColumn(ColumnDescription = "路由的国际化键值", Length = 64)]
     [Required, MaxLength(64)]
-    public string? I18NKey { get; set; } = "";
+    public string? I18nKey { get; set; } = "";
 
     /// <summary>
     /// 是否缓存
@@ -100,12 +86,17 @@ public class Menu : Base
     [SugarColumn(ColumnDescription = "图标", Length = 128)]
     [MaxLength(128)]
     public string? LocalIcon { get; set; }
-
     /// <summary>
-    /// 内嵌外部链接
-    /// 如果是目录 前端直接props.url赋值，如果是二级菜单则赋值meta.href
+    /// 内嵌跳转链接
     /// </summary>
-    [SugarColumn(ColumnDescription = "外链链接", Length = 256)]
+    [SugarColumn(ColumnDescription = "内嵌跳转链接", Length = 256)]
+    [MaxLength(256)]
+    public string? InnerHref { get; set; }
+    
+    /// <summary>
+    /// 外部跳转链接
+    /// </summary>
+    [SugarColumn(ColumnDescription = "外部跳转链接", Length = 256)]
     [MaxLength(256)]
     public string? Href { get; set; }
 

@@ -60,12 +60,13 @@ public class AuthService : IDynamicWebApi
             if (!CryptogramUtil.Decrypt(user.Password).Equals(input.Password))
                 throw new Exception("密码不正确！");
         }
+
         var accessToken = JwtManageUtil.CreateToken(user.Id);
         return new LoginOutput
         {
             AccessToken = accessToken,
             //暂时没做无感刷新后续可以加入
-            RefreshToken =accessToken
+            RefreshToken = accessToken
         };
     }
 
@@ -74,7 +75,7 @@ public class AuthService : IDynamicWebApi
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<User> UserInfo()
+    public async Task<UserInfoOutPut> UserInfo()
     {
         var accessToken = JWTEncryptionUtil.GetJwtBearerToken(_httpContextAccessor.HttpContext!);
         if (string.IsNullOrWhiteSpace(accessToken))
@@ -90,7 +91,13 @@ public class AuthService : IDynamicWebApi
 
         var userId = Convert.ToInt64(result["UserId"]);
         var userInfo = await _db.AsQueryable().Where(x => x.Id == userId).FirstAsync();
-        return userInfo;
+        return new UserInfoOutPut
+        {
+            UserId = userInfo.Id,
+            Account = userInfo.Account,
+            Roles = new List<string>(),
+            Buttons = new List<string>()
+        };
     }
 
     /// <summary>
@@ -105,6 +112,7 @@ public class AuthService : IDynamicWebApi
         {
             throw new Exception("Token不存在！");
         }
+
         return true;
     }
 }

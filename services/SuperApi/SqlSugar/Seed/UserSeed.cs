@@ -20,6 +20,7 @@ public class UserSeed
         {
             new User()
             {
+                Id = 1787361006931021824,
                 AccountType = AccountTypeEnum.SuperAdmin,
                 Account = "admin",
                 Password = encryptPassword,

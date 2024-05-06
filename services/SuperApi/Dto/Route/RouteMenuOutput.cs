@@ -1,13 +1,16 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SuperApi.Dto.Route;
-
-public class RouteMenuInput
+/// <summary>
+/// 前端路由输出
+/// </summary>
+public class RouteMenuOutput
 {
     /// <summary>
     /// 主路由名称
     /// </summary>
-    /// <example>admin</example>
-    [Required(ErrorMessage = "主路由名称不能为空"), MinLength(2, ErrorMessage = "账号不能少于2个字符")]
+    /// <example>home</example>
     public string Home { get; set; }= "home";
+    /// <summary>
+    /// 
+    /// </summary>
+    public List<Route> Routes { get; set; }= new List<Route>();
 }

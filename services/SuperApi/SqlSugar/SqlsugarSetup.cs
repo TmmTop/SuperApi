@@ -114,6 +114,8 @@ public static class SqlSugarSetup
             .Where(u => u.GetCustomAttributes<SugarTable>().Any())
             .ToArray();
         dbProvider.CodeFirst.InitTables(types);
+        //初始化用户数据
+        Seed.UserSeed.Init(db);
     }
 
     /// <summary>
