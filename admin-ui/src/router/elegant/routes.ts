@@ -230,6 +230,15 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
+        name: 'manage_menu1',
+        path: '/manage/menu1',
+        component: 'view.manage_menu1',
+        meta: {
+          title: 'manage_menu1',
+          i18nKey: 'route.manage_menu1'
+        }
+      },
+      {
         name: 'manage_role',
         path: '/manage/role',
         component: 'view.manage_role',

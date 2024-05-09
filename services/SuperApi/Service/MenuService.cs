@@ -31,8 +31,8 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
     [AllowAnonymous]
     public async Task<List<Dto.Route.Route>> GetConstRoutes()
     {
-        var param = new Dictionary<string, object>();
-        param.Add("constant~!=", true);
+        var param = new Dictionary<string, string>();
+        param.Add("constant~!=", "true");
         var result = await GetUserRoutes(param);
         return result.Routes;
     }
@@ -43,7 +43,7 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
     /// <returns></returns>
     [HttpGet]
     [AllowAnonymous]
-    public async Task<RouteMenuOutput> GetUserRoutes(Dictionary<string, object> param)
+    public async Task<RouteMenuOutput> GetUserRoutes(Dictionary<string, string> param)
     {
         var result = new RouteMenuOutput();
         result.Home = "home";

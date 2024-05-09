@@ -1,3 +1,11 @@
+/*
+ * @Author: 490912587@qq.com
+ * @Date: 2024-04-30 15:08:20
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2024-05-09 17:31:43
+ * @FilePath: \admin-ui\src\service\api\system-manage.ts
+ * @Description: 
+ */
 import { request } from '../request';
 
 /** get role list */

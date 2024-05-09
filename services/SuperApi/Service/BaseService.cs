@@ -32,7 +32,7 @@ public abstract class BaseService<T> where T : class, new()
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<Page> Page(int page, int pageSize, Dictionary<string, object> param)
+    public async Task<Page> Page(int page, int pageSize, Dictionary<string, string> param)
     {
         return await Db.Page(page, pageSize, param);
     }
@@ -42,7 +42,7 @@ public abstract class BaseService<T> where T : class, new()
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IEnumerable<T>> List(Dictionary<string, object> param)
+    public async Task<IEnumerable<T>> List(Dictionary<string, string> param)
     {
         return await Db.List(param);
     }
@@ -52,7 +52,7 @@ public abstract class BaseService<T> where T : class, new()
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IEnumerable<T>> Tree(Dictionary<string, object> param)
+    public async Task<IEnumerable<T>> Tree(Dictionary<string, string> param)
     {
         return await Db.TreeList(param);
     }
@@ -62,7 +62,7 @@ public abstract class BaseService<T> where T : class, new()
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<T> One(Dictionary<string, object> param)
+    public async Task<T> One(Dictionary<string, string> param)
     {
         return await Db.One(param);
     }

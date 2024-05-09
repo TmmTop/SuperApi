@@ -83,7 +83,7 @@ public class Menu : Base
     /// 本地图标
     /// 存在于 "src/assets/svg-icon" 目录下，如果设置，将忽略icon属性
     /// </summary>
-    [SugarColumn(ColumnDescription = "图标", Length = 128)]
+    [SugarColumn(ColumnDescription = "本地图标", Length = 128)]
     [MaxLength(128)]
     public string? LocalIcon { get; set; }
     /// <summary>

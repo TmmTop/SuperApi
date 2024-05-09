@@ -8,7 +8,6 @@ import { handleRefreshToken } from './shared';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
-
 interface InstanceState {
   /** whether the request is refreshing token */
   isRefreshingToken: boolean;
@@ -38,9 +37,8 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
       return response.data.code.toString() === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
     },
     async onBackendFail(response, instance) {
-      const authStore = useAuthStore();
-
       function handleLogout() {
+        const authStore = useAuthStore();
         authStore.resetStore();
       }
 
@@ -79,18 +77,18 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
 
       // when the backend response code is in `expiredTokenCodes`, it means the token is expired, and refresh token
       // the api `refreshToken` can not return error code in `expiredTokenCodes`, otherwise it will be a dead loop, should return `logoutCodes` or `modalLogoutCodes`
-      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
-      if (expiredTokenCodes.includes(response.data.code) && !request.state.isRefreshingToken) {
-        request.state.isRefreshingToken = true;
+      // const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
+      // if (expiredTokenCodes.includes(response.data.code) && !request.state.isRefreshingToken) {
+      //   request.state.isRefreshingToken = true;
 
-        const refreshConfig = await handleRefreshToken(response.config);
+      //   const refreshConfig = await handleRefreshToken(response.config);
 
-        request.state.isRefreshingToken = false;
+      //   request.state.isRefreshingToken = false;
 
-        if (refreshConfig) {
-          return instance.request(refreshConfig) as Promise<AxiosResponse>;
-        }
-      }
+      //   if (refreshConfig) {
+      //     return instance.request(refreshConfig) as Promise<AxiosResponse>;
+      //   }
+      // }
 
       return null;
     },
@@ -101,7 +99,6 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
       // when the request is fail, you can show error message
       let message = error.message;
       let backendErrorCode = '';
-
       // get backend error message and code
       if (error.code === BACKEND_ERROR_CODE) {
         message = error.response?.data?.msg || message;
@@ -119,8 +116,18 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
       if (expiredTokenCodes.includes(backendErrorCode)) {
         return;
       }
+      if (error.response?.status === 401) {
+        const authStore = useAuthStore();
+        window.$message?.error("AccessToken已失效，请重新登录！", {
+          duration: 2000,
+          onAfterLeave: () => {
+            authStore.resetStore();
+          }
+        })
 
-      window.$message?.error?.(message);
+      } else {
+        window.$message?.error?.(message);
+      }
     }
   }
 );
