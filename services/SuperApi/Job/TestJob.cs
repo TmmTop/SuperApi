@@ -1,6 +1,8 @@
 using Quartz;
 namespace SuperApi.Job;
-
+/// <summary>
+/// 测试任务
+/// </summary>
 public class TestJob : IJob
 {
     /// <summary>

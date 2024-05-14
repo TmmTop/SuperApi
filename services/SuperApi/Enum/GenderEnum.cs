@@ -11,15 +11,15 @@ public enum GenderEnum
     /// <summary>
     /// 男
     /// </summary>
-    [Description("男")] Male = 1,
+    [Description("男")] 男 = 1,
 
     /// <summary>
     /// 女
     /// </summary>
-    [Description("女")] Female = 2,
+    [Description("女")] 女 = 2,
 
     /// <summary>
     /// 其他
     /// </summary>
-    [Description("其他")] Other = 3
+    [Description("其他")] 其他 = 3
 }

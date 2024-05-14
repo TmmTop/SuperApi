@@ -3,8 +3,9 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Panda.DynamicWebApi;
 using Panda.DynamicWebApi.Attributes;
+using SuperApi.Dto;
 
-namespace TimServe.Core;
+namespace SuperApi.Service;
 
 /// <summary>
 /// 系统枚举类服务

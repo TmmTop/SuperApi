@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using SqlSugar;
 
-namespace TimServe.Core.Entity.System;
+namespace SuperApi.Model;
 
 /// <summary>
 /// 系统文件表
 /// </summary>
 [SugarTable(null, "系统文件表")]
 [SugarIndex("index_{table}_F", nameof(FileName), OrderByType.Asc)]
-public class Files : BaseEntity
+public class Files : Base
 {
     /// <summary>
     /// 提供者

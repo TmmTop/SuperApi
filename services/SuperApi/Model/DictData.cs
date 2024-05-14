@@ -82,5 +82,5 @@ public class DictData:Base
     /// 状态
     /// </summary>
     [SugarColumn(ColumnDescription = "状态")]
-    public StatusEnum Status { get; set; } = StatusEnum.Enable;
+    public StatusEnum Status { get; set; } = StatusEnum.启用;
 }

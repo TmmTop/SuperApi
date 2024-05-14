@@ -26,15 +26,15 @@ public enum AccountSourceEnum
     /// <summary>
     /// 微信小程序
     /// </summary>
-    [Description("微信小程序")] WeMiniApp = 666,
+    [Description("微信小程序")] 微信小程序 = 666,
 
     /// <summary>
     /// 抖音小程序
     /// </summary>
-    [Description("抖音小程序")] DMiniApp = 555,
+    [Description("抖音小程序")] 抖音小程序 = 555,
 
     /// <summary>
     /// 其他小程序
     /// </summary>
-    [Description("其他小程序")] OtherMiniApp = 444,
+    [Description("其他小程序")] 其他小程序 = 444,
 }

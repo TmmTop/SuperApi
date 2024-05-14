@@ -12,11 +12,11 @@ public enum NoticeTypeEnum
     /// 通知
     /// </summary>
     [Description("通知")]
-    NOTICE = 1,
+    通知 = 1,
 
     /// <summary>
     /// 公告
     /// </summary>
     [Description("公告")]
-    ANNOUNCEMENT = 2,
+    公告 = 2,
 }

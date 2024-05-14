@@ -37,6 +37,7 @@
     <ItemGroup>
       <Folder Include="Casbin\" />
       <Folder Include="wwwroot\" />
+      <Folder Include="wwwroot\Upload\" />
     </ItemGroup>
 
 </Project>

@@ -30,7 +30,7 @@ public enum PlatformTypeEnum
     /// 支付宝
     /// </summary>
     [Description("支付宝")]
-    Alipay = 4,
+    支付宝 = 4,
 
     /// <summary>
     /// Gitee

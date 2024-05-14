@@ -51,7 +51,7 @@ public class User : Base
     /// 性别-男_1、女_2
     /// </summary>
     [SugarColumn(ColumnDescription = "性别")]
-    public GenderEnum? Sex { get; set; } = GenderEnum.Male;
+    public GenderEnum? Sex { get; set; } = GenderEnum.男;
 
     /// <summary>
     /// 年龄
@@ -89,13 +89,13 @@ public class User : Base
     /// 状态
     /// </summary>
     [SugarColumn(ColumnDescription = "状态")]
-    public StatusEnum Status { get; set; } = StatusEnum.Enable;
+    public StatusEnum Status { get; set; } = StatusEnum.启用;
     
     /// <summary>
     /// 账号类型
     /// </summary>
     [SugarColumn(ColumnDescription = "账号类型")]
-    public AccountTypeEnum AccountType { get; set; } = AccountTypeEnum.NormalUser;
+    public AccountTypeEnum AccountType { get; set; } = AccountTypeEnum.普通账号;
 
     /// <summary>
     /// 关联部门Id
@@ -134,10 +134,4 @@ public class User : Base
     [SugarColumn(ColumnDescription = "最新登录设备", Length = 128)]
     [MaxLength(128)]
     public string? LastLoginDevice { get; set; }
-    
-    /// <summary>
-    /// 付费是否到期
-    /// </summary>
-    [SugarColumn(ColumnDescription = "付费是否到期")]
-    public StatusEnum IsExpire { get; set; } = StatusEnum.Enable;
 }

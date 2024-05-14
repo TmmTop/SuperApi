@@ -11,20 +11,20 @@ public enum WalletSourceEnum
     /// <summary>
     /// 赞赏
     /// </summary>
-    [Description("赞赏")] Appreciate = 1,
+    [Description("赞赏")] 赞赏 = 1,
 
     /// <summary>
     /// 积分兑换
     /// </summary>
-    [Description("积分兑换")] Exchange = 2,
+    [Description("积分兑换")] 积分兑换 = 2,
 
     /// <summary>
     /// 充值
     /// </summary>
-    [Description("充值")] Recharge = 3,
+    [Description("充值")] 充值 = 3,
     
     /// <summary>
     /// 消费
     /// </summary>
-    [Description("消费")] Use = 3,
+    [Description("消费")] 消费 = 3,
 }

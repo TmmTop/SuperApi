@@ -11,10 +11,10 @@ public enum StatusEnum
     /// <summary>
     /// 启用
     /// </summary>
-    [Description("启用")] Enable = 1,
+    [Description("启用")] 启用 = 1,
 
     /// <summary>
     /// 停用
     /// </summary>
-    [Description("停用")] Disable = 2,
+    [Description("停用")] 停用 = 2,
 }

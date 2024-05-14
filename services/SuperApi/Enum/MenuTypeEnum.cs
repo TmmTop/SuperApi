@@ -12,17 +12,17 @@ public enum MenuTypeEnum
     /// 目录
     /// </summary>
     [Description("目录")]
-    Dir = 1,
+    目录 = 1,
 
     /// <summary>
     /// 菜单
     /// </summary>
     [Description("菜单")]
-    Menu = 2,
+    菜单 = 2,
 
     /// <summary>
     /// 按钮
     /// </summary>
     [Description("按钮")]
-    Btn = 3
+    按钮 = 3
 }

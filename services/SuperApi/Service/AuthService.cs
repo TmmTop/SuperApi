@@ -44,7 +44,7 @@ public class AuthService : IDynamicWebApi
         var user = await _db.AsQueryable().Where(x => x.Account.Equals(input.Account)).FirstAsync();
         _ = user ?? throw new Exception("账号不存在！");
         // 账号是否被冻结
-        if (user.Status == StatusEnum.Disable)
+        if (user.Status == StatusEnum.停用)
             throw new Exception("账号已冻结！");
         // 国密SM2解密（前端密码传输SM2加密后的）
         input.Password = CryptogramUtil.Sm2Decrypt(input.Password);

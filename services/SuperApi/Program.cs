@@ -8,6 +8,7 @@ using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
@@ -159,7 +160,12 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint($"/swagger/default/swagger.json", "基础服务模块"); //分组显示
     });
 }
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()    {   
+    FileProvider = new PhysicalFileProvider(            
+        Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),        
+    RequestPath = new PathString("")    
+});
+
 app.UseCors(configs =>
 {
     configs.AllowAnyOrigin()

@@ -13,23 +13,23 @@ public enum AccountTypeEnum
     /// 超级管理员
     /// </summary>
     [Description("超级管理员")]
-    SuperAdmin = 999,
+    超级管理员 = 999,
 
     /// <summary>
     /// 系统管理员
     /// </summary>
     [Description("系统管理员")]
-    SysAdmin = 888,
+    系统管理员 = 888,
 
     /// <summary>
     /// 普通账号
     /// </summary>
     [Description("普通账号")]
-    NormalUser = 777,
+    普通账号 = 777,
 
     /// <summary>
     /// 会员
     /// </summary>
     [Description("会员")]
-    Member = 666,
+    会员 = 666,
 }

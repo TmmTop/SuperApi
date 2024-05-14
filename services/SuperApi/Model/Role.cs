@@ -35,7 +35,7 @@ public class Role : Base
     /// 数据范围（1全部数据 2本部门及以下数据 3本部门数据 4仅本人数据 5自定义数据）
     /// </summary>
     [SugarColumn(ColumnDescription = "数据范围")]
-    public DataScopeEnum DataScope { get; set; } = DataScopeEnum.Self;
+    public DataScopeEnum DataScope { get; set; } = DataScopeEnum.仅本人数据;
 
     /// <summary>
     /// 备注
@@ -48,5 +48,5 @@ public class Role : Base
     /// 状态
     /// </summary>
     [SugarColumn(ColumnDescription = "状态")]
-    public StatusEnum Status { get; set; } = StatusEnum.Enable;
+    public StatusEnum Status { get; set; } = StatusEnum.启用;
 }

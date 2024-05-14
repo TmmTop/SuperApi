@@ -47,7 +47,7 @@ public class OpLog : Base
     /// 操作日志类型
     /// </summary>
     [SugarColumn(ColumnDescription = "操作日志类型")]
-    public OpLogTypeEnum? OpLogType { get; set; } = OpLogTypeEnum.Default;
+    public OpLogTypeEnum? OpLogType { get; set; } = OpLogTypeEnum.默认日志;
 
     /// <summary>
     /// IP地址

@@ -21,21 +21,22 @@ public class UserSeed
             new User()
             {
                 Id = 1787361006931021824,
-                AccountType = AccountTypeEnum.SuperAdmin,
+                AccountType = AccountTypeEnum.超级管理员,
                 Account = "admin",
                 Password = encryptPassword,
                 NickName = "超级管理员",
                 RealName = "超级管理员",
                 Phone = "13000000000",
-                Avatar = "",
+                Avatar = "http://localhost:3000/Upload/1790301476749447169.png",
                 Birthday = DateTime.Parse("2000-01-01"),
-                Sex = GenderEnum.Male,
+                Sex = GenderEnum.男,
                 Age = 30,
                 Nation = "汉族",
                 Email = "490912587@qq.com",
-                PosId = 0,
-                DepartId = 0,
-                IsExpire = StatusEnum.Disable
+                PosId = 1,
+                DepartId = 1,
+                Status = StatusEnum.启用, 
+                CreateTime = new DateTime()
             }
         };
         var entityInfo = db.EntityMaintenance.GetEntityInfo(typeof(User));

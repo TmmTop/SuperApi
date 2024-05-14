@@ -11,9 +11,9 @@ public enum OpLogTypeEnum
     /// <summary>
     /// 默认日志
     /// </summary>
-    [Description("默认日志")] Default = 1,
+    [Description("默认日志")] 默认日志 = 1,
     /// <summary>
     /// 登录日志
     /// </summary>
-    [Description("登录日志")] Login = 2
+    [Description("登录日志")] 登录日志 = 2
 }

@@ -53,9 +53,9 @@ public class Menu : Base
     public string Title { get; set; } = "";
 
     /// <summary>
-    /// 路由的国际化键值
+    /// 国际化键值
     /// </summary>
-    [SugarColumn(ColumnDescription = "路由的国际化键值", Length = 64)]
+    [SugarColumn(ColumnDescription = "国际化键值", Length = 64)]
     [Required, MaxLength(64)]
     public string? I18nKey { get; set; } = "";
 

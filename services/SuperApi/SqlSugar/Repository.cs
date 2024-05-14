@@ -75,11 +75,11 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value.ToString());
+                query.GroupBy(info.Value);
             }
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value.ToString());
+                query.OrderBy(info.Value);
             }
             else
             {
@@ -89,7 +89,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('~')[1]),
-                        FieldValue = info.Value.ToString()
+                        FieldValue = info.Value
                     });
                 }
             }
@@ -120,12 +120,12 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value.ToString());
+                query.GroupBy(info.Value);
             }
 
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value.ToString());
+                query.OrderBy(info.Value);
             }
             else
             {
@@ -135,7 +135,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('_')[1]),
-                        FieldValue = info.Value.ToString()
+                        FieldValue = info.Value
                     });
                 }
             }
@@ -207,12 +207,12 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             if (info.Key == "Group")
             {
-                query.GroupBy(info.Value.ToString());
+                query.GroupBy(info.Value);
             }
 
             if (info.Key == "Order")
             {
-                query.OrderBy(info.Value.ToString());
+                query.OrderBy(info.Value);
             }
             else
             {
@@ -222,7 +222,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                     {
                         FieldName = info.Key.Split('~')[0],
                         ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('~')[1]),
-                        FieldValue = info.Value.ToString()
+                        FieldValue = info.Value
                     });
                 }
             }

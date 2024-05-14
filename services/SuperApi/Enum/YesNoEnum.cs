@@ -12,11 +12,11 @@ public enum YesNoEnum
     /// 是
     /// </summary>
     [Description("是")]
-    Y = 1,
+    是 = 1,
 
     /// <summary>
     /// 否
     /// </summary>
     [Description("否")]
-    N = 2
+    否 = 2
 }

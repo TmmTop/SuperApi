@@ -11,20 +11,15 @@ public enum IntegralSourceEnum
     /// <summary>
     /// 签到
     /// </summary>
-    [Description("签到")] SignIn = 1,
-
-    /// <summary>
-    /// 发贴/发布文章
-    /// </summary>
-    [Description("发贴/发布文章")] Post = 2,
-
+    [Description("签到")] 签到 = 1,
+    
     /// <summary>
     /// 消费
     /// </summary>
-    [Description("消费")] Use = 3,
+    [Description("消费")] 消费 = 3,
 
     /// <summary>
-    /// 赠送好友
+    /// 赠送
     /// </summary>
-    [Description("赠送好友")] Give = 4,
+    [Description("赠送")] 赠送 = 4,
 }

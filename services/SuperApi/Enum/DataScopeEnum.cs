@@ -13,29 +13,29 @@ public enum DataScopeEnum
     /// 全部数据
     /// </summary>
     [Description("全部数据")]
-    All = 1,
+    全部数据 = 1,
 
     /// <summary>
     /// 本部门及以下数据
     /// </summary>
     [Description("本部门及以下数据")]
-    DeptChild = 2,
+    本部门及以下数据 = 2,
 
     /// <summary>
     /// 本部门数据
     /// </summary>
     [Description("本部门数据")]
-    Dept = 3,
+    本部门数据 = 3,
 
     /// <summary>
     /// 仅本人数据
     /// </summary>
     [Description("仅本人数据")]
-    Self = 4,
+    仅本人数据 = 4,
 
     /// <summary>
     /// 自定义数据
     /// </summary>
     [Description("自定义数据")]
-    Define = 5
+    自定义数据 = 5
 }

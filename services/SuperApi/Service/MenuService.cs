@@ -36,7 +36,6 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
         var result = await GetUserRoutes(param);
         return result.Routes;
     }
-
     /// <summary>
     /// 获取用户拥有的前端路由数据
     /// </summary>

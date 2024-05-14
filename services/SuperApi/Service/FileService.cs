@@ -12,11 +12,11 @@ using SuperApi.Utils;
 
 namespace SuperApi.Service;
 /// <summary>
-/// 公共服务接口
+/// 文件服务接口
 /// </summary>
 [ApiExplorerSettings(GroupName = "default")]
 [DynamicWebApi(Module = "default")]
-public class CommonService : IDynamicWebApi
+public class FileService : IDynamicWebApi
 {
     private readonly IHttpContextAccessor _ctx;
     private readonly IWebHostEnvironment _env;
@@ -48,7 +48,7 @@ public class CommonService : IDynamicWebApi
     /// </summary>
     /// <param name="ctx"></param>
     /// <param name="env"></param>
-    public CommonService(IHttpContextAccessor ctx, IWebHostEnvironment env)
+    public FileService(IHttpContextAccessor ctx, IWebHostEnvironment env)
     {
         _ctx = ctx;
         _env = env;
