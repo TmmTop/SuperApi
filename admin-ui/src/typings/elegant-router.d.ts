@@ -48,10 +48,14 @@ declare module "@elegant-router/types" {
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "manage": "/manage";
     "manage_menu": "/manage/menu";
-    "manage_menu1": "/manage/menu1";
     "manage_role": "/manage/role";
     "manage_user": "/manage/user";
-    "manage_user-detail": "/manage/user-detail/:id";
+    "manage1": "/manage1";
+    "manage1_menu": "/manage1/menu";
+    "manage1_menu1": "/manage1/menu1";
+    "manage1_role": "/manage1/role";
+    "manage1_user": "/manage1/user";
+    "manage1_user-detail": "/manage1/user-detail/:id";
     "multi-menu": "/multi-menu";
     "multi-menu_first": "/multi-menu/first";
     "multi-menu_first_child": "/multi-menu/first/child";
@@ -111,6 +115,7 @@ declare module "@elegant-router/types" {
     | "iframe-page"
     | "login"
     | "manage"
+    | "manage1"
     | "multi-menu"
     | "user-center"
   >;
@@ -147,10 +152,13 @@ declare module "@elegant-router/types" {
     | "function_toggle-auth"
     | "home"
     | "manage_menu"
-    | "manage_menu1"
     | "manage_role"
-    | "manage_user-detail"
     | "manage_user"
+    | "manage1_menu"
+    | "manage1_menu1"
+    | "manage1_role"
+    | "manage1_user-detail"
+    | "manage1_user"
     | "multi-menu_first_child"
     | "multi-menu_second_child_home"
     | "user-center"

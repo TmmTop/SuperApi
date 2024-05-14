@@ -2,14 +2,23 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-05-09 16:45:44
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-14 18:18:37
+ * @LastEditTime: 2024-05-13 18:11:34
  * @FilePath: \admin-ui\src\views\manage\menu\crud.tsx
  * @Description: 
  */
 import { dict } from '@fast-crud/fast-crud';
 import { shallowRef, ref } from 'vue';
-import { getMenuTree, addMenu, editMenu, delMenu } from '@/service/api/index';
-import { removeChildren } from "@/config"
+import { getMenuPage, addMenu, editMenu, delMenu } from '@/service/api/index';
+//去掉children
+const removeChildren = (tree) => {
+  let childs = tree
+  for (let i = childs.length; i--; i > 0) {
+    if (childs[i].children) {
+      delete childs[i].children
+    }
+  }
+  return childs;
+}
 const getTopMenu = async (query) => {
   var param = {
     "Order": "order_no asc",
@@ -17,9 +26,9 @@ const getTopMenu = async (query) => {
     "pid": "0",
     "name~!=": "home"
   }
-  const result = await getMenuTree(param);
-  if (result.data) {
-    result.data.push({ id: "0", title: "顶级路由", icon: "mdi:arch" });
+  const result = await getMenuPage(param);
+  if (result) {
+    result.data.push({ id: "0", title: "顶级路由" });
     result.data = removeChildren(result.data);
     return result.data.reverse();
   }
@@ -29,13 +38,9 @@ export default function ({ expose }) {
   const pageRequest = async (query) => {
     query.param = {
       "Order": "id asc",
-      "constant~=": "true",
-      "title~%": query.title
+      "constant~=": "true"
     }
-    if (!query.title) {
-      delete query.param["title~%"];
-    }
-    const result = await getMenuTree(query);
+    const result = await getMenuPage(query);
     return result;
   };
   const editRequest = async ({ form, row }: EditReq) => {
@@ -44,9 +49,13 @@ export default function ({ expose }) {
     }
     return await editMenu(form);
   };
+  const delRequest = async ({ row }: DelReq) => {
+    return await delMenu(row);
+  };
   const addRequest = async ({ form }: AddReq) => {
     return await addMenu(form);
   };
+  //勾选
   const selectedIds = ref([]);
   const onSelectionChange = (changed) => {
     selectedIds.value = changed;
@@ -84,7 +93,7 @@ export default function ({ expose }) {
       table: {
         scrollX: 1200,
         bordered: false,
-        rowKey: (row) => row.id,
+        rowKey: (row) => row.id, //设置你的主键id获取方式， 默认(row)=>row.id
         checkedRowKeys: selectedIds,
         'onUpdate:checkedRowKeys': onSelectionChange,
       },
@@ -93,6 +102,7 @@ export default function ({ expose }) {
       },
       request: {
         pageRequest,
+        delRequest,
         addRequest,
         editRequest,
         transformQuery: ({ page, form, sort }) => {
@@ -113,8 +123,7 @@ export default function ({ expose }) {
         buttons: {
           view: { show: true },
           edit: { show: true },
-          //使用_checked勾选批量删除后，此按钮失效
-          remove: { show: false },
+          remove: { show: true },
         }
       },
       columns: {
@@ -125,7 +134,12 @@ export default function ({ expose }) {
             type: 'selection',
             align: 'center',
             width: '55px',
+            //禁止在列设置中选择
             columnSetDisabled: true,
+            //设置第一行不允许选择
+            // disabled(row, index) {
+            //   return row.id === 1;
+            // },
           },
         },
         pid: {
@@ -141,6 +155,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入父级路由' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -152,6 +167,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入路由标题' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -163,6 +179,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入路由名称' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -174,17 +191,19 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入路由地址' },
+              { trigger: 'blur' },
             ],
           }
         },
         component: {
-          title: '组件名称',
+          title: '组件路径',
           type: 'text',
           search: { show: false },
           form: {
             col: { span: 12 },
             rule: [
-              { required: true, message: '请输入组件名称' },
+              { required: true, message: '请输入组件路径' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -192,13 +211,14 @@ export default function ({ expose }) {
           title: '重定向',
           type: 'text',
           search: { show: false },
-          column: {
-            show: false
+          column:{
+            show: false 
           },
           form: {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入重定向' },
+              // { trigger: 'blur' },
             ],
           }
         },
@@ -206,24 +226,29 @@ export default function ({ expose }) {
           title: '国际化键值',
           type: 'text',
           search: { show: false },
-          column: {
-            show: false
+          column:{
+            show: false 
           },
           form: {
             col: { span: 12 },
+            rule: [
+              { required: true, message: '请输入国际化键值' },
+              { trigger: 'blur' },
+            ],
           }
         },
         keepAlive: {
           title: '是否缓存',
           type: 'text',
           search: { show: false },
-          column: {
-            show: false
+          column:{
+            show: false 
           },
           form: {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入是否缓存' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -231,13 +256,14 @@ export default function ({ expose }) {
           title: '是否常量路由',
           type: 'text',
           search: { show: false },
-          column: {
-            show: false
+          column:{
+            show: false 
           },
           form: {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入常量路由' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -245,18 +271,11 @@ export default function ({ expose }) {
           title: '路由图标',
           type: 'text',
           search: { show: false },
-          column: {
-            align: 'center',
-            component: {
-              name: 'fs-icon',
-              vModel: 'icon',
-              style: 'font-size:18px',
-            },
-          },
           form: {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入路由图标' },
+              { trigger: 'blur' },
             ],
           }
         },
@@ -264,24 +283,29 @@ export default function ({ expose }) {
           title: '本地路由图标',
           type: 'text',
           search: { show: false },
-          column: {
-            show: false
+          column:{
+            show: false 
           },
           form: {
-            col: { span: 12 }
+            col: { span: 12 },
+            rule: [
+              { required: true, message: '请输入本地路由图标' },
+              //{ trigger: 'blur' },
+            ],
           }
         },
         innerHref: {
           title: '内嵌跳转链接',
           type: 'text',
           search: { show: false },
-          column: {
-            show: false
+          column:{
+            show: false 
           },
           form: {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入内嵌跳转链接' },
+              //{ trigger: 'blur' },
             ],
           }
         },
@@ -296,6 +320,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入外部跳转链接' },
+              //{ trigger: 'blur' },
             ],
           }
         },
@@ -310,6 +335,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入是否隐藏' },
+              //{ trigger: 'blur' },
             ],
           }
         },
@@ -324,6 +350,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入是否固定Tab' },
+              //{ trigger: 'blur' },
             ],
           }
         },
@@ -335,6 +362,7 @@ export default function ({ expose }) {
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入路由排序' },
+              //{ trigger: 'blur' },
             ],
           }
         }

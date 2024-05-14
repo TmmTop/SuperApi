@@ -1,10 +1,9 @@
 import type { App } from 'vue';
 import type { FsSetupOptions, PageQuery } from '@fast-crud/fast-crud';
-// eslint-disable-next-line import/order
 import { FastCrud } from '@fast-crud/fast-crud';
 import '@fast-crud/fast-crud/dist/style.css';
 import './common.scss';
-
+import { localStg } from '@/utils/storage';
 import type { FsUploaderOptions } from '@fast-crud/fast-extends';
 import {
   FsExtendsCopyable,
@@ -20,8 +19,7 @@ import axios from 'axios';
 import type { VueI18n } from 'vue-i18n';
 import { request } from '@/service/request';
 import { setupNaive } from '@/plugins/fast-crud/naive';
-import { getServiceEnvConfig } from '~/.env-config';
-
+import { getServiceBaseURL } from '@/utils/service';
 /**
  *  fast-crud的安装方法
  *  注意：在App.vue中，需要用fs-ui-context组件包裹RouterView，让fs-crud拥有message、notification、dialog的能力
@@ -113,21 +111,24 @@ function install(app: App, options: FsSetupOpts = {}) {
       // return crudPermission.merge(opts);
     }
   } as FsSetupOptions);
-  // const { url, proxyPattern } = getServiceEnvConfig(import.meta.env);
+  const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, false);
   // 安装uploader 公共参数
   const uploaderOptions: FsUploaderOptions = {
     defaultType: 'form',
     form: {
-      // action: url + '/api/default/File/UploadFile',
+      action: baseURL + '/default/File/UploadFile',
       name: 'file',
       withCredentials: false,
       uploadRequest: async props => {
         const { action, file, onProgress } = props;
         const data = new FormData();
         data.append('file', file);
+        const token = localStg.get('token');
+        const Authorization = token ? `Bearer ${token}` : null;
         const res = await axios.post(action, data, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            "Authorization": Authorization
           },
           timeout: 60000,
           onUploadProgress(progress) {
@@ -142,10 +143,9 @@ function install(app: App, options: FsSetupOpts = {}) {
         }
       },
       async successHandle(ret: any) {
-        // 上传完成后的结果处理， 此处应转换格式为{url:xxx,key:xxx}
         return {
-          url: url + '/Upload/' + ret.id + ret.suffix,
-          key: ret.fileName  //fileName suffix
+          url: baseURL.replace("/api", "") + '/Upload/' + ret.id + ret.suffix,
+          key: ret.fileName
         };
       }
     }

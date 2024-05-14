@@ -3,7 +3,7 @@
  * @Date: 2024-01-05 15:31:29
  * @LastEditors: 490912587@qq.com
  * @LastEditTime: 2024-05-13 17:27:18
- * @FilePath: \admin-ui\src\views\manage\role\index.vue
+ * @FilePath: \admin-ui\src\views\manage\menu\index.vue
  * @Description: 
 -->
 <template>
