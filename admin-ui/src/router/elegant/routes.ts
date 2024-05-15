@@ -51,6 +51,35 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'dynamic',
+    path: '/dynamic',
+    component: 'layout.base',
+    meta: {
+      title: 'dynamic',
+      i18nKey: 'route.dynamic'
+    },
+    children: [
+      {
+        name: 'dynamic_api',
+        path: '/dynamic/api',
+        component: 'view.dynamic_api',
+        meta: {
+          title: 'dynamic_api',
+          i18nKey: 'route.dynamic_api'
+        }
+      },
+      {
+        name: 'dynamic_database',
+        path: '/dynamic/database',
+        component: 'view.dynamic_database',
+        meta: {
+          title: 'dynamic_database',
+          i18nKey: 'route.dynamic_database'
+        }
+      }
+    ]
+  },
+  {
     name: 'function',
     path: '/function',
     component: 'layout.base',

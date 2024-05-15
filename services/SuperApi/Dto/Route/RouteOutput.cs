@@ -101,10 +101,16 @@ public class Meta
     public string LocalIcon { get; set; } = "";
 
     /// <summary>
+    /// 是否内嵌
+    /// </summary>
+    public bool IsInner { get; set; }
+
+    /// <summary>
     /// 内嵌外部链接
     /// 如果是目录 前端直接props.url赋值，如果是二级菜单则赋值meta.href
     /// </summary>
     public string Href { get; set; } = "";
+
     /// <summary>
     /// 是否固定到Tab
     /// 若值大于0，路由将在标签页中固定显示，其值表示固定标签页的顺序

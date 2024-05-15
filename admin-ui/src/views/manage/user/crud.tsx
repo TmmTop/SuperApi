@@ -1,6 +1,6 @@
 import { dict, useColumns } from '@fast-crud/fast-crud';
 import { shallowRef, ref } from 'vue';
-import { REGEXP_PHONE, REGEXP_EMAIL, removeEmptyChildren } from '@/config';
+import { REGEXP_PHONE, REGEXP_EMAIL } from '@/config';
 import dayjs from 'dayjs';
 import { getUserPage, addUser, editUser, delUser, getEnumDataByTypeName, getDepartment, getPost } from '@/service/api/index';
 const loadAccountType = async () => {
@@ -41,27 +41,42 @@ const loadDepartment = async () => {
     }
 };
 const departmentList = await loadDepartment();
-
-
+//无限级去掉最后一层children为[]的数据
+function removeEmptyChildren(tree) {
+    if (tree) {
+        let childs = tree
+        for (let i = childs.length; i--; i > 0) {
+            if (childs[i].children) {
+                if (childs[i].children.length) {
+                    removeEmptyChildren(childs[i].children)
+                } else {
+                    delete childs[i].children
+                }
+            }
+        }
+        return childs;
+    }
+}
 export default function ({ expose }) {
     const pageRequest = async (query) => {
+        const param = await query;
         query.param = {
             "Order": "id asc",
-            "account_type~=": query.accountType,
-            "account~%": query.account,
-            "nick_name~%": query.nickName,
-            "phone~%": query.phone
+            "account_type~=": param.accountType,
+            "account~%": param.account,
+            "nick_name~%": param.nickName,
+            "phone~%": param.phone
         }
-        if (!query.accountType) {
+        if (!param.accountType) {
             delete query.param["account_type~="];
         }
-        if (!query.account) {
+        if (!param.account) {
             delete query.param["account~%"];
         }
-        if (!query.phone) {
+        if (!param.phone) {
             delete query.param["phone~%"];
         }
-        if (!query.nickName) {
+        if (!param.nickName) {
             delete query.param["nick_name~%"];
         }
         const result = await getUserPage(query);

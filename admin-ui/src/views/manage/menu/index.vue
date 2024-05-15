@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-01-05 15:31:29
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-13 17:27:18
+ * @LastEditTime: 2024-05-15 13:58:36
  * @FilePath: \admin-ui\src\views\manage\menu\index.vue
  * @Description: 
 -->
@@ -21,6 +21,9 @@ import { defineComponent, onMounted, ref, nextTick } from 'vue';
 import { useFs, useExpose, useCrud } from '@fast-crud/fast-crud';
 import createCrudOptions from './crud';
 import { useDialog, useMessage } from 'naive-ui';
+import { delBatchMenu } from '@/service/api/index';
+import { useRouteStore } from '@/store/modules/route';
+const routeStore = useRouteStore();
 export default defineComponent({
   name: 'ComponentCrud',
   setup() {
@@ -42,9 +45,10 @@ export default defineComponent({
           positiveText: '确定',
           negativeText: '取消',
           async onPositiveClick() {
-            await BatchDelete(selectedIds.value);
+            await delBatchMenu(selectedIds.value);
             message.info('删除成功');
             selectedIds.value = [];
+            routeStore.initAuthRoute();
             await expose.doRefresh();
           },
         });

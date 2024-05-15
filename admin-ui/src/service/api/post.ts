@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-04-30 15:08:20
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-14 17:11:43
+ * @LastEditTime: 2024-05-15 13:56:21
  * @FilePath: \admin-ui\src\service\api\post.ts
  * @Description: 
  */
@@ -31,6 +31,13 @@ export function editPost(data: object) {
 export function delPost(data: object) {
     return request<any>({
         url: '/default/Post/Del',
+        method: 'post',
+        data
+    });
+}
+export function delBatchPost(data: object) {
+    return request<any>({
+        url: '/default/Post/DelBatch',
         method: 'post',
         data
     });

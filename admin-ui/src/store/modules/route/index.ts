@@ -227,15 +227,24 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
     setIsInitAuthRoute(true);
   }
-
+  function removeChildren(tree) {
+    if (tree) {
+      let childs = tree
+      for (let i = childs.length; i--; i > 0) {
+        if (childs[i].children.length == 0) {
+          delete childs[i].children
+        }
+      }
+      return childs;
+    }
+  }
   /** Init dynamic auth route */
   async function initDynamicAuthRoute() {
     const { data, error } = await fetchGetUserRoutes();
-
     if (!error) {
       const { routes, home } = data;
-
-      addAuthRoutes(routes);
+      const routeList = removeChildren(routes);
+      addAuthRoutes(routeList);
 
       handleConstantAndAuthRoutes();
 

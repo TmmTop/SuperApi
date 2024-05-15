@@ -2,14 +2,27 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-05-09 16:45:44
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-14 18:18:37
+ * @LastEditTime: 2024-05-15 17:47:26
  * @FilePath: \admin-ui\src\views\manage\menu\crud.tsx
  * @Description: 
  */
-import { dict } from '@fast-crud/fast-crud';
-import { shallowRef, ref } from 'vue';
+import { dict, useCompute } from '@fast-crud/fast-crud';
+import { shallowRef, ref, watch } from 'vue';
 import { getMenuTree, addMenu, editMenu, delMenu } from '@/service/api/index';
-import { removeChildren } from "@/config"
+import { useRouteStore } from '@/store/modules/route';
+const { compute } = useCompute()
+const routeStore = useRouteStore();
+function removeChildren(tree) {
+  if (tree) {
+    let childs = tree
+    for (let i = childs.length; i--; i > 0) {
+      if (childs[i].children) {
+        delete childs[i].children
+      }
+    }
+    return childs;
+  }
+}
 const getTopMenu = async (query) => {
   var param = {
     "Order": "order_no asc",
@@ -24,15 +37,16 @@ const getTopMenu = async (query) => {
     return result.data.reverse();
   }
 };
-const topMenus = await getTopMenu();
+let topMenus = await getTopMenu();
 export default function ({ expose }) {
   const pageRequest = async (query) => {
+    const param = await query;
     query.param = {
-      "Order": "id asc",
+      "Order": "order_no asc",
       "constant~=": "true",
-      "title~%": query.title
+      "title~%": param.title
     }
-    if (!query.title) {
+    if (!param.title) {
       delete query.param["title~%"];
     }
     const result = await getMenuTree(query);
@@ -82,7 +96,7 @@ export default function ({ expose }) {
         },
       },
       table: {
-        scrollX: 1200,
+        scrollX: 2500,
         bordered: false,
         rowKey: (row) => row.id,
         checkedRowKeys: selectedIds,
@@ -95,12 +109,13 @@ export default function ({ expose }) {
         pageRequest,
         addRequest,
         editRequest,
-        transformQuery: ({ page, form, sort }) => {
+        transformQuery: async ({ page, form, sort }) => {
           const order = sort == null ? {} : { orderProp: sort.prop, orderAsc: sort.asc }
           return { page: page.currentPage, pageSize: page.pageSize, ...form, ...order };
         },
-        transformRes: ({ res }) => {
+        transformRes: async ({ res }) => {
           const records = res.data;
+          await routeStore.initAuthRoute();
           return {
             currentPage: 1, pageSize: 999999, total: 1, records
           };
@@ -137,7 +152,12 @@ export default function ({ expose }) {
             data: topMenus
           }),
           search: { show: false },
+          column: { width: "150px" },
           form: {
+            component: {
+              clearable: false,
+              multiple: false,
+            },
             col: { span: 12 },
             rule: [
               { required: true, message: '请输入父级路由' },
@@ -177,6 +197,7 @@ export default function ({ expose }) {
             ],
           }
         },
+
         component: {
           title: '组件名称',
           type: 'text',
@@ -186,6 +207,51 @@ export default function ({ expose }) {
             rule: [
               { required: true, message: '请输入组件名称' },
             ],
+            helper: {
+              render() {
+                return (
+                  <p style={'color: red;'}>
+                    * $后加组件路径即可渲染此组件
+                    <br />
+                    * 例如：(layout.base$view.home)
+                    <br />
+                    * layout.base Base布局的顶级路由
+                    <br />
+                    * layout.blank Blank布局的顶级路由
+                    <br />
+                    * view. 组件路径
+                    <br />
+                    * layout.base$ Base布局的组件路径
+                    <br />
+                    * layout.blank$ Blank布局的组件路径
+                  </p>
+                );
+              },
+            },
+          }
+        },
+        href: {
+          title: '外链地址',
+          type: 'text',
+          search: { show: false },
+          column: {
+            show: false
+          },
+          form: {
+            col: { span: 12 },
+            helper: {
+              render() {
+                return (
+                  <p style={'color: red;'}>
+                    * 组件名称的值后加$view.iframe-page组件路径
+                    <br />
+                    * 即可渲染iframe组件
+                    <br />
+                    * 例如：layout.blank$view.iframe-page
+                  </p>
+                );
+              },
+            },
           }
         },
         redirect: {
@@ -196,49 +262,7 @@ export default function ({ expose }) {
             show: false
           },
           form: {
-            col: { span: 12 },
-            rule: [
-              { required: true, message: '请输入重定向' },
-            ],
-          }
-        },
-        i18nKey: {
-          title: '国际化键值',
-          type: 'text',
-          search: { show: false },
-          column: {
-            show: false
-          },
-          form: {
-            col: { span: 12 },
-          }
-        },
-        keepAlive: {
-          title: '是否缓存',
-          type: 'text',
-          search: { show: false },
-          column: {
-            show: false
-          },
-          form: {
-            col: { span: 12 },
-            rule: [
-              { required: true, message: '请输入是否缓存' },
-            ],
-          }
-        },
-        constant: {
-          title: '是否常量路由',
-          type: 'text',
-          search: { show: false },
-          column: {
-            show: false
-          },
-          form: {
-            col: { span: 12 },
-            rule: [
-              { required: true, message: '请输入常量路由' },
-            ],
+            col: { span: 12 }
           }
         },
         icon: {
@@ -258,36 +282,20 @@ export default function ({ expose }) {
             rule: [
               { required: true, message: '请输入路由图标' },
             ],
+            helper: {
+              render() {
+                return (
+                  <a target={'_blank'} href={'https://iconify.design/icon-sets/ion/'}>
+                    点击此处选择图标名称
+                  </a>
+                );
+              },
+            },
           }
         },
-        localIcon: {
-          title: '本地路由图标',
-          type: 'text',
-          search: { show: false },
-          column: {
-            show: false
-          },
-          form: {
-            col: { span: 12 }
-          }
-        },
-        innerHref: {
-          title: '内嵌跳转链接',
-          type: 'text',
-          search: { show: false },
-          column: {
-            show: false
-          },
-          form: {
-            col: { span: 12 },
-            rule: [
-              { required: true, message: '请输入内嵌跳转链接' },
-            ],
-          }
-        },
-        href: {
-          title: '外部跳转链接',
-          type: 'text',
+        keepAlive: {
+          title: '是否缓存',
+          type: 'dict-switch',
           search: { show: false },
           column: {
             show: false
@@ -295,13 +303,13 @@ export default function ({ expose }) {
           form: {
             col: { span: 12 },
             rule: [
-              { required: true, message: '请输入外部跳转链接' },
+              { required: true, message: '请选择是否缓存' },
             ],
           }
         },
         hideInMenu: {
           title: '是否隐藏',
-          type: 'text',
+          type: 'dict-switch',
           search: { show: false },
           column: {
             show: false
@@ -309,12 +317,12 @@ export default function ({ expose }) {
           form: {
             col: { span: 12 },
             rule: [
-              { required: true, message: '请输入是否隐藏' },
+              { required: true, message: '请选择是否隐藏' },
             ],
           }
         },
-        fixedIndexInTab: {
-          title: '是否固定Tab',
+        i18nKey: {
+          title: '国际化键值',
           type: 'text',
           search: { show: false },
           column: {
@@ -322,9 +330,6 @@ export default function ({ expose }) {
           },
           form: {
             col: { span: 12 },
-            rule: [
-              { required: true, message: '请输入是否固定Tab' },
-            ],
           }
         },
         orderNo: {
@@ -332,10 +337,7 @@ export default function ({ expose }) {
           type: 'text',
           search: { show: false },
           form: {
-            col: { span: 12 },
-            rule: [
-              { required: true, message: '请输入路由排序' },
-            ],
+            col: { span: 12 }
           }
         }
       },

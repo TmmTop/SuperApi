@@ -99,4 +99,14 @@ public abstract class BaseService<T> where T : class, new()
     {
         return await Db.Del(model);
     }
+    /// <summary>
+    /// 批量删除
+    /// </summary>
+    /// <param name="ids">要删除的id数组</param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> DelBatch(long[] ids)
+    {
+        return await Db.DelBatch(ids);
+    }
 }

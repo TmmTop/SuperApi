@@ -224,12 +224,12 @@ const local: App.I18n.Schema = {
     },
     about: {
       title: '关于',
-      introduction: `SoybeanAdmin 是一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。SoybeanAdmin 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。`,
+      introduction: `SuperApi 是一个优雅且功能强大的后台管理模板，基于最新的技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS, NET8 SqlSugar, FastCrud。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的极致开发系统框架。此外，SuperApi快速将你的 idea 变成线上稳定运行的产品！ 无实体建库建表，对无实体库表进行增删改查，支持 15 种条件查询，以及分页，列表，无限级树形列表 等功能的 API 部署！ 拥有接口文档，Auth 授权，接口限流，获取客户端真实 IP，先进的服务器缓存组件，动态 API 等功能，期待您的体验！ 从此告别加班，告别知识付费！。`,
       projectInfo: {
         title: '项目信息',
         version: '版本',
         latestBuildTime: '最新构建时间',
-        githubLink: 'Github 地址',
+        githubLink: 'Gitee 地址',
         previewLink: '预览地址'
       },
       prdDep: '生产依赖',

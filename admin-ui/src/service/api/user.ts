@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-04-30 15:08:20
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-14 18:03:54
+ * @LastEditTime: 2024-05-15 10:04:10
  * @FilePath: \admin-ui\src\service\api\user.ts
  * @Description: 
  */
@@ -13,7 +13,7 @@ export function getUserPage(params: object) {
 }
 export function addUser(data: object) {
   return request<any>({
-    url: '/default/User',
+    url: '/default/User/PcUser',
     method: 'post',
     data
   });
@@ -30,5 +30,12 @@ export function delUser(data: object) {
     url: '/default/User/Del',
     method: 'post',
     data
+  });
+}
+export function delBatchUser(data: object) {
+  return request<any>({
+      url: '/default/User/DelBatch',
+      method: 'post',
+      data
   });
 }

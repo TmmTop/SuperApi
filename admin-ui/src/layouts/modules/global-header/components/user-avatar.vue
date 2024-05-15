@@ -1,3 +1,11 @@
+<!--
+ * @Author: 490912587@qq.com
+ * @Date: 2024-04-30 15:08:20
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2024-05-15 17:38:07
+ * @FilePath: \admin-ui\src\layouts\modules\global-header\components\user-avatar.vue
+ * @Description: 
+-->
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { VNode } from 'vue';
@@ -33,11 +41,11 @@ type DropdownOption =
 
 const options = computed(() => {
   const opts: DropdownOption[] = [
-    {
-      label: $t('common.userCenter'),
-      key: 'user-center',
-      icon: SvgIconVNode({ icon: 'ph:user-circle', fontSize: 18 })
-    },
+    // {
+    //   label: $t('common.userCenter'),
+    //   key: 'user-center',
+    //   icon: SvgIconVNode({ icon: 'ph:user-circle', fontSize: 18 })
+    // },
     {
       type: 'divider',
       key: 'divider'

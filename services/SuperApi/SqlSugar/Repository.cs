@@ -12,6 +12,7 @@ namespace SuperApi.SqlSugar;
 public class Repository<T> : SimpleClient<T> where T : class, new()
 {
     private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
     /// <summary>
     /// 全局仓储对象
     /// </summary>
@@ -25,7 +26,8 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         {
             Context = SqlSugarSetup.ITenant!.GetConnectionScope("Master");
         }
-        Context.Ado.CommandTimeOut = 30; 
+
+        Context.Ado.CommandTimeOut = 30;
         Context.Aop.OnLogExecuting = (sql, pars) =>
         {
             var monitorItems = new List<string>();
@@ -77,6 +79,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
             {
                 query.GroupBy(info.Value);
             }
+
             if (info.Key == "Order")
             {
                 query.OrderBy(info.Value);
@@ -94,6 +97,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                 }
             }
         }
+
         RefAsync<int> total = 0;
         var result = await query
             .Where(where)
@@ -140,6 +144,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
                 }
             }
         }
+
         var result = await query
             .Where(where)
             .ToListAsync();
@@ -241,7 +246,7 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
     /// <returns></returns>
     public async Task<long> Add(T model)
     {
-        var result = await Context.Insertable(model).ExecuteCommandAsync();
+        var result = await Context.Insertable(model).ExecuteReturnSnowflakeIdAsync();
         return result;
     }
 
@@ -270,6 +275,19 @@ public class Repository<T> : SimpleClient<T> where T : class, new()
         if (hasId == null)
             throw new Exception("Id不存在！");
         var result = await Context.Deleteable(model).ExecuteCommandAsync();
+        return result > 0;
+    }
+
+    /// <summary>
+    /// 批量删除
+    /// </summary>
+    /// <param name="ids">要删除的id数组</param>
+    /// <returns></returns>
+    public async Task<bool> DelBatch(long[] ids)
+    {
+        if (ids.Length <= 0)
+            throw new Exception("批量删除的Id不存在！");
+        var result = await Context.Deleteable<T>().In(ids).ExecuteCommandAsync();
         return result > 0;
     }
 }

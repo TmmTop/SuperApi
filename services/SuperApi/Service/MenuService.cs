@@ -59,7 +59,7 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
                     Path = child.Path!,
                     Props=new Props
                     {
-                        Url = child.InnerHref!
+                        Url = child.Href!
                     },
                     Meta = new Meta
                     {
@@ -70,7 +70,6 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
                         HideInMenu = child.HideInMenu,
                         I18nKey = child.I18nKey!,
                         Order = child.OrderNo,
-                        Href = child.Href!,
                         LocalIcon = child.LocalIcon!,
                         FixedIndexInTab = child.FixedIndexInTab,
                     }
@@ -84,7 +83,7 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
                 Redirect = menu.Redirect!,
                 Props=new Props
                 {
-                    Url = menu.InnerHref!
+                    Url = menu.Href!
                 },
                 Meta = new Meta
                 {
@@ -95,7 +94,6 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
                     HideInMenu = menu.HideInMenu,
                     I18nKey = menu.I18nKey!,
                     Order = menu.OrderNo,
-                    Href = menu.Href!,
                     LocalIcon = menu.LocalIcon!,
                     FixedIndexInTab = menu.FixedIndexInTab,
                 },

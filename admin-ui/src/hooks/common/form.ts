@@ -1,11 +1,3 @@
-/*
- * @Author: 490912587@qq.com
- * @Date: 2024-04-30 15:08:20
- * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-06 15:22:44
- * @FilePath: \admin-ui\src\hooks\common\form.ts
- * @Description: 
- */
 import { ref, toValue } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
@@ -14,9 +6,9 @@ import { $t } from '@/locales';
 
 export function useFormRules() {
   const patternRules = {
-    account: {
+    userName: {
       pattern: REG_USER_NAME,
-      message: $t('form.account.invalid'),
+      message: $t('form.userName.invalid'),
       trigger: 'change'
     },
     phone: {
@@ -42,7 +34,7 @@ export function useFormRules() {
   } satisfies Record<string, App.Global.FormRule>;
 
   const formRules = {
-    account: [createRequiredRule($t('form.account.required')), patternRules.account],
+    userName: [createRequiredRule($t('form.userName.required')), patternRules.userName],
     phone: [createRequiredRule($t('form.phone.required')), patternRules.phone],
     pwd: [createRequiredRule($t('form.pwd.required')), patternRules.pwd],
     code: [createRequiredRule($t('form.code.required')), patternRules.code],

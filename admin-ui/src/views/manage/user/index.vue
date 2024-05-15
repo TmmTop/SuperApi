@@ -21,6 +21,7 @@ import { defineComponent, onMounted, ref, nextTick } from 'vue';
 import { useFs, useExpose, useCrud } from '@fast-crud/fast-crud';
 import createCrudOptions from './crud';
 import { useDialog, useMessage } from 'naive-ui';
+import { delBatchUser} from '@/service/api/index';
 export default defineComponent({
   name: 'ComponentCrud',
   setup() {
@@ -42,7 +43,7 @@ export default defineComponent({
           positiveText: '确定',
           negativeText: '取消',
           async onPositiveClick() {
-            await BatchDelete(selectedIds.value);
+            await delBatchUser(selectedIds.value);
             message.info('删除成功');
             selectedIds.value = [];
             await expose.doRefresh();

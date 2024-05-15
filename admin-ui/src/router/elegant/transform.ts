@@ -38,19 +38,21 @@ function transformElegantRouteToVueRoute(
   const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$';
 
   function isLayout(component: string) {
-    return component.startsWith(LAYOUT_PREFIX);
+    if (component) { return component.startsWith(LAYOUT_PREFIX); }
   }
 
   function getLayoutName(component: string) {
-    return component.replace(LAYOUT_PREFIX, '');
+    if (component) { return component.replace(LAYOUT_PREFIX, ''); }
   }
 
   function isView(component: string) {
-    return component.startsWith(VIEW_PREFIX);
+    if (component) { return component.startsWith(VIEW_PREFIX); }
   }
 
   function getViewName(component: string) {
-    return component.replace(VIEW_PREFIX, '');
+    if (component) {
+      return component.replace(VIEW_PREFIX, '');
+    }
   }
 
   function isFirstLevelRoute(item: ElegantConstRoute) {
@@ -114,18 +116,18 @@ function transformElegantRouteToVueRoute(
     }
 
   }
-  
+
   // add redirect to child
   if (children?.length && !vueRoute.redirect) {
     vueRoute.redirect = {
       name: children[0].name
     };
   }
-  
+
   if (children?.length) {
     const childRoutes = children.flatMap(child => transformElegantRouteToVueRoute(child, layouts, views));
 
-    if(isFirstLevelRoute(route)) {
+    if (isFirstLevelRoute(route)) {
       vueRoute.children = childRoutes;
     } else {
       vueRoutes.push(...childRoutes);
@@ -159,6 +161,9 @@ const routeMap: RouteMap = {
   "404": "/404",
   "500": "/500",
   "about": "/about",
+  "dynamic": "/dynamic",
+  "dynamic_api": "/dynamic/api",
+  "dynamic_database": "/dynamic/database",
   "function": "/function",
   "function_hide-child": "/function/hide-child",
   "function_hide-child_one": "/function/hide-child/one",

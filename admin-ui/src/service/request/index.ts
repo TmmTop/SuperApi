@@ -5,7 +5,6 @@ import { localStg } from '@/utils/storage';
 import { getServiceBaseURL } from '@/utils/service';
 import { $t } from '@/locales';
 import { handleRefreshToken } from './shared';
-
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 interface InstanceState {
@@ -22,8 +21,7 @@ export const request = createFlatRequest<App.Service.Response, InstanceState>(
   },
   {
     async onRequest(config) {
-      const { headers } = config;
-
+      const { headers, data } = config;
       // set token
       const token = localStg.get('token');
       const Authorization = token ? `Bearer ${token}` : null;

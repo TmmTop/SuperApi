@@ -1,3 +1,11 @@
+/*
+ * @Author: 490912587@qq.com
+ * @Date: 2024-05-09 17:30:09
+ * @LastEditors: 490912587@qq.com
+ * @LastEditTime: 2024-05-15 13:55:32
+ * @FilePath: \admin-ui\src\service\api\menu.ts
+ * @Description: 
+ */
 import { request } from '../request';
 import qs from 'qs';
 export function getMenuTree(params: object) {
@@ -20,6 +28,13 @@ export function editMenu(data: object) {
 export function delMenu(data: object) {
     return request<any>({
         url: '/default/Menu/Del',
+        method: 'post',
+        data
+    });
+}
+export function delBatchMenu(data: object) {
+    return request<any>({
+        url: '/default/Menu/DelBatch',
         method: 'post',
         data
     });

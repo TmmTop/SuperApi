@@ -1,6 +1,7 @@
 import { computed, effectScope, onScopeDispose, reactive, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 import type { PaginationProps } from 'naive-ui';
+import { cloneDeep } from 'lodash-es';
 import { useBoolean, useHookTable } from '@sa/hooks';
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
@@ -13,9 +14,13 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
   const scope = effectScope();
   const appStore = useAppStore();
 
-  const { apiFn, apiParams, immediate } = config;
+  const isMobile = computed(() => appStore.isMobile);
+
+  const { apiFn, apiParams, immediate, showTotal } = config;
 
   const SELECTION_KEY = '__selection__';
+
+  const EXPAND_KEY = '__expand__';
 
   const {
     loading,
@@ -65,6 +70,12 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
             title: $t('common.check'),
             checked: true
           });
+        } else if (column.type === 'expand') {
+          checks.push({
+            key: EXPAND_KEY,
+            title: $t('common.expandColumn'),
+            checked: true
+          });
         }
       });
 
@@ -78,6 +89,8 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
           columnMap.set(column.key as string, column);
         } else if (column.type === 'selection') {
           columnMap.set(SELECTION_KEY, column);
+        } else if (column.type === 'expand') {
+          columnMap.set(EXPAND_KEY, column);
         }
       });
 
@@ -124,14 +137,20 @@ export function useTable<A extends NaiveUI.TableApiFn>(config: NaiveUI.NaiveTabl
       });
 
       getData();
-    }
+    },
+    ...(showTotal
+      ? {
+          prefix: page => $t('datatable.itemCount', { total: page.itemCount })
+        }
+      : {})
   });
 
   // this is for mobile, if the system does not support mobile, you can use `pagination` directly
   const mobilePagination = computed(() => {
     const p: PaginationProps = {
       ...pagination,
-      pageSlot: appStore.isMobile ? 3 : 9
+      pageSlot: isMobile.value ? 3 : 9,
+      prefix: !isMobile.value && showTotal ? pagination.prefix : undefined
     };
 
     return p;
@@ -186,7 +205,8 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
 
   function handleEdit(id: T['id']) {
     operateType.value = 'edit';
-    editingData.value = data.value.find(item => item.id === id) || null;
+    const findItem = data.value.find(item => item.id === id) || null;
+    editingData.value = cloneDeep(findItem);
 
     openDrawer();
   }

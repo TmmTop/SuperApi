@@ -116,6 +116,9 @@ public static class SqlSugarSetup
         dbProvider.CodeFirst.InitTables(types);
         //初始化用户数据
         Seed.UserSeed.Init(db);
+        Seed.PostSeed.Init(db);
+        Seed.DepartmentSeed.Init(db);
+        Seed.MenuSeed.Init(db);
     }
 
     /// <summary>

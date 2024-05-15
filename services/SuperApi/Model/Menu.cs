@@ -70,7 +70,7 @@ public class Menu : Base
     /// 无需登录，并且该路由在前端定义
     /// </summary>
     [SugarColumn(ColumnDescription = "是否为常量路由")]
-    public bool Constant { get; set; } = true;
+    public bool Constant { get; set; } = false;
 
     /// <summary>
     /// 图标
@@ -86,17 +86,11 @@ public class Menu : Base
     [SugarColumn(ColumnDescription = "本地图标", Length = 128)]
     [MaxLength(128)]
     public string? LocalIcon { get; set; }
-    /// <summary>
-    /// 内嵌跳转链接
-    /// </summary>
-    [SugarColumn(ColumnDescription = "内嵌跳转链接", Length = 256)]
-    [MaxLength(256)]
-    public string? InnerHref { get; set; }
-    
+
     /// <summary>
     /// 外部跳转链接
     /// </summary>
-    [SugarColumn(ColumnDescription = "外部跳转链接", Length = 256)]
+    [SugarColumn(ColumnDescription = "跳转链接", Length = 256)]
     [MaxLength(256)]
     public string? Href { get; set; }
 
@@ -117,7 +111,7 @@ public class Menu : Base
     /// 排序
     /// </summary>
     [SugarColumn(ColumnDescription = "排序")]
-    public int OrderNo { get; set; } = 100;
+    public int OrderNo { get; set; } = 0;
 
     /// <summary>
     /// 菜单子项

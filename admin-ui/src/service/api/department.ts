@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-04-30 15:08:20
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-14 17:09:58
+ * @LastEditTime: 2024-05-15 13:56:15
  * @FilePath: \admin-ui\src\service\api\department.ts
  * @Description: 
  */
@@ -33,5 +33,12 @@ export function delDepartment(data: object) {
     url: '/default/Department/Del',
     method: 'post',
     data
+  });
+}
+export function delBatchDepartment(data: object) {
+  return request<any>({
+      url: '/default/Department/DelBatch',
+      method: 'post',
+      data
   });
 }
