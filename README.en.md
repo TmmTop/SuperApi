@@ -2,8 +2,8 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-16 11:45:23
- * @FilePath: \admin-uid:\Learn\SuperApi\README.en.md
+ * @LastEditTime: 2024-05-16 11:55:34
+ * @FilePath: \SuperApi\README.en.md
  * @Description:git add . git commit -m "" --no-verify git push
 -->
 
@@ -39,7 +39,7 @@
 ## 🍁 使用说明
 
 1. 打开 SuperApi/SuperApi.sln 解决方案，进入 Configuration 目录，配置数据库以及其它配置项，将 SuperApi 设为启动项运行即可
-2. 打开 FrontEnd，命令行执行 `pnpm install` 安装依赖（如果没有 pnpm，执行 `npm install -g pnpm`），
+2. 打开 admin-ui，命令行执行 `pnpm install` 安装依赖（如果没有 pnpm，执行 `npm install -g pnpm`），
 3. 执行 `pnpm run dev`
 4. 启动后，浏览器会自动打开接口文档，即可放飞自我
 5. 账号 `admin` 密码 `sp123456`
@@ -50,7 +50,7 @@
 2. 支持 linux mac windows 的 x64 x32 以及各种操作系统的二进制文件 直接启动即可运行
 3. 项目启动后，在浏览器输入 `http://你的ip:3000/index.html` 即可进入管理系统
 4. 不需要安装额外的任何环境即可启动本系统，数据库等一些外部软件需要自己安装
-5. 修改软件配置，可以在 doc/SuperApi 发行版目录压缩文件的 Configuration 里面的 config 文件进行修改
+5. 修改软件配置文件目录的 Configuration 里面的配置文件中进行修改
 6. Database.config 是数据库配置，默认为 SQLite，App.json 是软件相关配置，urls 是软件启动端口可自行修改
 
 ## 🍁SqlServer 异常解决办法
