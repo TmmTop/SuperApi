@@ -2,9 +2,9 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2023-12-29 11:16:46
- * @FilePath: \undefinedc:\Users\49091\Desktop\learn\SuperApi\README.md
- * @Description:git add . git commit -m "111" --no-verify git push
+ * @LastEditTime: 2024-05-16 11:43:16
+ * @FilePath: \admin-uid:\Learn\SuperApi\README.md
+ * @Description:git add . git commit -m "" --no-verify git push
 -->
 
 # SuperApi
@@ -26,13 +26,15 @@
 2. SqlSugar 宇宙第一 ORM 没有之一
 3. Swashbuckle.AspNetCore 自动构建 Swagger 接口文档
 4. 跨平台支持，linux，macos，windows 均可做到无需安装任何环境，直接运行
+5. SoybeanAdmin 基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS
+6. FastCrud （简称fs） 是基于Vue3的面向配置的crud开发框架，快速开发crud功能，可作为低代码平台的基础框架
 
 ## 🎖️ 开发教程
 
 1. Visual Studio 2022 或者 Rider 打开 SuperApi.sln
 2. .NET 8 SDK
 3. SuperApi 设为启动项启动，运行即可启动服务端
-4. VSCode 打开 FrontEnd 目录，命令行执行 `pnpm install` 安装依赖,  执行 `pnpm run dev` 启动前端项目
+4. VSCode 打开 admin-ui 目录，命令行执行 `pnpm install` 安装依赖,  执行 `pnpm run dev` 启动前端项目
 
 ## 🍁 使用说明
 
@@ -40,13 +42,13 @@
 2. 打开 FrontEnd，命令行执行 `pnpm install` 安装依赖（如果没有 pnpm，执行 `npm install -g pnpm`），
 3. 执行 `pnpm run dev`
 4. 启动后，浏览器会自动打开接口文档，即可放飞自我
-5. 账号 `admin` 密码 `123456`
+5. 账号 `admin` 密码 `sp123456`
 
 ## 🍁 小秘密
 
 1. 为了方便不懂技术的用户使用，特意发布一版应用程序
-2. 在 doc/SuperApi 发行版目录，支持 linux mac windows 的 x64 x32 以及各种操作系统的二进制文件 直接启动即可运行
-3. 项目启动后，在浏览器输入 `http://你的ip:5005/admin` 即可进入管理系统
+2. 支持 linux mac windows 的 x64 x32 以及各种操作系统的二进制文件 直接启动即可运行
+3. 项目启动后，在浏览器输入 `http://你的ip:3000/index.html` 即可进入管理系统
 4. 不需要安装额外的任何环境即可启动本系统，数据库等一些外部软件需要自己安装
 5. 修改软件配置，可以在 doc/SuperApi 发行版目录压缩文件的 Configuration 里面的 config 文件进行修改
 6. Database.config 是数据库配置，默认为 SQLite，App.json 是软件相关配置，urls 是软件启动端口可自行修改
