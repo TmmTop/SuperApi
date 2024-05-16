@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-05-09 16:45:44
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-15 17:47:26
+ * @LastEditTime: 2024-05-16 11:32:17
  * @FilePath: \admin-ui\src\views\manage\menu\crud.tsx
  * @Description: 
  */
@@ -26,8 +26,7 @@ function removeChildren(tree) {
 const getTopMenu = async (query) => {
   var param = {
     "Order": "order_no asc",
-    "constant~=": "false",
-    "pid": "0",
+    "pid": 0,
     "name~!=": "home"
   }
   const result = await getMenuTree(param);
@@ -37,13 +36,11 @@ const getTopMenu = async (query) => {
     return result.data.reverse();
   }
 };
-let topMenus = await getTopMenu();
 export default function ({ expose }) {
   const pageRequest = async (query) => {
     const param = await query;
     query.param = {
       "Order": "order_no asc",
-      "constant~=": "true",
       "title~%": param.title
     }
     if (!param.title) {
@@ -149,7 +146,9 @@ export default function ({ expose }) {
           dict: dict({
             label: "title",
             value: "id",
-            data: topMenus
+            async getData({ dict }) {
+              return await getTopMenu();
+            }
           }),
           search: { show: false },
           column: { width: "150px" },

@@ -12,6 +12,10 @@
       <DocumentationFile>bin\Debug\SuperApi.xml</DocumentationFile>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\SuperApi.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
         <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
@@ -32,11 +36,175 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Update="wwwroot\Upload\1790278317430149121.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\Upload\1790288730997788673.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\Upload\1790301428166823937.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\Upload\1790301476749447169.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\Upload\1790563542529871873.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\Upload\1790586568491274241.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\_commonjsHelpers-2f131a27-flC_zxlv.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\_url_-MePe-juJ.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\DescriptionsItem-BM8MmuEo.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\dynamic-gU_5PGvA.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\exception-base.vue_vue_type_script_setup_true_lang-Dd_RLJG2.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-copyable-cdb97d41-BYzBau_g.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-cropper-cb557eb1-B-8z5C98.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-cropper-uploader-58d3df0b-BOJGbyXq.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-file-uploader-802104d0-C4VyeiZD.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-files-format-0f269a06-C3wkYVEw.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-json-editor-ace10bde-Dq3GVP66.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-time-humanize-b4edebe6-CM_DnplP.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\fs-uploader-0f406a2a-DKgNpGPZ.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-2YcrU8FE.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-6fc7242a-BkA8-ixq.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-8dab55cb-bLhCoU--.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-8Zat4c5B.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-99487c8e-Dq8H8oge.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-B6x3Gimk.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-BnRYhHXP.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-BXdYPuBb.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-BZUOWCTQ.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-C5CtqXlC.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-CBqg4KaE.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-CGRBzWb_.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-CSL-_yYS.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-CVQ0VXAU.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-CXvDrQgj.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-D0Yj8Qx6.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-D9iJFfHJ.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-Dcu9BgNx.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-DLfsA-ZK.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-DnZhkf2e.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-DRlGMnxp.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-DrmDjbUF.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-DVuM67FR.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-DxTPa1BL.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-eUYUfgxG.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\index-o00djbCc.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\look-forward.vue_vue_type_script_setup_true_lang-qO66lTGI.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\soybean-JC38yUrs.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\Space-CUMox7Fx.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\uploader-alioss-2ed0a0c2-BXpkt4v3.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\uploader-cos-7edd9efa-DjUGPAFl.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\uploader-form-b18e19b1-DSwjLPjC.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\uploader-qiniu-ae5fc328-Bplj3_GM.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\assets\uploader-s3-c30a8609-CNUfA2dF.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\favicon.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Update="wwwroot\index.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Casbin\" />
-      <Folder Include="wwwroot\" />
       <Folder Include="wwwroot\Upload\" />
     </ItemGroup>
 

@@ -1,0 +1,1 @@
+import{d as p,H as n,_ as r}from"./index-BZUOWCTQ.js";const d=p({name:"FsUploader",props:{type:{}},setup(e){async function t(){const{getDefaultType:a}=r(),o=e.type||a();return await n(o)}return{getUploaderRef:t}}});export{d as default};

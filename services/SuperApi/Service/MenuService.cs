@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Panda.DynamicWebApi;
 using Panda.DynamicWebApi.Attributes;
+using SqlSugar;
 using SuperApi.Dto.Route;
 using SuperApi.Model;
 using SuperApi.SqlSugar;
+using SuperApi.Utils;
 
 namespace SuperApi.Service;
 
@@ -27,21 +29,19 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
     /// 获取前端基路由数据
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
     [AllowAnonymous]
+    [HttpGet]
     public async Task<List<Dto.Route.Route>> GetConstRoutes()
     {
         var param = new Dictionary<string, string>();
-        param.Add("constant~!=", "true");
         var result = await GetUserRoutes(param);
-        return result.Routes;
+        return result.Routes.Where(x=>x.Meta.Constant).ToList();
     }
     /// <summary>
     /// 获取用户拥有的前端路由数据
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [AllowAnonymous]
     public async Task<RouteMenuOutput> GetUserRoutes(Dictionary<string, string> param)
     {
         var result = new RouteMenuOutput();
@@ -100,6 +100,51 @@ public class MenuService : BaseService<Menu>, IDynamicWebApi
                 Children = route.Children
             });
         }
+        return result;
+    }
+
+    /// <summary>
+    /// 获取路由菜单树
+    /// </summary>
+    /// <param name="param"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IEnumerable<Menu>> MenuTreeList(Dictionary<string, string> param)
+    {
+        var query = Db.Context.Queryable<Menu>();
+        var where = new List<IConditionalModel>();
+        foreach (var info in param)
+        {
+            if (info.Key == "Group")
+            {
+                query.GroupBy(info.Value);
+            }
+
+            if (info.Key == "Order")
+            {
+                query.OrderBy(info.Value);
+            }
+            else
+            {
+                if (info.Key.Split('~').Length > 1)
+                {
+                    where.Add(new ConditionalModel
+                    {
+                        FieldName = info.Key.Split('~')[0],
+                        ConditionalType = SqlSugarUtil.GenWhereType(info.Key.Split('~')[1]),
+                        FieldValue = info.Value
+                    });
+                }
+            }
+        }
+        string? childPropertyName = "Children";
+        string? parentIdPropertyName = "Pid";
+        int? rootValue = 0;
+        string? primaryKeyPropertyName = "Id";
+        var result = await query
+            .Where(where)
+            .Where(x=>!x.Constant)
+            .ToTreeAsync(childPropertyName, parentIdPropertyName, rootValue, primaryKeyPropertyName);
         return result;
     }
 }

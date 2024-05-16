@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -152,14 +154,14 @@ typeAdapterConfig.Scan(AppDomain.CurrentDomain.GetAssemblies());
 var mapperConfig = new Mapper(typeAdapterConfig);
 builder.Services.AddSingleton<IMapper>(mapperConfig);
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint($"/swagger/default/swagger.json", "基础服务模块"); //分组显示
     });
-}
+//}
 app.UseStaticFiles(new StaticFileOptions()    {   
     FileProvider = new PhysicalFileProvider(            
         Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),        
@@ -185,4 +187,19 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 app.UseHttpsRedirection();
+string host = "http://localhost:" + ConfigProvider.Config.GetSection("Urls").Value!.Split("*:")[1] +
+              "/index.html";
+//发布后程序自动打开浏览器
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    Process.Start(new ProcessStartInfo(host) { UseShellExecute = true });
+}
+else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+{
+    Process.Start("xdg-open", host);
+}
+else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+{
+    Process.Start("open", host);
+}
 app.Run();

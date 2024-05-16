@@ -259,18 +259,6 @@ export const generatedRoutes: GeneratedRoute[] = [
         }
       },
       {
-        name: 'manage_role',
-        path: '/manage/role',
-        component: 'view.manage_role',
-        meta: {
-          title: 'manage_role',
-          i18nKey: 'route.manage_role',
-          icon: 'carbon:user-role',
-          order: 2,
-          roles: ['R_SUPER']
-        }
-      },
-      {
         name: 'manage_user',
         path: '/manage/user',
         component: 'view.manage_user',
@@ -280,62 +268,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           icon: 'ic:round-manage-accounts',
           order: 1,
           roles: ['R_ADMIN']
-        }
-      }
-    ]
-  },
-  {
-    name: 'manage1',
-    path: '/manage1',
-    component: 'layout.base',
-    meta: {
-      title: 'manage1',
-      i18nKey: 'route.manage1'
-    },
-    children: [
-      {
-        name: 'manage1_menu',
-        path: '/manage1/menu',
-        component: 'view.manage1_menu',
-        meta: {
-          title: 'manage1_menu',
-          i18nKey: 'route.manage1_menu'
-        }
-      },
-      {
-        name: 'manage1_menu1',
-        path: '/manage1/menu1',
-        component: 'view.manage1_menu1',
-        meta: {
-          title: 'manage1_menu1',
-          i18nKey: 'route.manage1_menu1'
-        }
-      },
-      {
-        name: 'manage1_role',
-        path: '/manage1/role',
-        component: 'view.manage1_role',
-        meta: {
-          title: 'manage1_role',
-          i18nKey: 'route.manage1_role'
-        }
-      },
-      {
-        name: 'manage1_user',
-        path: '/manage1/user',
-        component: 'view.manage1_user',
-        meta: {
-          title: 'manage1_user',
-          i18nKey: 'route.manage1_user'
-        }
-      },
-      {
-        name: 'manage1_user-detail',
-        path: '/manage1/user-detail/:id',
-        component: 'view.manage1_user-detail',
-        meta: {
-          title: 'manage1_user-detail',
-          i18nKey: 'route.manage1_user-detail'
         }
       }
     ]

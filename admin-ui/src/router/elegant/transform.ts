@@ -38,21 +38,19 @@ function transformElegantRouteToVueRoute(
   const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$';
 
   function isLayout(component: string) {
-    if (component) { return component.startsWith(LAYOUT_PREFIX); }
+    return component.startsWith(LAYOUT_PREFIX);
   }
 
   function getLayoutName(component: string) {
-    if (component) { return component.replace(LAYOUT_PREFIX, ''); }
+    return component.replace(LAYOUT_PREFIX, '');
   }
 
   function isView(component: string) {
-    if (component) { return component.startsWith(VIEW_PREFIX); }
+    return component.startsWith(VIEW_PREFIX);
   }
 
   function getViewName(component: string) {
-    if (component) {
-      return component.replace(VIEW_PREFIX, '');
-    }
+    return component.replace(VIEW_PREFIX, '');
   }
 
   function isFirstLevelRoute(item: ElegantConstRoute) {
@@ -116,18 +114,18 @@ function transformElegantRouteToVueRoute(
     }
 
   }
-
+  
   // add redirect to child
   if (children?.length && !vueRoute.redirect) {
     vueRoute.redirect = {
       name: children[0].name
     };
   }
-
+  
   if (children?.length) {
     const childRoutes = children.flatMap(child => transformElegantRouteToVueRoute(child, layouts, views));
 
-    if (isFirstLevelRoute(route)) {
+    if(isFirstLevelRoute(route)) {
       vueRoute.children = childRoutes;
     } else {
       vueRoutes.push(...childRoutes);
@@ -179,14 +177,7 @@ const routeMap: RouteMap = {
   "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
   "manage": "/manage",
   "manage_menu": "/manage/menu",
-  "manage_role": "/manage/role",
   "manage_user": "/manage/user",
-  "manage1": "/manage1",
-  "manage1_menu": "/manage1/menu",
-  "manage1_menu1": "/manage1/menu1",
-  "manage1_role": "/manage1/role",
-  "manage1_user": "/manage1/user",
-  "manage1_user-detail": "/manage1/user-detail/:id",
   "multi-menu": "/multi-menu",
   "multi-menu_first": "/multi-menu/first",
   "multi-menu_first_child": "/multi-menu/first/child",

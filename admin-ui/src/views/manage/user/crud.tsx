@@ -9,14 +9,14 @@ const loadAccountType = async () => {
         return result.data;
     }
 };
-const accountTypeList = await loadAccountType();
+
 const loadStatu = async () => {
     const result = await getEnumDataByTypeName("StatusEnum");
     if (result.data) {
         return result.data;
     }
 };
-const statuList = await loadStatu();
+
 
 const loadSex = async () => {
     const result = await getEnumDataByTypeName("GenderEnum");
@@ -24,7 +24,6 @@ const loadSex = async () => {
         return result.data;
     }
 };
-const sexList = await loadSex();
 
 const loadPost = async () => {
     const result = await getPost();
@@ -32,7 +31,6 @@ const loadPost = async () => {
         return result.data;
     }
 };
-const postList = await loadPost();
 
 const loadDepartment = async () => {
     const result = await getDepartment();
@@ -40,7 +38,7 @@ const loadDepartment = async () => {
         return result.data;
     }
 };
-const departmentList = await loadDepartment();
+
 //无限级去掉最后一层children为[]的数据
 function removeEmptyChildren(tree) {
     if (tree) {
@@ -56,6 +54,21 @@ function removeEmptyChildren(tree) {
         }
         return childs;
     }
+}
+const accountTypeList = async () => {
+    return await loadAccountType();
+}
+const statuList = async () => {
+    return await loadStatu();
+}
+const sexList = async () => {
+    return await loadSex();
+}
+const postList = async () => {
+    return await loadPost();
+}
+const departmentList = async () => {
+    return await loadDepartment();
 }
 export default function ({ expose }) {
     const pageRequest = async (query) => {
@@ -186,7 +199,9 @@ export default function ({ expose }) {
                     dict: dict({
                         label: "describe",
                         value: "value",
-                        data: accountTypeList
+                        async getData({ dict }) {
+                            return await accountTypeList();
+                        }
                     }),
                     search: {
                         show: true, col: { span: 4 },
@@ -230,7 +245,9 @@ export default function ({ expose }) {
                         isTree: true,
                         label: "name",
                         value: "id",
-                        data: removeEmptyChildren(departmentList)
+                        async getData({ dict }) {
+                            return removeEmptyChildren(await departmentList())
+                        }
                     }),
                     search: { show: false },
                     column: {
@@ -253,7 +270,9 @@ export default function ({ expose }) {
                     dict: dict({
                         label: "name",
                         value: "id",
-                        data: postList
+                        async getData({ dict }) {
+                            return await postList()
+                        }
                     }),
                     search: { show: false },
                     column: {
@@ -363,7 +382,9 @@ export default function ({ expose }) {
                     dict: dict({
                         label: "describe",
                         value: "value",
-                        data: sexList
+                        async getData({ dict }) {
+                            return await sexList()
+                        }
                     }),
                     form: {
                         component: {
@@ -430,7 +451,9 @@ export default function ({ expose }) {
                     dict: dict({
                         label: "describe",
                         value: "value",
-                        data: statuList
+                        async getData({ dict }) {
+                            return await statuList()
+                        }
                     }),
                     column: {
                         width: 150

@@ -20,7 +20,7 @@ public class UserSeed
         {
             new User()
             {
-                Id = 1787361006931021824,
+                Id = 1,
                 AccountType = AccountTypeEnum.超级管理员,
                 Account = "admin",
                 Password = encryptPassword,

@@ -18,7 +18,7 @@ public class PostSeed
         {
             new Post()
             {
-                Id = 1787361006931021824,
+                Id = 1,
                 Name = "全栈大神",
                 Code = "P1",
                 Status = StatusEnum.启用,
@@ -26,7 +26,7 @@ public class PostSeed
             },
             new Post()
             {
-                Id = 1787361006931021825,
+                Id = 2,
                 Name = "菜鸡",
                 Code = "P2",
                 Status = StatusEnum.启用,

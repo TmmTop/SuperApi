@@ -2,14 +2,14 @@
  * @Author: 490912587@qq.com
  * @Date: 2024-05-09 17:30:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-15 13:55:32
+ * @LastEditTime: 2024-05-16 11:01:57
  * @FilePath: \admin-ui\src\service\api\menu.ts
  * @Description: 
  */
 import { request } from '../request';
 import qs from 'qs';
 export function getMenuTree(params: object) {
-    return request<any>({ url: '/default/Menu/Tree?' + qs.stringify(params) });
+    return request<any>({ url: '/default/Menu/MenuTreeList?' + qs.stringify(params) });
 }
 export function addMenu(data: object) {
     return request<any>({
