@@ -26,7 +26,7 @@
 2. SqlSugar 宇宙第一 ORM 没有之一
 3. Swashbuckle.AspNetCore 自动构建 Swagger 接口文档
 4. 跨平台支持，linux，macos，windows 均可做到无需安装任何环境，直接运行
-5. SoybeanAdmin 基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS
+5. SoybeanAdmin 基于最新的前端技术栈，包括 Vue3,Vite5,TypeScript,Pinia和UnoCSS
 6. FastCrud （简称fs） 是基于Vue3的面向配置的crud开发框架，快速开发crud功能，可作为低代码平台的基础框架
 
 ## 🎖️ 开发教程

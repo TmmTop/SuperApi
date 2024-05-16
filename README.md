@@ -2,8 +2,8 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-16 11:43:16
- * @FilePath: \admin-uid:\Learn\SuperApi\README.md
+ * @LastEditTime: 2024-05-16 11:45:23
+ * @FilePath: \admin-uid:\Learn\SuperApi\README.en.md
  * @Description:git add . git commit -m "" --no-verify git push
 -->
 
@@ -26,7 +26,7 @@
 2. SqlSugar 宇宙第一 ORM 没有之一
 3. Swashbuckle.AspNetCore 自动构建 Swagger 接口文档
 4. 跨平台支持，linux，macos，windows 均可做到无需安装任何环境，直接运行
-5. SoybeanAdmin 基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS
+5. SoybeanAdmin 基于最新的前端技术栈，包括 Vue3,Vite5,TypeScript,Pinia和UnoCSS
 6. FastCrud （简称fs） 是基于Vue3的面向配置的crud开发框架，快速开发crud功能，可作为低代码平台的基础框架
 
 ## 🎖️ 开发教程
