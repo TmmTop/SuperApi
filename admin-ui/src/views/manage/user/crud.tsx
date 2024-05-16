@@ -74,23 +74,23 @@ export default function ({ expose }) {
     const pageRequest = async (query) => {
         const param = await query;
         query.param = {
-            "Order": "id asc",
-            "account_type~=": param.accountType,
-            "account~%": param.account,
-            "nick_name~%": param.nickName,
-            "phone~%": param.phone
+            "Order": "Id asc",
+            "AccountType~=": param.accountType,
+            "Account~%": param.account,
+            "NickName~%": param.nickName,
+            "Phone~%": param.phone
         }
         if (!param.accountType) {
-            delete query.param["account_type~="];
+            delete query.param["AccountType~="];
         }
         if (!param.account) {
-            delete query.param["account~%"];
+            delete query.param["Account~%"];
         }
         if (!param.phone) {
-            delete query.param["phone~%"];
+            delete query.param["Phone~%"];
         }
         if (!param.nickName) {
-            delete query.param["nick_name~%"];
+            delete query.param["NickName~%"];
         }
         const result = await getUserPage(query);
         return result;

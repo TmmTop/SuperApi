@@ -441,7 +441,7 @@ public class MenuSeed
                 IsDelete = false
             },
         };
-        var entityInfo = db.EntityMaintenance.GetEntityInfo(typeof(Department));
+        var entityInfo = db.EntityMaintenance.GetEntityInfo(typeof(Menu));
         if (entityInfo.Columns.Any(u => u.IsPrimarykey))
         {
             // 按主键进行批量增加和更新

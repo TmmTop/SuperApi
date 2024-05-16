@@ -25,9 +25,9 @@ function removeChildren(tree) {
 }
 const getTopMenu = async (query) => {
   var param = {
-    "Order": "order_no asc",
-    "pid": 0,
-    "name~!=": "home"
+    "Order": "OrderNo asc",
+    "Pid": 0,
+    "Name~!=": "home"
   }
   const result = await getMenuTree(param);
   if (result.data) {
@@ -40,11 +40,11 @@ export default function ({ expose }) {
   const pageRequest = async (query) => {
     const param = await query;
     query.param = {
-      "Order": "order_no asc",
-      "title~%": param.title
+      "Order": "OrderNo asc",
+      "Title~%": param.title
     }
-    if (!param.title) {
-      delete query.param["title~%"];
+    if (!param.Title) {
+      delete query.param["Title~%"];
     }
     const result = await getMenuTree(query);
     return result;

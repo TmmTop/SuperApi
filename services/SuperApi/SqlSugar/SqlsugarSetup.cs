@@ -48,14 +48,14 @@ public static class SqlSugarSetup
                         return;
                     if (new NullabilityInfoContext().Create(x).WriteState is NullabilityState.Nullable)
                         p.IsNullable = true;
-                    p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName);
+                    // p.DbColumnName = UtilMethods.ToUnderLine(p.DbColumnName);
                 },
                 EntityNameService = (x, p) =>
                 {
                     p.IsDisabledDelete = true;
                     if (!x.GetCustomAttributes<SugarTable>().Any())
                         return;
-                    p.DbTableName = UtilMethods.ToUnderLine(p.DbTableName);
+                    // p.DbTableName = UtilMethods.ToUnderLine(p.DbTableName);
                 }
             }
         });
