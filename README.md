@@ -2,7 +2,7 @@
  * @Author: 490912587@qq.com
  * @Date: 2023-12-20 10:44:09
  * @LastEditors: 490912587@qq.com
- * @LastEditTime: 2024-05-16 11:55:19
+ * @LastEditTime: 2024-05-16 11:57:53
  * @FilePath: \SuperApi\README.md
  * @Description:git add . git commit -m "" --no-verify git push
 -->
@@ -71,18 +71,18 @@
 
 ## 如需免费帮助服务，请加 SuperApi 技术交流群：`526521167`，联系群主免费帮助
 
-<img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/qun.png"/>
+<img src="https://gitee.com/tmm-top/SuperApi/raw/next/doc/qun.png"/>
 
 ## 🍎 效果截图
 
 <table>
     <tr>
-        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/1.png"/></td>
-        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/3.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/next/doc/1.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/next/doc/3.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/4.png"/></td>
-        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/555.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/next/doc/4.png"/></td>
+        <td><img src="https://gitee.com/tmm-top/SuperApi/raw/next/doc/555.png"/></td>
     </tr>
 </table>
 
@@ -92,4 +92,4 @@
 如果对您有帮助，请点击右上角 ⭐Star关注 或 扫码捐赠，感谢支持开源！
 ```
 
-<img src="https://gitee.com/tmm-top/SuperApi/raw/master/doc/zanshang.jpg"/>
+<img src="https://gitee.com/tmm-top/SuperApi/raw/next/doc/zanshang.jpg"/>
